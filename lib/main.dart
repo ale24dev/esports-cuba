@@ -1,13 +1,21 @@
-import 'package:esports_cuba/src/app/app.dart';
 import 'package:flutter/material.dart';
-import 'package:esports_cuba/injectable.dart';
 
+import 'package:esports_cuba/constants.dart';
+import 'package:esports_cuba/src/app/app.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+import 'locator.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-// Dependency injection (injectable)
-  configureDependencies();
-  
+  await Supabase.initialize(
+    url: Constants.supabaseUrl,
+    anonKey: Constants.supabaseAnnonKey,
+  );
+
+// Dependency injection (get_it)
+  setUp();
+
   runApp(const MyApp());
 }

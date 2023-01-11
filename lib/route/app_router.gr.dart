@@ -34,7 +34,7 @@ class AppRouter extends _i5.RootStackRouter {
     HomeScreen.name: (routeData) {
       return _i5.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i2.HomeScreen(),
+        child: _i2.HomeScreen(),
       );
     },
     LoginScreen.name: (routeData) {

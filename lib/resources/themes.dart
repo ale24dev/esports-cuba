@@ -48,7 +48,6 @@ class Themes {
             g: GStyles.colorPrimary.green,
             b: GStyles.colorPrimary.blue),
         appBarTheme: AppBarTheme(
-          color: GStyles.backGroundDarkColor,
             backgroundColor: GStyles.backGroundDarkColor, elevation: 0),
         drawerTheme:
             DrawerThemeData(backgroundColor: GStyles.backGroundDarkColor),
@@ -73,8 +72,20 @@ class Themes {
             primary: GStyles.colorPrimary,
             secondary: GStyles.colorSecondary,
             onSecondaryContainer: GStyles.backgroundCircularIndicatorColor),
+        primaryTextTheme: TextTheme(
+          caption: TextStyle(color: Colors.white),
+          bodyText1: GStyles.bodyText,
+          headline1: GStyles.headline1,
+          headline2: GStyles.headline2,
+          headline3: GStyles.headline3,
+          headline4: GStyles.headline4,
+          headline5: GStyles.headline5,
+          subtitle1: GStyles.textBottomNavigationBarItemSelectedStyle,
+          subtitle2: GStyles.textBottomNavigationBarItemStyle,
+          button: TextStyle(fontSize: 18.sp, color: GStyles.colorPrimary),
+        ),
         textTheme: TextTheme(
-
+          caption: TextStyle(color: Colors.white),
           bodyText1: GStyles.bodyText,
           headline1: GStyles.headline1,
           headline2: GStyles.headline2,
