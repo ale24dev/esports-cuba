@@ -1,11 +1,13 @@
+import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import 'package:esports_cuba/route/app_router.gr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:esports_cuba/feature/auth/bloc/auth_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'package:esports_cuba/src/route/app_router.gr.dart';
+import 'package:esports_cuba/src/feature/auth/bloc/auth_cubit.dart';
+import 'package:esports_cuba/src/feature/tournament/bloc/game_cubit.dart';
 
 import '../../resources/themes.dart';
 
@@ -25,6 +27,9 @@ class MyApp extends StatelessWidget {
       return MultiRepositoryProvider(
         providers: [
           RepositoryProvider<AuthCubit>(create: (context) => AuthCubit()),
+          RepositoryProvider<GameCubit>(create: (context) => GameCubit()),
+          RepositoryProvider<TournamentCubit>(
+              create: (context) => TournamentCubit()),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

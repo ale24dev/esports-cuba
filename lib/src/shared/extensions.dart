@@ -5,6 +5,12 @@ extension LocalizedBuildContext on BuildContext {
   /// Accessing easily to flutter translations
   AppLocalizations get loc => AppLocalizations.of(this)!;
 
+  
+  /// Accessing easily to current language.
+  String get currentLanguage {
+    return Localizations.localeOf(this).toLanguageTag();
+  }
+
   /// Accessing easily to the app theme
   ThemeData get theme => Theme.of(this);
 

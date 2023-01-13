@@ -36,6 +36,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  equatable: ^2.0.3
 
   #Responsive design
   responsive_sizer: ^3.0.8
@@ -54,8 +55,12 @@ dependencies:
   # Functional programming
   fpdart: ^0.3.0
 
+  #database
   supabase_flutter: ^1.1.0
 
+  #design
+  font_awesome_flutter: ^10.3.0
+  flutter_spinkit: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -100,17 +105,14 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: Teko
+      fonts:
+        - asset: assets/fonts/Teko-Regular.ttf
+
+    - family: EvilEmpire
+      fonts:
+        - asset: assets/fonts/Evil Empire.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
