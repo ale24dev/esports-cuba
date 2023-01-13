@@ -1,3 +1,4 @@
+import 'package:esports_cuba/src/feature/news/bloc/news_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
           RepositoryProvider<GameCubit>(create: (context) => GameCubit()),
           RepositoryProvider<TournamentCubit>(
               create: (context) => TournamentCubit()),
+          RepositoryProvider<NewsCubit>(create: (context) => NewsCubit()),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

@@ -1,3 +1,4 @@
+import 'package:esports_cuba/src/repositories/news_repository.dart';
 import 'package:esports_cuba/src/repositories/tournament_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -13,9 +14,13 @@ void setUp() {
       () => SupabaseDatabaseRepository(supabase));
 
   serviceLocator.registerLazySingleton<ApiResult>(() => ApiResult());
+
   serviceLocator.registerLazySingleton<GameDatabaseRepository>(
       () => GameDatabaseRepository(supabase));
+
   serviceLocator.registerLazySingleton<TournamentRepository>(
       () => TournamentRepository(supabase));
-  // register more instances
+
+  serviceLocator.registerLazySingleton<NewsRepository>(
+      () => NewsRepository(supabase));
 }

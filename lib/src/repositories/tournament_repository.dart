@@ -37,7 +37,6 @@ class TournamentRepository {
       apiResult.responseObject = listTournaments;
       return apiResult;
     } catch (e) {
-      print(e);
       apiResult.error = e.toString();
       apiResult.errorType = e.runtimeType;
       return apiResult;
@@ -67,7 +66,6 @@ class TournamentRepository {
       apiResult.responseObject = listTournaments;
       return apiResult;
     } catch (e) {
-      print(e);
       apiResult.error = e.toString();
       apiResult.errorType = e.runtimeType;
       return apiResult;
@@ -80,7 +78,6 @@ class TournamentRepository {
           .from('Tournament_State')
           .select()
           .match({'id': tournament.tournamentState}).single();
-      print(response.toString());
       TournamentStateBaseModel gameBaseModel =
           TournamentStateBaseModel.fromJson(response);
       apiResult.responseObject = gameBaseModel;

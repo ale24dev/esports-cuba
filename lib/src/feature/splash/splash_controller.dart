@@ -1,8 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:esports_cuba/src/feature/news/bloc/news_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/game_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
 import 'package:esports_cuba/src/models/game_base_model.dart';
+import 'package:esports_cuba/src/repositories/news_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:auto_route/auto_route.dart';
 
@@ -26,5 +28,8 @@ class SplashController {
 
     ///Cargamos todos los torneos
     context.read<TournamentCubit>().loadTournaments();
+
+    ///Cargamos todos los anuncios
+    context.read<NewsCubit>().loadNews();
   }
 }

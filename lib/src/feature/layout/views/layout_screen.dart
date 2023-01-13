@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/resources/general_styles.dart';
-import 'package:esports_cuba/src/feature/home/view/home_screen.dart';
+import 'package:esports_cuba/src/feature/news/view/news_screen.dart';
 import 'package:esports_cuba/src/feature/layout/bloc/navigation_cubit.dart';
 import 'package:esports_cuba/src/feature/layout/constants/nav_bar_items.dart';
 import 'package:esports_cuba/src/feature/tournament/views/tournament_screen.dart';
@@ -54,7 +54,7 @@ class LayoutScreen extends StatelessWidget {
               builder: (context, state) {
             switch (state.navbarItem) {
               case NavbarItem.home:
-                return HomeScreen();
+                return NewsScreen();
               case NavbarItem.tournament:
                 return TournamentScreen();
 

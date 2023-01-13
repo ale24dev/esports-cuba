@@ -10,7 +10,10 @@ class GStyles {
   static Color get colorInProgress => const Color.fromARGB(255, 21, 70, 116);
   static Color get backgroundCircularIndicatorColor =>
       const Color.fromARGB(255, 243, 243, 243);
+
   static Color get backGroundDarkColor => const Color.fromARGB(255, 31, 31, 31);
+  static Color get containerDarkColor =>
+      const Color(0xFF333333).withOpacity(.4);
 
   ///Gradients
   static LinearGradient get barGradient => LinearGradient(
@@ -22,8 +25,6 @@ class GStyles {
   ///Fonts
   static String get fontTeko => 'Teko';
   static String get fontEvilEmpire => 'EvilEmpire';
-
-  ///DARK THEMES
 
   ///Text Styles
   static TextStyle get textBottomNavigationBarItemStyle => TextStyle(
