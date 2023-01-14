@@ -40,11 +40,11 @@ class NewsDetails extends StatelessWidget {
                   width: 100.w,
                   child: Stack(
                     children: [
-                      Container(
+                      SizedBox(
                         height: HEIGHT_IMAGE_HEADER,
                         child: Image.network(
                           newsBaseModel.attachments[0],
-                          fit: BoxFit.fitWidth,
+                          fit: BoxFit.cover,
                           width: 100.w,
                         ),
                       ),
@@ -84,7 +84,7 @@ class NewsDetails extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: Constants.MARGIN),
-                  child: Container(
+                  child: SizedBox(
                     height: HEIGHT_USER_INFO,
                     child: Row(
                       children: [
