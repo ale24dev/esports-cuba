@@ -50,7 +50,7 @@ dependencies:
 
   # Dependency injection
   injectable: ^1.5.3
-  get_it: ^7.2.0
+  get_it: ^7.2.0  
 
   # Functional programming
   fpdart: ^0.3.0
@@ -113,6 +113,10 @@ flutter:
     - family: Teko
       fonts:
         - asset: assets/fonts/Teko-Regular.ttf
+
+    - family: SanFrancisco
+      fonts:
+        - asset: assets/fonts/San Francisco Bold.otf
 
     - family: EvilEmpire
       fonts:

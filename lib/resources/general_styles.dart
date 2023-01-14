@@ -25,6 +25,7 @@ class GStyles {
   ///Fonts
   static String get fontTeko => 'Teko';
   static String get fontEvilEmpire => 'EvilEmpire';
+  static String get fontSanFrancisco => 'SanFrancisco';
 
   ///Text Styles
   static TextStyle get textBottomNavigationBarItemStyle => TextStyle(
@@ -37,8 +38,8 @@ class GStyles {
       textBottomNavigationBarItemStyle.copyWith(color: Colors.white);
 
   static TextStyle get bodyText => TextStyle(
-        fontSize: 18.sp,
-        fontFamily: fontTeko,
+        fontSize: 18,
+        fontFamily: GStyles.fontSanFrancisco,
         color: Colors.white,
       );
 

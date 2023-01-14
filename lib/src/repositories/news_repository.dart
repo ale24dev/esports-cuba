@@ -15,7 +15,7 @@ class NewsRepository {
       List<NewsBaseModel> listGames = [];
       final List<Map<String, dynamic>> response =
           await _supabase.client.from('News').select('''
-          id, created_at, text, attachments,
+          id, created_at, title, text, attachments,
           User (
             id, nickname, password, image, created_at, phone
             )

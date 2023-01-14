@@ -11,9 +11,11 @@ class NewsBaseModel extends BaseModel {
   ///Identificador
   int id;
 
+  ///Título del anuncio
+  String title;
+
   ///Texto del anuncio
   String text;
-
 
   ///Usuario que realiza el anuncio
   @JsonKey(name: "User")
@@ -28,6 +30,7 @@ class NewsBaseModel extends BaseModel {
 
   NewsBaseModel(
       {required this.id,
+      required this.title,
       required this.text,
       required this.user,
       required this.createdAt,

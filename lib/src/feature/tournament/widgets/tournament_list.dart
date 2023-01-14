@@ -58,12 +58,9 @@ class TournamentList extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: GStyles.backGroundDarkColor,
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.black26, blurRadius: 1, spreadRadius: 1)
-                ]),
+              borderRadius: BorderRadius.circular(10.0),
+              color: GStyles.containerDarkColor,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

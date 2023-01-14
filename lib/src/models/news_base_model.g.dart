@@ -9,6 +9,7 @@ part of 'news_base_model.dart';
 NewsBaseModel _$NewsBaseModelFromJson(Map<String, dynamic> json) =>
     NewsBaseModel(
       id: json['id'] as int,
+      title: json['title'] as String,
       text: json['text'] as String,
       user: UserBaseModel.fromJson(json['User'] as Map<String, dynamic>),
       createdAt: Utils.parseDate(json['created_at']),
@@ -20,6 +21,7 @@ NewsBaseModel _$NewsBaseModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$NewsBaseModelToJson(NewsBaseModel instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'title': instance.title,
       'text': instance.text,
       'User': instance.user.toJson(),
       'attachments': instance.attachments,

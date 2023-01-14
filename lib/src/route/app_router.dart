@@ -3,16 +3,30 @@ import 'package:auto_route/annotations.dart';
 import 'package:esports_cuba/src/feature/auth/views/login_screen.dart';
 import 'package:esports_cuba/src/feature/auth/views/register_screen.dart';
 import 'package:esports_cuba/src/feature/layout/views/layout_screen.dart';
+import 'package:esports_cuba/src/feature/news/view/news_details.dart';
 import 'package:esports_cuba/src/feature/splash/views/splash_screen.dart';
 
-
 ///Rutas de la aplicación
-@MaterialAutoRouter(
+/*@MaterialAutoRouter(
   routes: [
     MaterialRoute(page: SplashScreen, initial: true),
     MaterialRoute(page: LayoutScreen),
     MaterialRoute(page: LoginScreen),
-    MaterialRoute(page: RegisterScreen)
+    MaterialRoute(page: RegisterScreen,),
+  ],
+  replaceInRouteName: 'Page,Route',
+)
+class $AppRouter {}
+*/
+@MaterialAutoRouter(
+  routes: <AutoRoute>[
+    CustomRoute(page: NewsDetails),
+    MaterialRoute(page: SplashScreen, initial: true),
+    MaterialRoute(page: LayoutScreen),
+    MaterialRoute(page: LoginScreen),
+    MaterialRoute(
+      page: RegisterScreen,
+    ),
   ],
   replaceInRouteName: 'Page,Route',
 )
