@@ -47,18 +47,45 @@ class NewsCard extends StatelessWidget {
                     style: context.textTheme.bodyText1
                         ?.copyWith(fontSize: 14.sp, color: Colors.white38)),
               ),
-              Container(
-                height: 30.h,
-                width: 100.w,
-                margin: EdgeInsets.symmetric(vertical: .6.h),
-                child: imageNews(),
-              ),
+              imageNews(),
               SizedBox(height: 2.h),
               shareAndSave(context)
             ],
           ),
         ),
       ),
+    );
+  }
+
+  ///Verificamos que en caso de solo haber una imagen no hacer el efecto slider
+  Container imageNews() {
+    return Container(
+      height: 30.h,
+      width: 100.w,
+      margin: EdgeInsets.symmetric(vertical: .6.h),
+      child: newsBaseModel.attachments.length != 1
+          ? CarouselSlider(
+              items: newsBaseModel.attachments.map((image) {
+                return Image.network(
+                  image,
+                  fit: BoxFit.cover,
+                  height: 30.h,
+                  width: 100.w,
+                );
+              }).toList(),
+              options: CarouselOptions(
+                autoPlay: false,
+                enlargeCenterPage: false,
+                viewportFraction: 1,
+                initialPage: 0,
+              ),
+            )
+          : Image.network(
+              newsBaseModel.attachments[0],
+              fit: BoxFit.cover,
+              height: 30.h,
+              width: 100.w,
+            ),
     );
   }
 
@@ -85,25 +112,6 @@ class NewsCard extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-
-  CarouselSlider imageNews() {
-    return CarouselSlider(
-      items: newsBaseModel.attachments.map((image) {
-        return Image.network(
-          image,
-          fit: BoxFit.cover,
-          height: 30.h,
-          width: 100.w,
-        );
-      }).toList(),
-      options: CarouselOptions(
-        autoPlay: false,
-        enlargeCenterPage: false,
-        viewportFraction: 1,
-        initialPage: 0,
       ),
     );
   }
