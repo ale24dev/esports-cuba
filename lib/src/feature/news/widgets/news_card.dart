@@ -1,6 +1,9 @@
+import 'package:esports_cuba/constants.dart';
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -21,11 +24,13 @@ class NewsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      highlightColor: GStyles.containerDarkColor,
       onTap: () {
         context.router.push(NewsDetails(newsBaseModel: newsBaseModel));
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
+        margin:
+            EdgeInsets.symmetric(horizontal: Constants.MARGIN, vertical: 1.h),
         decoration: BoxDecoration(
             color: GStyles.containerDarkColor,
             borderRadius: BorderRadius.circular(5.0)),
@@ -48,7 +53,7 @@ class NewsCard extends StatelessWidget {
                         ?.copyWith(fontSize: 14.sp, color: Colors.white38)),
               ),
               imageNews(),
-              SizedBox(height: 2.h),
+              SizedBox(height: 1.h),
               shareAndSave(context)
             ],
           ),
@@ -95,21 +100,36 @@ class NewsCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              FaIcon(FontAwesomeIcons.solidPaperPlane, size: 17.sp),
-              SizedBox(width: 2.w),
-              Text(context.loc.share.toUpperCase(),
-                  style: context.textTheme.bodyText1?.copyWith(fontSize: 14.sp))
-            ],
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 14.sp, vertical: 12.sp),
+            child: Row(
+              children: [
+                FaIcon(FontAwesomeIcons.solidPaperPlane, size: 17.sp),
+                SizedBox(width: 2.w),
+                Text(context.loc.share.toUpperCase(),
+                    style:
+                        context.textTheme.bodyText1?.copyWith(fontSize: 14.sp))
+              ],
+            ),
           ),
-          Row(
-            children: [
-              FaIcon(FontAwesomeIcons.bookmark, size: 17.sp),
-              SizedBox(width: 2.w),
-              Text(context.loc.save.toUpperCase(),
-                  style: context.textTheme.bodyText1?.copyWith(fontSize: 14.sp))
-            ],
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 14.sp, vertical: 12.sp),
+            child: InkWell(
+              onTap: () {
+                context
+                    .read<FavoritesCubit>()
+                    .addNewsToFavoriteOfUser(7, newsBaseModel);
+              },
+              child: Row(
+                children: [
+                  FaIcon(FontAwesomeIcons.bookmark, size: 17.sp),
+                  SizedBox(width: 2.w),
+                  Text(context.loc.save.toUpperCase(),
+                      style: context.textTheme.bodyText1
+                          ?.copyWith(fontSize: 14.sp))
+                ],
+              ),
+            ),
           ),
         ],
       ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'package:esports_cuba/src/shared/extensions.dart';
+import 'package:esports_cuba/src/shared/loading_app.dart';
 import 'package:esports_cuba/resources/general_styles.dart';
 import 'package:esports_cuba/src/models/game_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
@@ -23,11 +23,7 @@ class CategoryGames extends StatelessWidget {
           apiResultGame = state.apiResult;
         }
         return state is GameLoading
-            ? Center(
-                child: SpinKitFadingCube(
-                color: Colors.white,
-                size: 20.sp,
-              ))
+            ? const LoadingApp()
             : SizedBox(
                 height: 9.5.h,
                 child: Center(

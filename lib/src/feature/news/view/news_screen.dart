@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'package:esports_cuba/src/shared/loading_app.dart';
 import 'package:esports_cuba/src/models/news_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/feature/news/bloc/news_cubit.dart';
@@ -20,11 +20,7 @@ class NewsScreen extends StatelessWidget {
           apiResult = state.apiResult;
         }
         return state is NewsLoading
-            ? Center(
-                child: SpinKitFadingCube(
-                color: Colors.white,
-                size: 20.sp,
-              ))
+            ? const LoadingApp()
             : SizedBox(
                 height: 100.h,
                 width: 100.w,

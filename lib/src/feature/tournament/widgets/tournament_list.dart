@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:esports_cuba/src/shared/loading_app.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:esports_cuba/src/shared/utils.dart';
@@ -27,11 +27,7 @@ class TournamentList extends StatelessWidget {
             apiResult = state.apiResult;
           }
           return state is TournamentLoading
-              ? Center(
-                  child: SpinKitFadingCube(
-                  color: Colors.white,
-                  size: 20.sp,
-                ))
+              ? const LoadingApp()
               //  : SizedBox();
               : apiResult.responseObject.length == 0
                   ? Center(
@@ -58,7 +54,7 @@ class TournamentList extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(5.0),
               color: GStyles.containerDarkColor,
             ),
             child: Column(

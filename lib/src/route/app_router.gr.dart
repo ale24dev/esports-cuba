@@ -11,25 +11,26 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i6;
-import 'package:flutter/material.dart' as _i7;
+import 'package:auto_route/auto_route.dart' as _i7;
+import 'package:flutter/material.dart' as _i8;
 
-import '../feature/auth/views/login_screen.dart' as _i4;
-import '../feature/auth/views/register_screen.dart' as _i5;
-import '../feature/layout/views/layout_screen.dart' as _i3;
+import '../feature/auth/views/login_screen.dart' as _i5;
+import '../feature/auth/views/register_screen.dart' as _i6;
+import '../feature/favorites/views/favorite_screen.dart' as _i2;
+import '../feature/layout/views/layout_screen.dart' as _i4;
 import '../feature/news/view/news_details.dart' as _i1;
-import '../feature/splash/views/splash_screen.dart' as _i2;
-import '../models/news_base_model.dart' as _i8;
+import '../feature/splash/views/splash_screen.dart' as _i3;
+import '../models/news_base_model.dart' as _i9;
 
-class AppRouter extends _i6.RootStackRouter {
-  AppRouter([_i7.GlobalKey<_i7.NavigatorState>? navigatorKey])
+class AppRouter extends _i7.RootStackRouter {
+  AppRouter([_i8.GlobalKey<_i8.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i6.PageFactory> pagesMap = {
+  final Map<String, _i7.PageFactory> pagesMap = {
     NewsDetails.name: (routeData) {
       final args = routeData.argsAs<NewsDetailsArgs>();
-      return _i6.CustomPage<dynamic>(
+      return _i7.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.NewsDetails(
           key: args.key,
@@ -39,51 +40,63 @@ class AppRouter extends _i6.RootStackRouter {
         barrierDismissible: false,
       );
     },
-    SplashScreen.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+    FavoritesScreen.name: (routeData) {
+      return _i7.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i2.SplashScreen(),
+        child: _i2.FavoritesScreen(),
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    SplashScreen.name: (routeData) {
+      return _i7.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i3.SplashScreen(),
       );
     },
     LayoutScreen.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+      return _i7.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i3.LayoutScreen(),
+        child: const _i4.LayoutScreen(),
       );
     },
     LoginScreen.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+      return _i7.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i4.LoginScreen(),
+        child: const _i5.LoginScreen(),
       );
     },
     RegisterScreen.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+      return _i7.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i5.RegisterScreen(),
+        child: const _i6.RegisterScreen(),
       );
     },
   };
 
   @override
-  List<_i6.RouteConfig> get routes => [
-        _i6.RouteConfig(
+  List<_i7.RouteConfig> get routes => [
+        _i7.RouteConfig(
           NewsDetails.name,
           path: '/news-details',
         ),
-        _i6.RouteConfig(
+        _i7.RouteConfig(
+          FavoritesScreen.name,
+          path: '/favorites-screen',
+        ),
+        _i7.RouteConfig(
           SplashScreen.name,
           path: '/',
         ),
-        _i6.RouteConfig(
+        _i7.RouteConfig(
           LayoutScreen.name,
           path: '/layout-screen',
         ),
-        _i6.RouteConfig(
+        _i7.RouteConfig(
           LoginScreen.name,
           path: '/login-screen',
         ),
-        _i6.RouteConfig(
+        _i7.RouteConfig(
           RegisterScreen.name,
           path: '/register-screen',
         ),
@@ -92,10 +105,10 @@ class AppRouter extends _i6.RootStackRouter {
 
 /// generated route for
 /// [_i1.NewsDetails]
-class NewsDetails extends _i6.PageRouteInfo<NewsDetailsArgs> {
+class NewsDetails extends _i7.PageRouteInfo<NewsDetailsArgs> {
   NewsDetails({
-    _i7.Key? key,
-    required _i8.NewsBaseModel newsBaseModel,
+    _i8.Key? key,
+    required _i9.NewsBaseModel newsBaseModel,
   }) : super(
           NewsDetails.name,
           path: '/news-details',
@@ -114,9 +127,9 @@ class NewsDetailsArgs {
     required this.newsBaseModel,
   });
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 
-  final _i8.NewsBaseModel newsBaseModel;
+  final _i9.NewsBaseModel newsBaseModel;
 
   @override
   String toString() {
@@ -125,8 +138,20 @@ class NewsDetailsArgs {
 }
 
 /// generated route for
-/// [_i2.SplashScreen]
-class SplashScreen extends _i6.PageRouteInfo<void> {
+/// [_i2.FavoritesScreen]
+class FavoritesScreen extends _i7.PageRouteInfo<void> {
+  const FavoritesScreen()
+      : super(
+          FavoritesScreen.name,
+          path: '/favorites-screen',
+        );
+
+  static const String name = 'FavoritesScreen';
+}
+
+/// generated route for
+/// [_i3.SplashScreen]
+class SplashScreen extends _i7.PageRouteInfo<void> {
   const SplashScreen()
       : super(
           SplashScreen.name,
@@ -137,8 +162,8 @@ class SplashScreen extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.LayoutScreen]
-class LayoutScreen extends _i6.PageRouteInfo<void> {
+/// [_i4.LayoutScreen]
+class LayoutScreen extends _i7.PageRouteInfo<void> {
   const LayoutScreen()
       : super(
           LayoutScreen.name,
@@ -149,8 +174,8 @@ class LayoutScreen extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.LoginScreen]
-class LoginScreen extends _i6.PageRouteInfo<void> {
+/// [_i5.LoginScreen]
+class LoginScreen extends _i7.PageRouteInfo<void> {
   const LoginScreen()
       : super(
           LoginScreen.name,
@@ -161,8 +186,8 @@ class LoginScreen extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.RegisterScreen]
-class RegisterScreen extends _i6.PageRouteInfo<void> {
+/// [_i6.RegisterScreen]
+class RegisterScreen extends _i7.PageRouteInfo<void> {
   const RegisterScreen()
       : super(
           RegisterScreen.name,

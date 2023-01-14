@@ -1,3 +1,4 @@
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
 import 'package:esports_cuba/src/feature/news/bloc/news_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,8 @@ class MyApp extends StatelessWidget {
           RepositoryProvider<TournamentCubit>(
               create: (context) => TournamentCubit()),
           RepositoryProvider<NewsCubit>(create: (context) => NewsCubit()),
+          RepositoryProvider<FavoritesCubit>(
+              create: (context) => FavoritesCubit()),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

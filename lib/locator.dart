@@ -1,3 +1,4 @@
+import 'package:esports_cuba/src/repositories/favorites_repository.dart';
 import 'package:esports_cuba/src/repositories/news_repository.dart';
 import 'package:esports_cuba/src/repositories/tournament_repository.dart';
 import 'package:get_it/get_it.dart';
@@ -21,6 +22,9 @@ void setUp() {
   serviceLocator.registerLazySingleton<TournamentRepository>(
       () => TournamentRepository(supabase));
 
-  serviceLocator.registerLazySingleton<NewsRepository>(
-      () => NewsRepository(supabase));
+  serviceLocator
+      .registerLazySingleton<NewsRepository>(() => NewsRepository(supabase));
+
+  serviceLocator.registerLazySingleton<FavoritesRepository>(
+      () => FavoritesRepository(supabase));
 }

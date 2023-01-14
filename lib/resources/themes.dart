@@ -48,12 +48,11 @@ class Themes {
             g: GStyles.colorPrimary.green,
             b: GStyles.colorPrimary.blue),
         appBarTheme: AppBarTheme(
-            backgroundColor: GStyles.backGroundDarkColor,
+            backgroundColor: GStyles.containerDarkColor,
             elevation: 0,
             titleTextStyle: TextStyle(fontFamily: GStyles.fontEvilEmpire)),
         drawerTheme:
-            DrawerThemeData(
-              backgroundColor: GStyles.backGroundDarkColor),
+            DrawerThemeData(backgroundColor: GStyles.backGroundDarkColor),
         iconTheme: const IconThemeData(color: Colors.white),
         inputDecorationTheme: InputDecorationTheme(
           contentPadding: const EdgeInsets.only(top: 10, bottom: 5),

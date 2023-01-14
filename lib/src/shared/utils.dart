@@ -1,12 +1,17 @@
 // ignore_for_file: unrelated_type_equality_checks
 
+import 'package:auto_route/auto_route.dart';
 import 'package:esports_cuba/src/shared/extensions.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 import 'package:esports_cuba/resources/general_styles.dart';
 import 'package:esports_cuba/src/models/tournament_base_model.dart';
 import 'package:esports_cuba/src/models/tournament_state_base_model.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+
+import '../route/app_router.gr.dart';
 
 abstract class Utils {
   ///Parsear un timestamp
@@ -41,5 +46,44 @@ abstract class Utils {
     } else {
       return context.loc.finished;
     }
+  }
+
+  static AppBar appBarWidget(
+      {required BuildContext context,
+      required bool navigateBack,
+      String? title,
+      List<Widget>? actions,
+      Function? callback}) {
+    return AppBar(
+      title: Center(
+          child: Text(title ?? context.loc.appTitle,
+              style: context.textTheme.headline4?.copyWith(
+                  fontFamily: GStyles.fontEvilEmpire, fontSize: 18.sp))),
+      leading: navigateBack
+          ? InkWell(
+              highlightColor: GStyles.containerDarkColor,
+              customBorder: const CircleBorder(),
+              onTap: (() {
+                context.router.pop();
+              }),
+              child: Center(
+                  child: FaIcon(
+                FontAwesomeIcons.arrowLeft,
+                size: 17.sp,
+              )),
+            )
+          : null,
+      actions: actions ??
+          [
+            Padding(
+                padding: EdgeInsets.only(right: 2.w),
+                child: IconButton(
+                  icon: const Icon(Icons.person),
+                  onPressed: (() {
+                    context.router.push(const FavoritesScreen());
+                  }),
+                ))
+          ],
+    );
   }
 }

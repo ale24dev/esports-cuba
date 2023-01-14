@@ -40,6 +40,7 @@ class HelperAuth extends StatelessWidget {
             ),
             SizedBox(width: 1.w),
             InkWell(
+              highlightColor: GStyles.containerDarkColor,
               child: Padding(
                 padding: EdgeInsets.all(15.sp),
                 child: Text(

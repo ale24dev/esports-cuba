@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'package:esports_cuba/resources/general_styles.dart';
+import 'package:esports_cuba/src/shared/loading_app.dart';
 import 'package:esports_cuba/src/feature/splash/splash_controller.dart';
 
 import '../../../../resources/images.dart';
@@ -24,11 +23,7 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(Images.fscLogo),
-            Center(
-                child: SpinKitFadingCube(
-              color: Colors.white,
-              size: 20.sp,
-            ))
+            const LoadingApp()
           ],
         ),
       ],

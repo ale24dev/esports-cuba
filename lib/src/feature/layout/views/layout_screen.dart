@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:esports_cuba/src/shared/utils.dart';
 import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/resources/general_styles.dart';
 import 'package:esports_cuba/src/feature/news/view/news_screen.dart';
@@ -49,14 +50,14 @@ class LayoutScreen extends StatelessWidget {
               ],
             ),
           ),
-          appBar: appBarBuilder(context),
+          appBar: Utils.appBarWidget(context: context, navigateBack: false),
           body: BlocBuilder<NavigationCubit, NavigationState>(
               builder: (context, state) {
             switch (state.navbarItem) {
               case NavbarItem.home:
                 return NewsScreen();
               case NavbarItem.tournament:
-                return TournamentScreen();
+                return const TournamentScreen();
 
               case NavbarItem.profile:
                 return Center(
@@ -71,21 +72,6 @@ class LayoutScreen extends StatelessWidget {
           bottomNavigationBar: bottomNavigationBarBuilder(context),
         ),
       ),
-    );
-  }
-
-  AppBar appBarBuilder(BuildContext context) {
-    return AppBar(
-      title: Center(
-          child: Text(context.loc.appTitle,
-              style: context.textTheme.headline4?.copyWith(
-                  fontFamily: GStyles.fontEvilEmpire, fontSize: 18.sp))),
-      actions: [
-        Padding(
-          padding: EdgeInsets.only(right: 2.w),
-          child: const Icon(Icons.person),
-        )
-      ],
     );
   }
 
