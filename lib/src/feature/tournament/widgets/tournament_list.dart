@@ -104,7 +104,7 @@ class TournamentList extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 4.w),
         child: Text("${tournament.name} #${tournament.edition}",
-            style: context.textTheme.bodyText1?.copyWith(fontSize: 24)),
+            style: context.textTheme.bodyText1?.copyWith(fontSize: 17.sp)),
       ),
     );
   }
@@ -118,13 +118,15 @@ class TournamentList extends StatelessWidget {
               color: GStyles.colorPrimary, size: 18.sp),
           SizedBox(width: 1.5.w),
           Text(Utils.getDate(tournament.createdAt).toString(),
-              style: context.textTheme.bodyText1),
+              style: context.textTheme.bodyText1
+                  ?.copyWith(fontSize: 14.sp, color: Colors.grey)),
           SizedBox(width: 2.w),
           FaIcon(FontAwesomeIcons.clock,
               color: GStyles.colorPrimary, size: 18.sp),
           SizedBox(width: 1.5.w),
           Text(Utils.getHour(tournament.createdAt).toString(),
-              style: context.textTheme.bodyText1),
+              style: context.textTheme.bodyText1
+                  ?.copyWith(fontSize: 14.sp, color: Colors.grey)),
         ],
       ),
     );
@@ -147,7 +149,8 @@ class TournamentList extends StatelessWidget {
                     tournament.prizepool == null
                         ? "\$" "0"
                         : "\$${tournament.prizepool}",
-                    style: context.textTheme.bodyText1),
+                    style: context.textTheme.bodyText1
+                        ?.copyWith(fontSize: 14.sp, color: Colors.grey)),
                 Container(
                   decoration: BoxDecoration(
                       color: Utils.getColorByTournamentState(tournament),
@@ -156,10 +159,11 @@ class TournamentList extends StatelessWidget {
                     padding: EdgeInsets.all(10.sp),
                     child: Text(
                       Utils.getNameStateByLocale(
-                          context, tournament.tournamentState),
+                              context, tournament.tournamentState)
+                          .toUpperCase(),
                       textAlign: TextAlign.center,
                       style: context.textTheme.bodyText1
-                          ?.copyWith(fontSize: 18.sp, color: Colors.white),
+                          ?.copyWith(fontSize: 14.sp, color: Colors.white),
                     ),
                   ),
                 )

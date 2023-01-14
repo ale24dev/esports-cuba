@@ -38,7 +38,7 @@ class NewsCard extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 child: Text(newsBaseModel.title,
                     style: context.textTheme.bodyText1?.copyWith(
-                        fontSize: 18, fontFamily: GStyles.fontSanFrancisco)),
+                        fontSize: 17.sp, fontFamily: GStyles.fontSanFrancisco)),
               ),
               SizedBox(height: 7.sp),
               Padding(

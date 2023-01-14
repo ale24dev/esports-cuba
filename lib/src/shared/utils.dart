@@ -32,7 +32,7 @@ abstract class Utils {
     }
   }
 
-  static getNameStateByLocale(
+  static String getNameStateByLocale(
       BuildContext context, TournamentStateBaseModel tournamentState) {
     if (tournamentState.state == "open") {
       return context.loc.open;
