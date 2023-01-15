@@ -37,8 +37,8 @@ class TournamentRepository {
       apiResult.responseObject = listTournaments;
       return apiResult;
     } catch (e) {
-      apiResult.error = e.toString();
-      apiResult.errorType = e.runtimeType;
+      apiResult.message = e.toString();
+      apiResult.error = e.runtimeType;
       return apiResult;
     }
   }
@@ -55,8 +55,7 @@ class TournamentRepository {
                  TournamentState(id, state),
                  Game(id, name, image),
                  Winners(id, first_place, second_place, third_place)
-                 ''')
-          .eq('game', '${game.id}');
+                 ''').eq('game', '${game.id}');
       log(response.toString());
       for (var element in response) {
         TournamentBaseModel gameBaseModel =
@@ -66,8 +65,8 @@ class TournamentRepository {
       apiResult.responseObject = listTournaments;
       return apiResult;
     } catch (e) {
-      apiResult.error = e.toString();
-      apiResult.errorType = e.runtimeType;
+      apiResult.message = e.toString();
+      apiResult.error = e.runtimeType;
       return apiResult;
     }
   }
@@ -84,8 +83,8 @@ class TournamentRepository {
 
       return apiResult;
     } catch (e) {
-      apiResult.error = e.toString();
-      apiResult.errorType = e.runtimeType;
+      apiResult.message = e.toString();
+      apiResult.error = e.runtimeType;
       return apiResult;
     }
   }

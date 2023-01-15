@@ -6,12 +6,12 @@ class ApiResult<T> {
   /// Mapped response.
   T? responseObject;
 
-  /// Error messages of the response.
-  String? error;
+  /// Messages of the response.
+  String? message;
 
-  /// Error messages object.
-  T? errorType;
+  /// Error object.
+  T? error;
 
   /// Class constructor.
-  ApiResult({this.responseObject, this.error});
+  ApiResult({this.responseObject, this.message});
 }

@@ -79,16 +79,12 @@ class LayoutScreen extends StatelessWidget {
     return BlocBuilder<NavigationCubit, NavigationState>(
         builder: (context, state) {
       return Container(
-        decoration: BoxDecoration(
-          color: GStyles.colorPrimary,
-        ),
         child: BottomNavigationBar(
           currentIndex: state.index,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white.withOpacity(0.5),
           selectedLabelStyle: context.textTheme.subtitle1,
           unselectedLabelStyle: context.textTheme.subtitle2,
-          backgroundColor: Colors.transparent,
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
@@ -110,6 +106,7 @@ class LayoutScreen extends StatelessWidget {
                 activeIcon: FaIcon(
                   FontAwesomeIcons.trophy,
                   size: 20.sp,
+                  color: Colors.white,
                 ),
                 label: context.loc.tournament),
             BottomNavigationBarItem(

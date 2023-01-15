@@ -9,7 +9,7 @@ class FavoritesRepository {
   final Supabase _supabase;
   late ApiResult apiResult;
   FavoritesRepository(this._supabase) {
-    apiResult = ApiResult();
+    apiResult = ApiResult(message: '');
   }
 
   //Future<ApiResult> getFavoritesByUser(UserBaseModel userBaseModel) async {
@@ -36,8 +36,8 @@ class FavoritesRepository {
       apiResult.responseObject = listFavorites;
       return apiResult;
     } catch (e) {
-      apiResult.error = e.toString();
-      apiResult.errorType = e.runtimeType;
+      apiResult.message = e.toString();
+      apiResult.error = e.runtimeType;
       return apiResult;
     }
   }

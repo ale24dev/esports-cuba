@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
             // Locale('en', ''),
             Locale('es', ''),
           ],
-          title: 'HallMed',
+          title: 'Esports Cuba',
           theme: Themes.darkTheme,
           /*themeMode: ThemeMode.dark,
           theme: AppThemes.appThemes[ThemeMode.dark],

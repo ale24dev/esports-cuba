@@ -44,22 +44,22 @@ class GStyles {
       );
 
   static TextStyle get headline1 => TextStyle(
-      fontSize: 32.sp, fontFamily: fontEvilEmpire, color: Colors.white);
+      fontSize: 24.sp, fontFamily: fontSanFrancisco, color: Colors.white);
 
   static TextStyle get headline2 => headline1.copyWith(
-        fontSize: 28.sp,
-      );
-
-  static TextStyle get headline3 => headline1.copyWith(
-        fontSize: 24.sp,
-      );
-
-  static TextStyle get headline4 => headline1.copyWith(
         fontSize: 20.sp,
       );
 
-  static TextStyle get headline5 => headline1.copyWith(
+  static TextStyle get headline3 => headline1.copyWith(
+        fontSize: 18.sp,
+      );
+
+  static TextStyle get headline4 => headline1.copyWith(
         fontSize: 16.sp,
+      );
+
+  static TextStyle get headline5 => headline1.copyWith(
+        fontSize: 14.sp,
       );
 
   static TextStyle get adviceText => TextStyle(

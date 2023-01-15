@@ -13,9 +13,4 @@ class AuthCubit extends Cubit<AuthState> {
   void authWithEmail() {
     emit(AuthWithEmail(userState: UserState.notSigned));
   }
-
-  ///Emitir nuevo estado para registro con teléfono
-  void authWithPhone() {
-    emit(AuthWithPhone(userState: UserState.notSigned));
-  }
 }

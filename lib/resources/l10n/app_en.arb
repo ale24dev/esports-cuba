@@ -1,5 +1,6 @@
 {
     "appTitle": "Esports Cuba",
+    "authError": "Authentication Error",
     "accept": "Accept",
     "close": "Close",
     "closed": "cerrado",

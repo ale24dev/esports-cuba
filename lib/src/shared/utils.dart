@@ -1,15 +1,20 @@
 // ignore_for_file: unrelated_type_equality_checks
 
-import 'package:auto_route/auto_route.dart';
-import 'package:esports_cuba/src/shared/extensions.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:esports_cuba/src/shared/widgets/dialog_message.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-
-import 'package:esports_cuba/resources/general_styles.dart';
-import 'package:esports_cuba/src/models/tournament_base_model.dart';
-import 'package:esports_cuba/src/models/tournament_state_base_model.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:translator/translator.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:esports_cuba/src/shared/extensions.dart';
+import 'package:esports_cuba/resources/general_styles.dart';
+import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
+import 'package:esports_cuba/src/models/tournament_base_model.dart';
+import 'package:esports_cuba/src/shared/widgets/generic_button.dart';
+import 'package:esports_cuba/src/models/tournament_state_base_model.dart';
 
 import '../route/app_router.gr.dart';
 
@@ -85,5 +90,23 @@ abstract class Utils {
                 ))
           ],
     );
+  }
+
+  ///Widget encargado de mostrar la data interna en el ApiResult
+  static Future<Widget> apiResultShow(
+      {required BuildContext context, required ApiResult apiResult}) async {
+    late String title;
+    switch (apiResult.error.runtimeType) {
+      case AuthException:
+        title = context.loc.authError;
+        break;
+
+      default:
+        title = context.loc.unexpectedError;
+    }
+    return apiResult.error != null
+        ? DialogMessage(
+            title: title, text: apiResult.error.message, withTranslate: true)
+        : const SizedBox.shrink();
   }
 }

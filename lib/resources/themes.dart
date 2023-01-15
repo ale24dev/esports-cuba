@@ -42,6 +42,8 @@ class Themes {
       );
 
   static ThemeData get darkTheme => ThemeData(
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: GStyles.containerDarkColor),
         scaffoldBackgroundColor: GStyles.backGroundDarkColor,
         primarySwatch: CustomMaterialColor.mdColor(
             r: GStyles.colorPrimary.red,

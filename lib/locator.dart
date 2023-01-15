@@ -1,3 +1,4 @@
+import 'package:esports_cuba/src/repositories/auth_repository.dart';
 import 'package:esports_cuba/src/repositories/favorites_repository.dart';
 import 'package:esports_cuba/src/repositories/news_repository.dart';
 import 'package:esports_cuba/src/repositories/tournament_repository.dart';
@@ -27,4 +28,7 @@ void setUp() {
 
   serviceLocator.registerLazySingleton<FavoritesRepository>(
       () => FavoritesRepository(supabase));
+
+  serviceLocator
+      .registerLazySingleton<AuthRepository>(() => AuthRepository(supabase));
 }

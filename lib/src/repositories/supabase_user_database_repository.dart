@@ -21,8 +21,8 @@ class SupabaseDatabaseRepository {
       apiResult.responseObject = userBaseModel;
       return apiResult;
     } catch (e) {
-      apiResult.error = e.toString();
-      apiResult.errorType = e.runtimeType;
+      apiResult.message = e.toString();
+      apiResult.error = e.runtimeType;
       return apiResult;
     }
   }

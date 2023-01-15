@@ -65,6 +65,9 @@ dependencies:
   #Image transitions
   carousel_slider: ^4.2.1
   cached_network_image: ^3.2.3
+  
+  #Translate
+  translator: ^0.1.7
 
 dev_dependencies:
   flutter_test:

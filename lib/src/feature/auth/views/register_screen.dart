@@ -1,3 +1,8 @@
+import 'package:esports_cuba/locator.dart';
+import 'package:esports_cuba/src/repositories/auth_repository.dart';
+import 'package:esports_cuba/src/shared/loading_app.dart';
+import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
+import 'package:esports_cuba/src/shared/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,20 +27,13 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController name = TextEditingController();
-  TextEditingController password = TextEditingController();
-
-  @override
-  void initState() {
-    ///Inicializamos el estado como usuario no registrado y con registro de email
-    context
-        .read<AuthCubit>()
-        .emit(AuthWithEmail(userState: UserState.notSigned));
-    super.initState();
-  }
+  //TextEditingController name = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    late ApiResult apiResult;
+    TextEditingController email = TextEditingController();
+    TextEditingController password = TextEditingController();
     return Scaffold(
         body: Stack(
       children: [
@@ -60,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               hintText: context.loc.user,
                               icon: const Icon(Icons.person,
                                   size: 20, color: Colors.black),
-                              textEditingController: name,
+                              textEditingController: email,
                               authType: AuthType.name,
                               callBackSetState: () {}),
                           GenericTextField(
@@ -90,7 +88,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   )),
                             ),
                             onTap: () async {
-                              context.router.replace(const LayoutScreen());
+                              print("email: " + email.text);
+                              print("password: " + password.text);
+                              apiResult = await serviceLocator<AuthRepository>()
+                                  .signUp(
+                                      email: email.text,
+                                      password: password.text,
+                                      apiResult: ApiResult());
+
+                              apiResult.error != null
+                                  ? showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return FutureBuilder(
+                                            future: Utils.apiResultShow(
+                                                apiResult: apiResult,
+                                                context: context),
+                                            builder: ((context,
+                                                AsyncSnapshot snapshot) {
+                                              if (!snapshot.hasData) {
+                                                return const LoadingApp();
+                                              } else {
+                                                return snapshot.data;
+                                              }
+                                            }));
+                                      },
+                                    )
+                                  : context.router
+                                      .replace(const LayoutScreen());
+
+                              //TODO: MOSTRAR EL SNACKBAR DE USUARIO REGISTRADO EXITOSAMENTE
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content:
+                                    Text("Has sido registrado exitosamente"),
+                                backgroundColor: GStyles.colorPrimary,
+                                duration: Duration(seconds: 5),
+                              ));
+                              setState(() {});
                             },
                           )
                         ]),
