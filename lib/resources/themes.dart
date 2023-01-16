@@ -64,8 +64,8 @@ class Themes {
           focusColor: Colors.grey,
           labelStyle: GStyles.headline5.copyWith(
               color: Colors.grey,
-              fontSize: 18.sp,
-              fontFamily: GStyles.fontTeko),
+              fontSize: 20.sp,
+              fontFamily: GStyles.fontSanFrancisco),
           errorStyle: TextStyle(color: GStyles.colorSecondary, fontSize: 16.sp),
         ),
         checkboxTheme: GStyles.checkBoxTheme,

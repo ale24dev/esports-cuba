@@ -15,4 +15,8 @@ abstract class Constants {
 
   ///Margen de la aplicación
   static double MARGIN = 4.w;
+
+  ///Margen de la aplicación
+  static String urlNoImage =
+      "https://qrzgxfvjhhacpsjyrdrx.supabase.co/storage/v1/object/sign/esport-cuba-bucket/no-image.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJlc3BvcnQtY3ViYS1idWNrZXQvbm8taW1hZ2UuanBnIiwidHJhbnNmb3JtYXRpb25zIjoiIiwiaWF0IjoxNjczODM4NzQxLCJleHAiOjE5ODkxOTg3NDF9.UKE2t-Qv2jVM8UZ6wsHaZA7oXdhBBhExk3AMfUUIe-A&t=2023-01-16T03%3A12%3A21.529Z";
 }

@@ -78,7 +78,7 @@ class NewsDetails extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(newsBaseModel.user.nickname,
+                Text(newsBaseModel.user.username,
                     style:
                         context.textTheme.bodyText1?.copyWith(fontSize: 16.sp)),
                 SizedBox(height: 5.sp),

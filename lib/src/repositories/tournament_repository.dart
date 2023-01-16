@@ -28,7 +28,6 @@ class TournamentRepository {
                  Game(id, name, image),
                  Winners(id, first_place, second_place, third_place)
                  ''');
-      log(response.toString());
       for (var element in response) {
         TournamentBaseModel tournamentBaseModel =
             TournamentBaseModel.fromJson(element);

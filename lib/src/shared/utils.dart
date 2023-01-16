@@ -1,19 +1,18 @@
 // ignore_for_file: unrelated_type_equality_checks
 
-import 'package:esports_cuba/src/shared/widgets/dialog_message.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:translator/translator.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/resources/general_styles.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/models/tournament_base_model.dart';
-import 'package:esports_cuba/src/shared/widgets/generic_button.dart';
+import 'package:esports_cuba/src/shared/widgets/dialog_message.dart';
 import 'package:esports_cuba/src/models/tournament_state_base_model.dart';
 
 import '../route/app_router.gr.dart';
@@ -24,10 +23,17 @@ abstract class Utils {
     return DateTime.parse(timestamp);
   }
 
+  ///Parsear un dateTime a timestamp
+  static String parseDateToTimestamp(DateTime dateTime) {
+    return dateTime.toIso8601String();
+  }
+
+  ///Obtener la fecha de un DateTime
   static getDate(DateTime date) {
     return DateFormat.yMd().format(date);
   }
 
+  ///Obtener la hora de un DateTime
   static getHour(DateTime date) {
     return DateFormat.jm('es').format(date);
   }
@@ -85,7 +91,7 @@ abstract class Utils {
                 child: IconButton(
                   icon: const Icon(Icons.person),
                   onPressed: (() {
-                    context.router.push(const FavoritesScreen());
+                    context.router.push(FavoritesScreen());
                   }),
                 ))
           ],
@@ -101,6 +107,10 @@ abstract class Utils {
         title = context.loc.authError;
         break;
 
+      case PostgrestException:
+        title = context.loc.serverError;
+        break;
+
       default:
         title = context.loc.unexpectedError;
     }
@@ -108,5 +118,18 @@ abstract class Utils {
         ? DialogMessage(
             title: title, text: apiResult.error.message, withTranslate: true)
         : const SizedBox.shrink();
+  }
+
+  static Future<SharedPreferences> sharedPreferencesInstance() async {
+    SharedPreferences? sharedPreferences;
+
+    return sharedPreferences ??= await SharedPreferences.getInstance();
+  }
+
+  ///Funcion para validar un email
+  bool isEmailValid(String email) {
+    final RegExp regex = RegExp(
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
+    return regex.hasMatch(email);
   }
 }

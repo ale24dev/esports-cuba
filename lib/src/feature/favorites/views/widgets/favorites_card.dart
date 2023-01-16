@@ -53,7 +53,7 @@ class FavoritesCard extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.sp),
                 child: Text(
-                    "${Utils.getDate(favoritesBaseModel.newsBaseModel.createdAt)} - ${favoritesBaseModel.userBaseModel.nickname}",
+                    "${Utils.getDate(favoritesBaseModel.newsBaseModel.createdAt)} - ${favoritesBaseModel.userBaseModel.username}",
                     style: context.textTheme.bodyText1
                         ?.copyWith(fontSize: 14.sp, color: Colors.white38)),
               ),

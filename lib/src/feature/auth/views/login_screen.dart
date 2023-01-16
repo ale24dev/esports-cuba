@@ -7,7 +7,6 @@ import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/src/shared/constants/auth_type.dart';
 import 'package:esports_cuba/src/shared/widgets/generic_text_field.dart';
 
-
 import '../widgets/helper_auth.dart';
 import '../../../route/app_router.gr.dart';
 import '../../../../resources/general_styles.dart';
@@ -51,14 +50,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   size: 20, color: Colors.black),
                               textEditingController: name,
                               authType: AuthType.name,
-                              callBackSetState: () {}),
+                              ),
                           GenericTextField(
                               hintText: context.loc.password,
                               icon: const Icon(Icons.password,
                                   size: 20, color: Colors.black),
                               textEditingController: password,
                               authType: AuthType.password,
-                              callBackSetState: () {}),
+                              ),
                           GestureDetector(
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 10.0.w),
@@ -90,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       textButton: context.loc.register,
                       color: Colors.white,
                       functionCallback: () {
-                        context.router.replace(const RegisterScreen());
+                        context.router.replace(const SignupScreen());
                       })
                 ],
               ),

@@ -10,18 +10,18 @@ UserBaseModel _$UserBaseModelFromJson(Map<String, dynamic> json) =>
     UserBaseModel(
       id: json['id'] as int,
       image: json['image'] as String,
-      nickname: json['nickname'] as String,
-      password: json['password'] as String,
-      phone: json['phone'] as String,
+      username: json['username'] as String,
+      email: json['email'] as String,
+      birthday: Utils.parseDate(json['birthday']),
       createdAt: Utils.parseDate(json['created_at']),
     );
 
 Map<String, dynamic> _$UserBaseModelToJson(UserBaseModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'nickname': instance.nickname,
+      'username': instance.username,
       'image': instance.image,
-      'password': instance.password,
-      'phone': instance.phone,
+      'email': instance.email,
+      'birthday': instance.birthday.toIso8601String(),
       'created_at': instance.createdAt.toIso8601String(),
     };

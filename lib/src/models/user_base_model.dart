@@ -3,7 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:esports_cuba/src/shared/utils.dart';
 import 'package:esports_cuba/src/models/base_model.dart';
 
-
 part 'user_base_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
@@ -12,16 +11,17 @@ class UserBaseModel extends BaseModel {
   int id;
 
   ///Nickname del usuario
-  String nickname;
+  String username;
+
+  ///Imagen del usuario
+  String email;
 
   ///Imagen del usuario
   String image;
 
-  ///Contraseña del usuario
-  String password;
-
-  ///Teléfono del usuario
-  String phone;
+  ///Imagen del usuario
+  @JsonKey(fromJson: Utils.parseDate)
+  DateTime birthday;
 
   ///Fecha de creación usuario
   @JsonKey(name: "created_at", fromJson: Utils.parseDate)
@@ -29,10 +29,10 @@ class UserBaseModel extends BaseModel {
 
   UserBaseModel({
     required this.id,
+    required this.username,
+    required this.email,
     required this.image,
-    required this.nickname,
-    required this.password,
-    required this.phone,
+    required this.birthday,
     required this.createdAt,
   });
 

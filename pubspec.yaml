@@ -57,6 +57,7 @@ dependencies:
 
   #database
   supabase_flutter: ^1.1.0
+  shared_preferences: ^2.0.16
 
   #design
   font_awesome_flutter: ^10.3.0
@@ -68,6 +69,11 @@ dependencies:
   
   #Translate
   translator: ^0.1.7
+
+  #DateAndCountryPicker
+  date_time_picker: ^2.1.0
+  csc_picker: ^0.2.6
+
 
 dev_dependencies:
   flutter_test:
