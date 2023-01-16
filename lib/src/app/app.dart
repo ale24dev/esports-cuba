@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:esports_cuba/src/feature/auth/bloc/auth_cubit.dart';
 import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
 import 'package:esports_cuba/src/feature/news/bloc/news_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
@@ -8,23 +11,63 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:esports_cuba/src/route/app_router.gr.dart';
-import 'package:esports_cuba/src/feature/auth/bloc/auth_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/game_cubit.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../resources/themes.dart';
 
-class MyApp extends StatelessWidget {
-  /// Attribute to identify if the app is on foreground to display a notification
-  /// dialog.
-  static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
+final supabase = Supabase.instance.client;
 
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late final StreamSubscription<AuthState> _authSubscription;
+  User? _user;
+  final _appRouter = AppRouter();
+
+  @override
+  void initState() {
+    print("1111111111");
+    _authSubscription = supabase.auth.onAuthStateChange.listen((data) {
+      print("22222222222");
+      final AuthChangeEvent event = data.event;
+      final Session? session = data.session;
+      if (event == AuthChangeEvent.signedIn) {
+        if (session != null) {
+          _appRouter
+            ..popUntilRoot()
+            ..replace(const LayoutScreen());
+        } else {
+          print("SignOut");
+          // getIt<AuthRepository>().signOut();
+        }
+      } else if (event == AuthChangeEvent.signedOut) {
+        _appRouter
+          ..popUntilRoot()
+          ..replace(const LoginScreen());
+      }
+      /* setState(() {
+        _user = session?.user;
+      });*/
+    });
+    print("AUTHSUBS: " + _authSubscription.toString());
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _authSubscription.cancel();
+    super.dispose();
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final appRouter = AppRouter();
     return ResponsiveSizer(builder: (context, orientation, screenType) {
       return MultiRepositoryProvider(
         providers: [
@@ -38,8 +81,8 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          routerDelegate: appRouter.delegate(),
-          routeInformationParser: appRouter.defaultRouteParser(),
+          routerDelegate: _appRouter.delegate(),
+          routeInformationParser: _appRouter.defaultRouteParser(),
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,

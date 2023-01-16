@@ -10,6 +10,8 @@
     "dontHaveAccount": "¿No tienes una cuenta?",
     "email": "Correo electrónico",
     "emailInvalid": "Correo electrónico inválido",
+    "emptyNews": "No hay noticias",
+    "emptyFavsUser": "No tienes elementos guardados",
     "emptyFields": "Todos los campos son requeridos",
     "emptySwaps": "No hay intercambios en esta categoría",
     "emptyTournaments": "No hay torneos",

@@ -28,9 +28,26 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   DateTime? birthday;
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController username = TextEditingController();
+  late TextEditingController email;
+  late TextEditingController password;
+  late TextEditingController username;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    email = TextEditingController();
+    password = TextEditingController();
+    username = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    email.clear();
+    password.clear();
+    username.clear();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

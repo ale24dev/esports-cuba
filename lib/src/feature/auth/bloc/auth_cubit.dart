@@ -6,7 +6,7 @@ import 'package:esports_cuba/src/feature/auth/const/user_state.dart';
 part 'auth_state.dart';
 
 ///Cubit encargado de controlar el estado del módulo de autenticación
-class AuthCubit extends Cubit<AuthState> {
+class AuthCubit extends Cubit<AuthhState> {
   AuthCubit() : super(AuthInitial());
 
   ///Emitir nuevo estado para registro con email

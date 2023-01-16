@@ -1,3 +1,4 @@
+import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -29,11 +30,8 @@ class TournamentList extends StatelessWidget {
           return state is TournamentLoading
               ? const LoadingApp()
               //  : SizedBox();
-              : apiResult.responseObject.length == 0
-                  ? Center(
-                      child: Text(context.loc.emptyTournaments,
-                          style: context.textTheme.headline4),
-                    )
+              : state is TournamentEmpty?
+                  ? EmptyDataMessage(message: context.loc.emptyTournaments)
                   : ListView.builder(
                       itemCount: apiResult.responseObject.length,
                       itemBuilder: ((context, index) {

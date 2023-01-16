@@ -1,5 +1,6 @@
 import 'package:esports_cuba/src/models/news_base_model.dart';
 import 'package:esports_cuba/src/models/user_base_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:esports_cuba/src/models/favorites_base_model.dart';
 
@@ -9,25 +10,27 @@ class FavoritesRepository {
   final Supabase _supabase;
   late ApiResult apiResult;
   FavoritesRepository(this._supabase) {
-    apiResult = ApiResult(message: '');
+    apiResult = ApiResult();
   }
 
   //Future<ApiResult> getFavoritesByUser(UserBaseModel userBaseModel) async {
-  Future<ApiResult> getFavoritesByUser(int id) async {
+  Future<ApiResult> getFavoritesByUser() async {
+    String? username = await SharedPreferences.getInstance()
+        .then((value) => value.getString("username"));
     try {
       List<FavoritesBaseModel> listFavorites = [];
       final List<dynamic> response =
           await _supabase.client.from('Favorites').select('''
           id, created_at,
           User (
-            id, nickname, password, image, created_at, phone
+            id, username, email, image, birthday, created_at
           ),
           News (
             id, title, text, attachments, created_at, User (
-            id, nickname, password, image, created_at, phone
+            id, username, email, image, birthday, created_at
           ))
-          ''').eq('user', id);
-
+          ''');
+      print("RESPONSE: " + response.toString());
       for (var element in response) {
         FavoritesBaseModel favoritesBaseModel =
             FavoritesBaseModel.fromJson(element);
@@ -36,8 +39,9 @@ class FavoritesRepository {
       apiResult.responseObject = listFavorites;
       return apiResult;
     } catch (e) {
+      print("Error: " + e.toString());
       apiResult.message = e.toString();
-      apiResult.error = e.runtimeType;
+      apiResult.error = e;
       return apiResult;
     }
   }
@@ -47,10 +51,10 @@ class FavoritesRepository {
       NewsBaseModel newsBaseModel, int id) async {
     try {
       final dynamic response = await _supabase.client.from('Favorites').insert([
-        {'user': id, 'news': newsBaseModel.id},
+        {'user': 12, 'news': newsBaseModel.id},
       ]);
     } catch (e) {
-      print(e);
+      print("Error: " + e.toString());
     }
   }
 }

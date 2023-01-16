@@ -16,7 +16,13 @@ class TournamentCubit extends Cubit<TournamentState> {
     emit(TournamentLoading());
     ApiResult apiResult =
         await serviceLocator<TournamentRepository>().getAllTournaments();
-    emit(TournamentLoaded(apiResult: apiResult));
+    if (apiResult.error == null) {
+      if (apiResult.responseObject.length == 0) {
+        TournamentEmpty();
+      } else {
+        emit(TournamentLoaded(apiResult: apiResult));
+      }
+    }
   }
 
   ///Cargamos todos los torneos

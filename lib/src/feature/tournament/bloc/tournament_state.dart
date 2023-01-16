@@ -11,6 +11,8 @@ class TournamentInitial extends TournamentState {}
 
 class TournamentLoading extends TournamentState {}
 
+class TournamentEmpty extends TournamentState {}
+
 class TournamentLoaded extends TournamentState {
   final ApiResult apiResult;
 

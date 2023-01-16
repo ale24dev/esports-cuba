@@ -3,13 +3,13 @@
 part of 'auth_cubit.dart';
 
 @immutable
-abstract class AuthState {}
+abstract class AuthhState {}
 
 ///Estado inicial del Cubit
-class AuthInitial extends AuthState {}
+class AuthInitial extends AuthhState {}
 
 ///Estado que define si el registro es por email
-class AuthWithEmail extends AuthState {
+class AuthWithEmail extends AuthhState {
   AuthWithEmail({required this.userState});
 
   UserState userState;

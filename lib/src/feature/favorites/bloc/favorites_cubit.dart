@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:esports_cuba/locator.dart';
+
 import 'package:esports_cuba/src/models/news_base_model.dart';
-import 'package:esports_cuba/src/models/user_base_model.dart';
-import 'package:esports_cuba/src/repositories/favorites_repository.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
+import 'package:esports_cuba/src/repositories/favorites_repository.dart';
 
 part 'favorites_state.dart';
 
@@ -16,8 +16,14 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     emit(FavoritesLoading());
     ApiResult apiResult = await serviceLocator<FavoritesRepository>()
         // .getFavoritesByUser(userBaseModel);
-        .getFavoritesByUser(7);
-    emit(FavoritesLoaded(apiResult: apiResult));
+        .getFavoritesByUser();
+    if (apiResult.error == null) {
+      if (apiResult.responseObject.length == 0) {
+        emit(FavoritesEmpty());
+      } else {
+        emit(FavoritesLoaded(apiResult: apiResult));
+      }
+    }
   }
 
   //void addNewsToFavoriteOfUser(UserBaseModel userBaseModel, NewsBaseModel newsBaseModel) async {
@@ -29,8 +35,14 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
     ApiResult apiResult = await serviceLocator<FavoritesRepository>()
         // .getFavoritesByUser(userBaseModel);
-        .getFavoritesByUser(7);
+        .getFavoritesByUser();
 
-    emit(FavoritesLoaded(apiResult: apiResult));
+    if (apiResult.error == null) {
+      if (apiResult.responseObject.length == 0) {
+        FavoritesEmpty();
+      } else {
+        emit(FavoritesLoaded(apiResult: apiResult));
+      }
+    }
   }
 }

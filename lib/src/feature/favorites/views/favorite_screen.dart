@@ -4,6 +4,7 @@ import 'package:esports_cuba/src/feature/layout/views/layout_screen.dart';
 import 'package:esports_cuba/src/models/favorites_base_model.dart';
 import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/src/shared/utils.dart';
+import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -42,22 +43,25 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           ]),
       body: BlocBuilder<FavoritesCubit, FavoritesState>(
         builder: (context, state) {
+          print("State" + state.runtimeType.toString());
           if (state is FavoritesLoaded) {
             apiResult = state.apiResult;
           }
           return state is FavoritesLoading
               ? const LoadingApp()
-              : Container(
-                  height: 100.h,
-                  child: ListView.builder(
-                      itemCount: apiResult.responseObject.length,
-                      itemBuilder: ((context, index) {
-                        FavoritesBaseModel favoritesBaseModel =
-                            apiResult.responseObject[index];
-                        return FavoritesCard(
-                            favoritesBaseModel: favoritesBaseModel);
-                      })),
-                );
+              : state is FavoritesEmpty
+                  ? EmptyDataMessage(message: context.loc.emptyFavsUser)
+                  : SizedBox(
+                      height: 100.h,
+                      child: ListView.builder(
+                          itemCount: apiResult.responseObject.length,
+                          itemBuilder: ((context, index) {
+                            FavoritesBaseModel favoritesBaseModel =
+                                apiResult.responseObject[index];
+                            return FavoritesCard(
+                                favoritesBaseModel: favoritesBaseModel);
+                          })),
+                    );
         },
       ),
     );

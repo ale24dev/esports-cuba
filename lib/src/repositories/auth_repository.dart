@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:esports_cuba/constants.dart';
 import 'package:esports_cuba/src/models/user_base_model.dart';
 import 'package:esports_cuba/src/shared/utils.dart';
@@ -55,5 +57,24 @@ class AuthRepository {
         'birthday': Utils.parseDateToTimestamp(birthday)
       },
     ]);
+  }
+
+  StreamSubscription<AuthState> listenToAuthStatus() {
+    print("entro");
+    return _supabase.client.auth.onAuthStateChange.listen((data) {
+      final Session? session = data.session;
+      final AuthChangeEvent event = data.event;
+
+      switch (event) {
+        case AuthChangeEvent.signedIn:
+          if (session != null) {
+            print("FUNCIONAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+          }
+
+          break;
+        default:
+          print("nada");
+      }
+    });
   }
 }

@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:esports_cuba/locator.dart';
-import 'package:esports_cuba/src/repositories/news_repository.dart';
 
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
+import 'package:esports_cuba/src/repositories/news_repository.dart';
 
 part 'news_state.dart';
 
@@ -15,6 +15,12 @@ class NewsCubit extends Cubit<NewsState> {
     emit(NewsLoading());
     ApiResult apiResult =
         await serviceLocator<NewsRepository>().getAllAnnouncement();
-    emit(NewsLoaded(apiResult: apiResult));
+    if (apiResult.error == null) {
+      if (apiResult.responseObject.length == 0) {
+        emit(NewsEmpty());
+      } else {
+        emit(NewsLoaded(apiResult: apiResult));
+      }
+    }
   }
 }

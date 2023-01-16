@@ -11,9 +11,20 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Splash");
     SplashController.checkLogin(context);
     return Scaffold(
-        body: Stack(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            Images.fscLogo,
+            height: 30.h,
+          ),
+          const LoadingApp()
+        ],
+      ),
+      /*body: Stack(
       children: [
         Image.asset(Images.wallpaper, fit: BoxFit.fitWidth, width: 100.w),
         Opacity(
@@ -23,10 +34,11 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(Images.fscLogo),
-            const LoadingApp()
+          CircularProgressIndicator()
           ],
         ),
       ],
-    ));
+    )*/
+    );
   }
 }
