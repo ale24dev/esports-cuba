@@ -1,17 +1,16 @@
-import 'package:esports_cuba/src/shared/widgets/dialog_message.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:esports_cuba/src/shared/utils.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:esports_cuba/locator.dart';
 import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/src/shared/loading_app.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:esports_cuba/src/shared/constants/auth_type.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/repositories/auth_repository.dart';
+import 'package:esports_cuba/src/shared/widgets/dialog_message.dart';
 import 'package:esports_cuba/src/shared/widgets/generic_text_field.dart';
 
 import '../widgets/helper_auth.dart';
@@ -194,31 +193,29 @@ class _SignupScreenState extends State<SignupScreen> {
                                             apiResult: ApiResult(),
                                             username: username.text,
                                             birthday: birthday!);
-                                print(
-                                    "SALIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
 
-                                apiResult.error != null
-                                    ? showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return FutureBuilder(
-                                              future: Utils.apiResultShow(
-                                                  apiResult: apiResult,
-                                                  context: context),
-                                              builder: ((context,
-                                                  AsyncSnapshot snapshot) {
-                                                if (!snapshot.hasData) {
-                                                  return const LoadingApp();
-                                                } else {
-                                                  return snapshot.data;
-                                                }
-                                              }));
-                                        },
-                                      )
-                                    : context.router
-                                        .replace(const LayoutScreen());
-
-                                setState(() {});
+                                if (apiResult.error == null) {
+                                  context.router.replace(const LayoutScreen());
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return FutureBuilder(
+                                          future: Utils.apiResultShow(
+                                              apiResult: apiResult,
+                                              context: context),
+                                          builder: ((context,
+                                              AsyncSnapshot snapshot) {
+                                            if (!snapshot.hasData) {
+                                              return const LoadingApp();
+                                            } else {
+                                              return snapshot.data;
+                                            }
+                                          }));
+                                    },
+                                  );
+                                  setState(() {});
+                                }
                               }
                             },
                           )

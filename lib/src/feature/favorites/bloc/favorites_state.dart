@@ -15,6 +15,8 @@ class FavoritesLoading extends FavoritesState {}
 
 class FavoritesEmpty extends FavoritesState {}
 
+class FavoritesError extends FavoritesState {}
+
 class FavoritesLoaded extends FavoritesState {
   late ApiResult apiResult;
 

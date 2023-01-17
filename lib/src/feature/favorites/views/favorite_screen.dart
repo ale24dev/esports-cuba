@@ -1,17 +1,15 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:esports_cuba/src/feature/favorites/views/widgets/favorites_card.dart';
-import 'package:esports_cuba/src/feature/layout/views/layout_screen.dart';
-import 'package:esports_cuba/src/models/favorites_base_model.dart';
-import 'package:esports_cuba/src/shared/extensions.dart';
-import 'package:esports_cuba/src/shared/utils.dart';
-import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'package:esports_cuba/src/shared/utils.dart';
+import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/src/shared/loading_app.dart';
+import 'package:esports_cuba/src/models/favorites_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
+import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
 import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/favorites/views/widgets/favorites_card.dart';
 
 class FavoritesScreen extends StatefulWidget {
   FavoritesScreen({super.key});
@@ -51,17 +49,19 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               ? const LoadingApp()
               : state is FavoritesEmpty
                   ? EmptyDataMessage(message: context.loc.emptyFavsUser)
-                  : SizedBox(
-                      height: 100.h,
-                      child: ListView.builder(
-                          itemCount: apiResult.responseObject.length,
-                          itemBuilder: ((context, index) {
-                            FavoritesBaseModel favoritesBaseModel =
-                                apiResult.responseObject[index];
-                            return FavoritesCard(
-                                favoritesBaseModel: favoritesBaseModel);
-                          })),
-                    );
+                  : state is FavoritesError
+                      ? EmptyDataMessage(message: context.loc.unexpectedError)
+                      : SizedBox(
+                          height: 100.h,
+                          child: ListView.builder(
+                              itemCount: apiResult.responseObject.length,
+                              itemBuilder: ((context, index) {
+                                FavoritesBaseModel favoritesBaseModel =
+                                    apiResult.responseObject[index];
+                                return FavoritesCard(
+                                    favoritesBaseModel: favoritesBaseModel);
+                              })),
+                        );
         },
       ),
     );

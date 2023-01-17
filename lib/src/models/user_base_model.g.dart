@@ -8,12 +8,10 @@ part of 'user_base_model.dart';
 
 UserBaseModel _$UserBaseModelFromJson(Map<String, dynamic> json) =>
     UserBaseModel(
-      id: json['id'] as int,
-      image: json['image'] as String,
+      id: json['id'] as String,
       username: json['username'] as String,
-      email: json['email'] as String,
+      image: json['image'] as String,
       birthday: Utils.parseDate(json['birthday']),
-      createdAt: Utils.parseDate(json['created_at']),
     );
 
 Map<String, dynamic> _$UserBaseModelToJson(UserBaseModel instance) =>
@@ -21,7 +19,5 @@ Map<String, dynamic> _$UserBaseModelToJson(UserBaseModel instance) =>
       'id': instance.id,
       'username': instance.username,
       'image': instance.image,
-      'email': instance.email,
       'birthday': instance.birthday.toIso8601String(),
-      'created_at': instance.createdAt.toIso8601String(),
     };

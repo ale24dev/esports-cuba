@@ -1,18 +1,18 @@
 import 'dart:async';
 
-import 'package:esports_cuba/src/feature/auth/bloc/auth_cubit.dart';
-import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
-import 'package:esports_cuba/src/feature/news/bloc/news_cubit.dart';
-import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:esports_cuba/src/route/app_router.gr.dart';
+import 'package:esports_cuba/src/feature/auth/bloc/auth_cubit.dart';
+import 'package:esports_cuba/src/feature/news/bloc/news_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/game_cubit.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
 
 import '../../resources/themes.dart';
 
@@ -55,7 +55,6 @@ class _MyAppState extends State<MyApp> {
         _user = session?.user;
       });*/
     });
-    print("AUTHSUBS: " + _authSubscription.toString());
     super.initState();
   }
 

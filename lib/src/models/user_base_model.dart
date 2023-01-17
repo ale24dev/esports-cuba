@@ -8,13 +8,10 @@ part 'user_base_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class UserBaseModel extends BaseModel {
   ///Identificador
-  int id;
+  String id;
 
   ///Nickname del usuario
   String username;
-
-  ///Imagen del usuario
-  String email;
 
   ///Imagen del usuario
   String image;
@@ -23,17 +20,12 @@ class UserBaseModel extends BaseModel {
   @JsonKey(fromJson: Utils.parseDate)
   DateTime birthday;
 
-  ///Fecha de creación usuario
-  @JsonKey(name: "created_at", fromJson: Utils.parseDate)
-  DateTime createdAt;
 
   UserBaseModel({
     required this.id,
     required this.username,
-    required this.email,
     required this.image,
     required this.birthday,
-    required this.createdAt,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`

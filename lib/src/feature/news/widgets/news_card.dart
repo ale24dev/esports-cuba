@@ -118,7 +118,7 @@ class NewsCard extends StatelessWidget {
               onTap: () {
                 context
                     .read<FavoritesCubit>()
-                    .addNewsToFavoriteOfUser(7, newsBaseModel);
+                    .addNewsToFavoriteOfUser(newsBaseModel, context);
               },
               child: Row(
                 children: [

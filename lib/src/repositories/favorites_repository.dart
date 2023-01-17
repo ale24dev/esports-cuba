@@ -1,9 +1,9 @@
-import 'package:esports_cuba/src/models/news_base_model.dart';
-import 'package:esports_cuba/src/models/user_base_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:esports_cuba/src/models/favorites_base_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:esports_cuba/src/shared/app_info.dart';
+import 'package:esports_cuba/src/models/news_base_model.dart';
+import 'package:esports_cuba/src/models/favorites_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 
 class FavoritesRepository {
@@ -23,14 +23,13 @@ class FavoritesRepository {
           await _supabase.client.from('Favorites').select('''
           id, created_at,
           User (
-            id, username, email, image, birthday, created_at
+            id, username, image, birthday
           ),
           News (
             id, title, text, attachments, created_at, User (
-            id, username, email, image, birthday, created_at
+            id, username, image, birthday
           ))
           ''');
-      print("RESPONSE: " + response.toString());
       for (var element in response) {
         FavoritesBaseModel favoritesBaseModel =
             FavoritesBaseModel.fromJson(element);
@@ -48,10 +47,10 @@ class FavoritesRepository {
 
   //Future<void> addFavoriteToUser(FavoritesBaseModel favoritesBaseModel, UserBaseModel userBaseModel) async {
   Future<void> addNewsToFavoriteOfUser(
-      NewsBaseModel newsBaseModel, int id) async {
+      NewsBaseModel newsBaseModel, AppInfo appInfo) async {
     try {
       final dynamic response = await _supabase.client.from('Favorites').insert([
-        {'user': 12, 'news': newsBaseModel.id},
+        {'user': appInfo.user!.id, 'news': newsBaseModel.id},
       ]);
     } catch (e) {
       print("Error: " + e.toString());

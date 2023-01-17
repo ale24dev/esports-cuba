@@ -1,11 +1,9 @@
 import 'dart:async';
 
-import 'package:esports_cuba/constants.dart';
-import 'package:esports_cuba/src/models/user_base_model.dart';
-import 'package:esports_cuba/src/shared/utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:esports_cuba/src/shared/utils.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 
 class AuthRepository {
@@ -24,6 +22,7 @@ class AuthRepository {
           await _supabase.client.auth.signUp(email: email, password: password);
 
       await createUser(
+          id: response.user!.id,
           apiResult: ApiResult(),
           birthday: birthday,
           email: email,
@@ -46,21 +45,23 @@ class AuthRepository {
   }
 
   Future<void> createUser(
-      {required String email,
+      {required String id,
+      required String email,
       required ApiResult apiResult,
       required String username,
       required DateTime birthday}) async {
-    await _supabase.client.from('User').insert([
+    ///Averiguar si el usuario esta repetido
+    ///
+    final data = await _supabase.client.from('User').insert([
       {
+        'id': id,
         'username': username,
-        'email': email,
         'birthday': Utils.parseDateToTimestamp(birthday)
       },
     ]);
   }
 
   StreamSubscription<AuthState> listenToAuthStatus() {
-    print("entro");
     return _supabase.client.auth.onAuthStateChange.listen((data) {
       final Session? session = data.session;
       final AuthChangeEvent event = data.event;

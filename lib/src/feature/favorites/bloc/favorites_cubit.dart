@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:esports_cuba/locator.dart';
 
+import 'package:esports_cuba/locator.dart';
+import 'package:esports_cuba/src/shared/app_info.dart';
 import 'package:esports_cuba/src/models/news_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/repositories/favorites_repository.dart';
@@ -26,23 +27,25 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     }
   }
 
-  //void addNewsToFavoriteOfUser(UserBaseModel userBaseModel, NewsBaseModel newsBaseModel) async {
-  void addNewsToFavoriteOfUser(int id, NewsBaseModel newsBaseModel) async {
-    emit(FavoritesLoading());
-    await serviceLocator<FavoritesRepository>()
-        // .getFavoritesByUser(userBaseModel);
-        .addNewsToFavoriteOfUser(newsBaseModel, id);
+  void addNewsToFavoriteOfUser(NewsBaseModel newsBaseModel, context) async {
+    AppInfo? appInfo = await AppInfo.getInstace(context);
+    if (appInfo != null) {
+      emit(FavoritesLoading());
+      await serviceLocator<FavoritesRepository>()
+          .addNewsToFavoriteOfUser(newsBaseModel, appInfo);
 
-    ApiResult apiResult = await serviceLocator<FavoritesRepository>()
-        // .getFavoritesByUser(userBaseModel);
-        .getFavoritesByUser();
+      ApiResult apiResult = await serviceLocator<FavoritesRepository>()
+          .getFavoritesByUser();
 
-    if (apiResult.error == null) {
-      if (apiResult.responseObject.length == 0) {
-        FavoritesEmpty();
-      } else {
-        emit(FavoritesLoaded(apiResult: apiResult));
+      if (apiResult.error == null) {
+        if (apiResult.responseObject.length == 0) {
+          FavoritesEmpty();
+        } else {
+          emit(FavoritesLoaded(apiResult: apiResult));
+        }
       }
+    } else {
+      emit(FavoritesError());
     }
   }
 }
