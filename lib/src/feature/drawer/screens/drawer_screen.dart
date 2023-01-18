@@ -1,13 +1,15 @@
-import 'package:esports_cuba/constants.dart';
-import 'package:esports_cuba/locator.dart';
-import 'package:esports_cuba/resources/general_styles.dart';
-import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
-import 'package:esports_cuba/src/models/user_base_model.dart';
-import 'package:esports_cuba/src/shared/extensions.dart';
-import 'package:esports_cuba/src/shared/loading_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import 'package:esports_cuba/constants.dart';
+import 'package:esports_cuba/src/shared/extensions.dart';
+import 'package:esports_cuba/src/shared/loading_app.dart';
+import 'package:esports_cuba/resources/general_styles.dart';
+import 'package:esports_cuba/src/models/user_base_model.dart';
+import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
+import 'package:esports_cuba/src/feature/drawer/widgets/drawer_section.dart';
+import 'package:esports_cuba/src/feature/drawer/widgets/log_out_section.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -20,6 +22,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
   late UserBaseModel userBaseModel;
 
   late String version;
+
+  List<String> listDrawerTileShorcouts = ["Favorites", "Tournaments", "Bookmarks"];
+
+  List<String> listDrawerTileSettings = ["Settings", "Help", "About"];
 
   @override
   Widget build(BuildContext context) {
@@ -79,21 +85,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               )
                             ],
                           ),
-                          Spacer(),
-                          InkWell(
-                            onTap: () {
-                              context.read<DrawerCubit>().logOut(context);
-                            },
-                            child: Container(
-                              color: Colors.red,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 2.h),
-                                child: Text(context.loc.logout,
-                                    style: context.textTheme.bodyText1
-                                        ?.copyWith(fontSize: 14.sp)),
-                              ),
-                            ),
-                          )
+                          SizedBox(height: 4.h),
+                          DrawerSection(
+                              title: "SHORCOUTS",
+                              listDrawerTile: listDrawerTileShorcouts),
+                          DrawerSection(
+                              title: "SETTINGS",
+                              listDrawerTile: listDrawerTileSettings),
+                          const Spacer(),
+                          const LogOutSection()
                         ],
                       ),
                     ),
@@ -104,3 +104,4 @@ class _DrawerScreenState extends State<DrawerScreen> {
     );
   }
 }
+

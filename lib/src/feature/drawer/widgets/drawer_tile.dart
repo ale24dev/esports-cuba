@@ -1,43 +1,46 @@
-import 'package:esports_cuba/src/shared/extensions.dart';
+import 'package:esports_cuba/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'package:esports_cuba/src/shared/extensions.dart';
 
 class DrawerTile extends StatelessWidget {
-  final String icon;
-  final double? width;
-  final Color? color;
-  final void Function()? onTap;
-  final String textTitle;
+  const DrawerTile({
+    Key? key,
+    required this.name,
+    required this.isLast,
+  }) : super(key: key);
 
-  const DrawerTile(
-      {Key? key,
-      required this.icon,
-      required this.textTitle,
-      this.width,
-      this.onTap,
-      this.color})
-      : super(key: key);
+  ///Nombre del DrawerTile
+  final String name;
+
+  ///Determina si es el ultimo elemento de la lista
+  final bool isLast;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        child: ListTile(
-          leading: Image.asset(
-            icon,
-            width: width ?? 34,
-            color: color,
-          ),
-          title: Text(
-            textTitle,
-            style: context.textTheme.headline5!
-                .copyWith(color: Colors.black, fontSize: 18.sp),
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Constants.MARGIN, vertical: 2.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(name,
+                  style:
+                      context.textTheme.bodyText1?.copyWith(fontSize: 16.sp)),
+              const Icon(Icons.keyboard_arrow_right),
+            ],
           ),
         ),
-      ),
+        !isLast
+            ? Container(
+                margin: EdgeInsets.symmetric(horizontal: 2.w),
+                height: 3.sp,
+                child: Divider(color: Colors.grey.withOpacity(.3)),
+              )
+            : const SizedBox.shrink()
+      ],
     );
   }
 }
