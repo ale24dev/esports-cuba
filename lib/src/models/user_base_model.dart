@@ -16,6 +16,9 @@ class UserBaseModel extends BaseModel {
   ///Imagen del usuario
   String image;
 
+  ///Correo del usuario
+  String email;
+
   ///Imagen del usuario
   @JsonKey(fromJson: Utils.parseDate)
   DateTime birthday;
@@ -26,6 +29,7 @@ class UserBaseModel extends BaseModel {
     required this.username,
     required this.image,
     required this.birthday,
+    required this.email,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`

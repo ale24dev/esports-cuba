@@ -41,7 +41,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           ]),
       body: BlocBuilder<FavoritesCubit, FavoritesState>(
         builder: (context, state) {
-          print("State" + state.runtimeType.toString());
           if (state is FavoritesLoaded) {
             apiResult = state.apiResult;
           }

@@ -1,7 +1,6 @@
 import 'package:auto_route/annotations.dart';
 
 import 'package:esports_cuba/src/feature/auth/views/login_screen.dart';
-import 'package:esports_cuba/src/feature/auth/views/register_user_screen.dart';
 import 'package:esports_cuba/src/feature/auth/views/signup_screen.dart';
 import 'package:esports_cuba/src/feature/favorites/views/favorite_screen.dart';
 import 'package:esports_cuba/src/feature/layout/views/layout_screen.dart';
@@ -28,7 +27,6 @@ class $AppRouter {}
     MaterialRoute(page: LayoutScreen),
     MaterialRoute(page: SignupScreen),
     MaterialRoute(page: FavoritesScreen),
-    MaterialRoute(page: RegisterUserScreen),
   ],
   replaceInRouteName: 'Page,Route',
 )

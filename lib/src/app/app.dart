@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -32,8 +33,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    print("1111111111");
-    _authSubscription = supabase.auth.onAuthStateChange.listen((data) {
+    /*_authSubscription = supabase.auth.onAuthStateChange.listen((data) {
       print("22222222222");
       final AuthChangeEvent event = data.event;
       final Session? session = data.session;
@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
       /* setState(() {
         _user = session?.user;
       });*/
-    });
+    });*/
     super.initState();
   }
 
@@ -77,6 +77,7 @@ class _MyAppState extends State<MyApp> {
           RepositoryProvider<NewsCubit>(create: (context) => NewsCubit()),
           RepositoryProvider<FavoritesCubit>(
               create: (context) => FavoritesCubit()),
+          RepositoryProvider<DrawerCubit>(create: (context) => DrawerCubit()),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

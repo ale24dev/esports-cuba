@@ -23,11 +23,11 @@ class FavoritesRepository {
           await _supabase.client.from('Favorites').select('''
           id, created_at,
           User (
-            id, username, image, birthday
+            id, username, image, birthday, email
           ),
           News (
             id, title, text, attachments, created_at, User (
-            id, username, image, birthday
+            id, username, image, birthday, email
           ))
           ''');
       for (var element in response) {
@@ -38,7 +38,6 @@ class FavoritesRepository {
       apiResult.responseObject = listFavorites;
       return apiResult;
     } catch (e) {
-      print("Error: " + e.toString());
       apiResult.message = e.toString();
       apiResult.error = e;
       return apiResult;

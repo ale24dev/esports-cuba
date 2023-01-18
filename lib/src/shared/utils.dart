@@ -1,5 +1,6 @@
 // ignore_for_file: unrelated_type_equality_checks
 
+import 'package:esports_cuba/src/shared/app_info.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
@@ -131,5 +132,13 @@ abstract class Utils {
     final RegExp regex = RegExp(
         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
     return regex.hasMatch(email);
+  }
+
+  /// Metodo para cerrar sesion
+  static void logOut(BuildContext context) async {
+    AppInfo? appInfo = await AppInfo.getInstace(context);
+
+    appInfo?.removeToken();
+    appInfo?.setUser(null);
   }
 }

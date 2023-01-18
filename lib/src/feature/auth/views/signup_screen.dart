@@ -1,6 +1,8 @@
+import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:esports_cuba/src/shared/utils.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'package:esports_cuba/locator.dart';
@@ -75,7 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             icon: const Icon(FontAwesomeIcons.at,
                                 size: 20, color: Colors.black),
                             textEditingController: email,
-                            authType: AuthType.name,
+                            authType: AuthType.email,
                           ),
                           GenericTextField(
                             hintText: context.loc.password,
@@ -89,7 +91,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             icon: const Icon(Icons.person,
                                 size: 20, color: Colors.black),
                             textEditingController: username,
-                            authType: AuthType.name,
+                            authType: AuthType.username,
                           ),
                           GestureDetector(
                             onTap: () async {
@@ -195,6 +197,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                             birthday: birthday!);
 
                                 if (apiResult.error == null) {
+                                  context.read<DrawerCubit>().getUser(context);
+
                                   context.router.replace(const LayoutScreen());
                                 } else {
                                   showDialog(

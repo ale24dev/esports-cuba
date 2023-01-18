@@ -4,7 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class GStyles {
   ///Colors
   static Color get colorPrimary => const Color.fromARGB(255, 156, 12, 12);
-  static Color get colorSecondary => const Color.fromRGBO(39, 81, 121, 1);
+  static Color get colorSecondary => Color.fromARGB(255, 14, 79, 139);
   static Color get colorSuccess => const Color.fromARGB(255, 17, 90, 20);
   static Color get colorFail => const Color.fromARGB(255, 156, 12, 12);
   static Color get colorInProgress => const Color.fromARGB(255, 21, 70, 116);

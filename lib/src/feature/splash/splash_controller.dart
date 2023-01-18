@@ -1,10 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 import 'package:esports_cuba/locator.dart';
 import 'package:esports_cuba/src/shared/app_info.dart';
@@ -20,9 +20,9 @@ class SplashController {
 
     ///Inicializamos la data
     await getInitialData(context);
-
     await serviceLocator<VersionRepository>().getVersion();
     if (_prefs.getString("token") != null) {
+      context.read<DrawerCubit>().getUser(context);
       context.router.replace(const LayoutScreen());
     } else {
       context.router.replace(const SignupScreen());
@@ -40,5 +40,8 @@ class SplashController {
 
     ///Cargamos todos los anuncios
     context.read<NewsCubit>().loadNews();
+
+    ///Cargamos la info del drawer
+    //context.read<DrawerCubit>().getUser(context);
   }
 }

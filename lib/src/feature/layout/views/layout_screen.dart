@@ -1,3 +1,5 @@
+import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
+import 'package:esports_cuba/src/feature/drawer/screens/drawer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -11,8 +13,19 @@ import 'package:esports_cuba/src/feature/layout/bloc/navigation_cubit.dart';
 import 'package:esports_cuba/src/feature/layout/constants/nav_bar_items.dart';
 import 'package:esports_cuba/src/feature/tournament/views/tournament_screen.dart';
 
-class LayoutScreen extends StatelessWidget {
+class LayoutScreen extends StatefulWidget {
   const LayoutScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LayoutScreen> createState() => _LayoutScreenState();
+}
+
+class _LayoutScreenState extends State<LayoutScreen> {
+  @override
+  void initState() {
+    context.read<DrawerCubit>().getUser(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +33,8 @@ class LayoutScreen extends StatelessWidget {
       create: (context) => NavigationCubit(),
       child: Material(
         child: Scaffold(
-          drawer: Drawer(
+          drawer: DrawerScreen(),
+          /*Drawer(
             child: ListView(
               children: <Widget>[
                 DrawerHeader(
@@ -49,7 +63,7 @@ class LayoutScreen extends StatelessWidget {
                 )
               ],
             ),
-          ),
+          ),*/
           appBar: Utils.appBarWidget(context: context, navigateBack: false),
           body: BlocBuilder<NavigationCubit, NavigationState>(
               builder: (context, state) {
@@ -176,7 +190,6 @@ class LayoutScreen extends StatelessWidget {
       ),
     );
   }*/
-
   Widget bottomNavIcon(String icon, {bool opacity = false}) {
     return Image.asset(
       icon,

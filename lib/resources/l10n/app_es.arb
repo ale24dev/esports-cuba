@@ -23,6 +23,7 @@
     "home": "Inicio",
     "loading": "Cargando",
     "logout": "Cerrar Sesión",
+    "logoutSuccessfully": "La sesión fue cerrada satisfactoriamente",
     "name": "Nombre",
     "open": "abierto",
     "password": "Contraseña",

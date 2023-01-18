@@ -3,8 +3,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:esports_cuba/src/models/user_base_model.dart';
-import 'package:esports_cuba/src/repositories/user_repository.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
+import 'package:esports_cuba/src/repositories/user_repository.dart';
 
 class AppInfo {
   static AppInfo? _appInfo;
@@ -25,27 +25,6 @@ class AppInfo {
   AppInfo._() {
     _token = '';
   }
-
-  /*Future<void> validateToken(BuildContext context) async {
-    try {
-      _user = await UserRepository().getUser(context, _token);
-      Future<SharedPreferences> preferences = SharedPreferences.getInstance();
-      final SharedPreferences prefs = await preferences;
-      prefs.setString('token', _token);
-    } catch (e) {
-      _user = null;
-      _token = '';
-      throw (e.toString());
-    }
-  }*/
-
-  /*Future<void> setUser(BuildContext context, String id) async {
-    ApiResult apiResult =
-        await serviceLocator<UserRepository>().getUserById(id);
-    if (apiResult.error == null) {
-      _user = apiResult.responseObject;
-    }
-  }*/
 
   static Future initialize(BuildContext context) async {
     UserRepository userRepository = UserRepository(Supabase.instance);

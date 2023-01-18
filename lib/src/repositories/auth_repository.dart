@@ -1,5 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
+import 'package:esports_cuba/locator.dart';
+import 'package:esports_cuba/src/models/user_base_model.dart';
+import 'package:esports_cuba/src/repositories/user_repository.dart';
+import 'package:esports_cuba/src/shared/app_info.dart';
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,11 +59,12 @@ class AuthRepository {
       required DateTime birthday}) async {
     ///Averiguar si el usuario esta repetido
     ///
-    final data = await _supabase.client.from('User').insert([
+    await _supabase.client.from('User').insert([
       {
         'id': id,
         'username': username,
-        'birthday': Utils.parseDateToTimestamp(birthday)
+        'birthday': Utils.parseDateToTimestamp(birthday),
+        'email': email
       },
     ]);
   }
@@ -77,5 +85,39 @@ class AuthRepository {
           print("nada");
       }
     });
+  }
+
+  Future<ApiResult> logIn(
+      {required BuildContext context,
+      required String email,
+      required String password,
+      required ApiResult apiResult}) async {
+    try {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      final AuthResponse res = await _supabase.client.auth.signInWithPassword(
+        email: email,
+        password: password,
+      );
+      final Session? session = res.session;
+
+      apiResult = await serviceLocator<UserRepository>()
+          .getUserByEmail(session!.user.email!);
+      sharedPreferences.setString("token", session.accessToken);
+      sharedPreferences.setString(
+          "username", apiResult.responseObject.username);
+
+      await AppInfo.getInstace(context);
+      return apiResult;
+    } catch (e) {
+      apiResult = ApiResult();
+      apiResult.error = e;
+      apiResult.message = e.toString();
+      return apiResult;
+    }
+  }
+
+  Future<void> logOut() async {
+    await _supabase.client.auth.signOut();
   }
 }

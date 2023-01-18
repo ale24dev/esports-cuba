@@ -12,6 +12,7 @@ UserBaseModel _$UserBaseModelFromJson(Map<String, dynamic> json) =>
       username: json['username'] as String,
       image: json['image'] as String,
       birthday: Utils.parseDate(json['birthday']),
+      email: json['email'] as String,
     );
 
 Map<String, dynamic> _$UserBaseModelToJson(UserBaseModel instance) =>
@@ -19,5 +20,6 @@ Map<String, dynamic> _$UserBaseModelToJson(UserBaseModel instance) =>
       'id': instance.id,
       'username': instance.username,
       'image': instance.image,
+      'email': instance.email,
       'birthday': instance.birthday.toIso8601String(),
     };

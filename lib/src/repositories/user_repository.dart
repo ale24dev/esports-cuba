@@ -28,6 +28,21 @@ class UserRepository {
     }
   }
 
+  Future<ApiResult> getUserByEmail(String email) async {
+    try {
+      final Map<String, dynamic> response =
+          await _supabase.client.from('User').select().eq('email', email).single();
+      UserBaseModel userBaseModel = UserBaseModel.fromJson(response);
+      apiResult.responseObject = userBaseModel;
+      return apiResult;
+    } catch (e) {
+      print("ERROR User Id: " + e.toString());
+      apiResult.message = e.toString();
+      apiResult.error = e.runtimeType;
+      return apiResult;
+    }
+  }
+
   Future<ApiResult> getUserByUsername(String username) async {
     try {
       final Map<String, dynamic> response = await _supabase.client

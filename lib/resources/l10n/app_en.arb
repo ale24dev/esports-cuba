@@ -23,6 +23,7 @@
     "home": "Home",
     "loading": "Loading",
     "logout": "Logout",
+    "logoutSuccessfully": "The session was closed successfully",
     "name": "Name",
     "open": "open",
     "password": "Password",

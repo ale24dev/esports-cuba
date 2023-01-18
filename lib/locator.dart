@@ -2,6 +2,7 @@ import 'package:esports_cuba/src/repositories/auth_repository.dart';
 import 'package:esports_cuba/src/repositories/favorites_repository.dart';
 import 'package:esports_cuba/src/repositories/news_repository.dart';
 import 'package:esports_cuba/src/repositories/tournament_repository.dart';
+import 'package:esports_cuba/src/repositories/user_repository.dart';
 import 'package:esports_cuba/src/repositories/version_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,4 +37,6 @@ void setUp() async {
 
   serviceLocator.registerLazySingleton<VersionRepository>(
       () => VersionRepository(supabase));
+  serviceLocator
+      .registerLazySingleton<UserRepository>(() => UserRepository(supabase));
 }

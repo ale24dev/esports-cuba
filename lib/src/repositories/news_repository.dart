@@ -17,7 +17,7 @@ class NewsRepository {
           await _supabase.client.from('News').select('''
           id, created_at, title, text, attachments,
           User (
-            id, username, image, birthday
+            id, username, image, birthday, email
             )
           ''');
       for (var element in response) {
