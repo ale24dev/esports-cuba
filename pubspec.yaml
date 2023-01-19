@@ -44,6 +44,7 @@ dependencies:
   #State Management
   flutter_bloc: ^8.1.1
   bloc: ^8.1.0
+  provider: ^6.0.5
 
    # Routing
   auto_route: ^4.2.1
@@ -73,6 +74,10 @@ dependencies:
   #DateAndCountryPicker
   date_time_picker: ^2.1.0
   csc_picker: ^0.2.6
+
+  #connectivity
+  connectivity_plus: ^3.0.2
+  internet_connection_checker: ^1.0.0+1
 
 
 dev_dependencies:
