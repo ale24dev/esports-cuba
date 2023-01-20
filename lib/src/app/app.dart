@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
     return ResponsiveSizer(builder: (context, orientation, screenType) {
       return MultiRepositoryProvider(
         providers: [
-          RepositoryProvider<AuthCubit>(create: (context) => AuthCubit()),
+          //RepositoryProvider<AuthCubit>(create: (context) => AuthCubit()),
           RepositoryProvider<GameCubit>(create: (context) => GameCubit()),
           RepositoryProvider<TournamentCubit>(
               create: (context) => TournamentCubit()),

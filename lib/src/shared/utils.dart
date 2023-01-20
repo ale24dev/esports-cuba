@@ -128,10 +128,16 @@ abstract class Utils {
   }
 
   ///Funcion para validar un email
-  bool isEmailValid(String email) {
+  static bool isEmailValid(String email) {
     final RegExp regex = RegExp(
         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
     return regex.hasMatch(email);
+  }
+
+  ///Funcion para validar un email
+  static bool isContainEmojis(String username) {
+    RegExp emoji = RegExp(r'[\uD800-\uDBFF][\uDC00-\uDFFF]');
+    return emoji.hasMatch(username);
   }
 
   /// Metodo para cerrar sesion

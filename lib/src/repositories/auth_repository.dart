@@ -22,8 +22,7 @@ class AuthRepository {
       {required String username,
       required String email,
       required String password,
-      required ApiResult apiResult,
-      required DateTime birthday}) async {
+      required ApiResult apiResult}) async {
     try {
       AuthResponse response =
           await _supabase.client.auth.signUp(email: email, password: password);
@@ -31,7 +30,6 @@ class AuthRepository {
       await createUser(
           id: response.user!.id,
           apiResult: ApiResult(),
-          birthday: birthday,
           email: email,
           username: username);
 
@@ -55,15 +53,13 @@ class AuthRepository {
       {required String id,
       required String email,
       required ApiResult apiResult,
-      required String username,
-      required DateTime birthday}) async {
+      required String username}) async {
     ///Averiguar si el usuario esta repetido
     ///
     await _supabase.client.from('User').insert([
       {
         'id': id,
         'username': username,
-        'birthday': Utils.parseDateToTimestamp(birthday),
         'email': email
       },
     ]);

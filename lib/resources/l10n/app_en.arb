@@ -29,6 +29,7 @@
     "noConnection": "No Connection",
     "open": "open",
     "password": "Password",
+    "passwordInvalid": "Password invalid",
     "phone": "Phone",
     "profile": "Profile",
     "register": "Register",
@@ -48,5 +49,6 @@
     "unexpectedError": "Unexpected Error",
     "user": "User",
     "username": "Username",
+    "usernameInvalid": "Username invalid",
     "wrongLogin": "Login Error"
 }

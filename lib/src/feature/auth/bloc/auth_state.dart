@@ -14,3 +14,5 @@ class AuthWithEmail extends AuthhState {
 
   UserState userState;
 }
+
+class AuthLoading extends AuthhState{}

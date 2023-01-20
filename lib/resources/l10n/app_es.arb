@@ -29,6 +29,7 @@
     "noConnection": "Sin Conexión",
     "open": "abierto",
     "password": "Contraseña",
+    "passwordInvalid": "Contraseña inválida",
     "phone": "Teléfono",
     "profile": "Perfil",
     "register": "Regístrate",
@@ -48,5 +49,6 @@
     "unexpectedError": "Error Inesperado",
     "user": "Usuario",
     "username": "Usuario",
+    "usernameInvalid": "Nombre de usuario inválido",
     "wrongLogin": "Error de Inicio de Sesión"
 }

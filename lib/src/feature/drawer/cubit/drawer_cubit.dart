@@ -1,26 +1,27 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
+import 'package:flutter/material.dart';
 import 'package:esports_cuba/locator.dart';
+import 'package:esports_cuba/src/shared/utils.dart';
+import 'package:esports_cuba/src/shared/app_info.dart';
+import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/resources/general_styles.dart';
 import 'package:esports_cuba/src/models/user_base_model.dart';
 import 'package:esports_cuba/src/repositories/auth_repository.dart';
 import 'package:esports_cuba/src/repositories/user_repository.dart';
-import 'package:esports_cuba/src/shared/app_info.dart';
-import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
-import 'package:esports_cuba/src/shared/utils.dart';
 import 'package:esports_cuba/src/shared/widgets/dialog_message.dart';
-import 'package:esports_cuba/src/shared/widgets/snack_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../route/app_router.gr.dart';
+
 part 'drawer_state.dart';
 
 class DrawerCubit extends Cubit<DrawerState> {

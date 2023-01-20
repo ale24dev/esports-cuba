@@ -1,3 +1,4 @@
+import 'package:esports_cuba/src/feature/auth/bloc/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -10,7 +11,7 @@ class GenericTextField extends StatefulWidget {
     Key? key,
     required this.hintText,
     required this.icon,
-    required this.textEditingController,
+    required this.bloc,
     required this.authType,
   }) : super(key: key);
 
@@ -20,11 +21,11 @@ class GenericTextField extends StatefulWidget {
   ///Icono a mostrar en el TextField.
   final Icon icon;
 
-  ///Valor introducido en  el TextField
-  final TextEditingController textEditingController;
-
   ///Tipo de textField.
   final AuthType authType;
+
+  ///Instancia del cubit
+  final AuthCubit bloc;
 
   @override
   State<GenericTextField> createState() => _GenericTextFieldState();
@@ -45,7 +46,9 @@ class _GenericTextFieldState extends State<GenericTextField> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: TextFormField(
-          controller: widget.textEditingController,
+          onChanged: widget.authType == AuthType.email
+              ? widget.bloc.changeEmail
+              : widget.bloc.changePassword,
           obscureText:
               widget.authType == AuthType.password && notVisiblePassword
                   ? true
@@ -55,6 +58,7 @@ class _GenericTextFieldState extends State<GenericTextField> {
               fontSize: 16.sp,
               fontFamily: GStyles.fontTeko),
           decoration: InputDecoration(
+              //counterText: snapshot.data.toString(),
               labelText: widget.hintText,
               labelStyle: const TextStyle(color: Colors.black),
               prefixIcon: widget.icon,

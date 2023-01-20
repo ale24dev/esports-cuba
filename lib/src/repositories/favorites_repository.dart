@@ -23,11 +23,11 @@ class FavoritesRepository {
           await _supabase.client.from('Favorites').select('''
           id, created_at,
           User (
-            id, username, image, birthday, email
+            id, username, image, email
           ),
           News (
             id, title, text, attachments, created_at, User (
-            id, username, image, birthday, email
+            id, username, image, email
           ))
           ''');
       for (var element in response) {

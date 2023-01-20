@@ -181,41 +181,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
       );
     });
   }
-
-  /* Widget drawerBuilder(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        children: [
-          GestureDetector(
-            child: Text(
-              'Auth',
-              style: context.textTheme.headline3!
-                  .copyWith(color: context.theme.primaryColor),
-            ),
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return const AuthScreen();
-              }));
-            },
-          ),
-          GestureDetector(
-            child: Text('Profile',
-                style: context.textTheme.headline3!
-                    .copyWith(color: context.theme.primaryColor)),
-            onTap: () async {
-              Navigator.of(context).pop();
-              await Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) {
-                return ProfileScreen(context);
-              }));
-            },
-          )
-        ],
-      ),
-    );
-  }*/
+  
   Widget bottomNavIcon(String icon, {bool opacity = false}) {
     return Image.asset(
       icon,

@@ -19,16 +19,10 @@ class UserBaseModel extends BaseModel {
   ///Correo del usuario
   String email;
 
-  ///Imagen del usuario
-  @JsonKey(fromJson: Utils.parseDate)
-  DateTime birthday;
-
-
   UserBaseModel({
     required this.id,
     required this.username,
     required this.image,
-    required this.birthday,
     required this.email,
   });
 
