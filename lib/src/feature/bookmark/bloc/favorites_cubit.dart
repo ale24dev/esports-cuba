@@ -9,13 +9,13 @@ import 'package:esports_cuba/src/repositories/favorites_repository.dart';
 
 part 'favorites_state.dart';
 
-class FavoritesCubit extends Cubit<FavoritesState> {
-  FavoritesCubit() : super(FavoritesInitial());
+class BookmarkCubit extends Cubit<BookmarkState> {
+  BookmarkCubit() : super(FavoritesInitial());
 
   // void loadFavoritesByUser(UserBaseModel userBaseModel) async {
   void loadFavoritesByUser() async {
     emit(FavoritesLoading());
-    ApiResult apiResult = await serviceLocator<FavoritesRepository>()
+    ApiResult apiResult = await serviceLocator<BookmarkRepository>()
         // .getFavoritesByUser(userBaseModel);
         .getFavoritesByUser();
     if (apiResult.error == null) {
@@ -31,10 +31,10 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     AppInfo? appInfo = await AppInfo.getInstace(context);
     if (appInfo != null) {
       emit(FavoritesLoading());
-      await serviceLocator<FavoritesRepository>()
+      await serviceLocator<BookmarkRepository>()
           .addNewsToFavoriteOfUser(newsBaseModel, appInfo);
 
-      ApiResult apiResult = await serviceLocator<FavoritesRepository>()
+      ApiResult apiResult = await serviceLocator<BookmarkRepository>()
           .getFavoritesByUser();
 
       if (apiResult.error == null) {

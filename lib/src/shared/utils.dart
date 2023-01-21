@@ -40,9 +40,9 @@ abstract class Utils {
   }
 
   static dynamic getColorByTournamentState(TournamentBaseModel tournament) {
-    if (tournament.tournamentState.state == "open") {
+    if (tournament.tournamentState!.state == "open") {
       return GStyles.colorSuccess;
-    } else if (tournament.tournamentState.state == "closed") {
+    } else if (tournament.tournamentState!.state == "closed") {
       return GStyles.colorInProgress;
     } else {
       return GStyles.colorFail;

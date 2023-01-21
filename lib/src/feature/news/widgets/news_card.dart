@@ -1,5 +1,5 @@
 import 'package:esports_cuba/constants.dart';
-import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/bookmark/bloc/favorites_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -117,7 +117,7 @@ class NewsCard extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 context
-                    .read<FavoritesCubit>()
+                    .read<BookmarkCubit>()
                     .addNewsToFavoriteOfUser(newsBaseModel, context);
               },
               child: Row(

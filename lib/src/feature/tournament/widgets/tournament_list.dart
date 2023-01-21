@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,8 @@ import 'package:esports_cuba/resources/general_styles.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/models/tournament_base_model.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
+
+import '../../../route/app_router.gr.dart';
 
 class TournamentList extends StatelessWidget {
   late ApiResult apiResult;
@@ -44,38 +47,43 @@ class TournamentList extends StatelessWidget {
     );
   }
 
-  Column tournamentCard(
+  Widget tournamentCard(
       TournamentBaseModel tournament, BuildContext context, int index) {
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5.0),
-              color: GStyles.containerDarkColor,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                imageCard(tournament),
-                nameAndEdition(tournament, context),
-                dateAndTime(tournament, context),
-                SizedBox(height: 1.h),
-                prizepoolAndState(tournament, context),
-                SizedBox(height: 1.h),
-              ],
+    return InkWell(
+      onTap: () {
+        context.router.push(TournamentDetails(tournamentBaseModel: tournament));
+      },
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.h),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.0),
+                color: GStyles.containerDarkColor,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  imageCard(tournament),
+                  nameAndEdition(tournament, context),
+                  dateAndTime(tournament, context),
+                  SizedBox(height: 1.h),
+                  prizepoolAndState(tournament, context),
+                  SizedBox(height: 1.h),
+                ],
+              ),
             ),
           ),
-        ),
-        index != apiResult.responseObject.length - 1
-            ? Container(
-                margin: EdgeInsets.symmetric(horizontal: 10.w),
-                child: const Divider(
-                  color: Colors.white10,
-                ))
-            : const SizedBox.shrink()
-      ],
+          index != apiResult.responseObject.length - 1
+              ? Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10.w),
+                  child: const Divider(
+                    color: Colors.white10,
+                  ))
+              : const SizedBox.shrink()
+        ],
+      ),
     );
   }
 
@@ -148,12 +156,12 @@ class TournamentList extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                       color: Utils.getColorByTournamentState(tournament),
-                      borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(5.0)),
                   child: Padding(
-                    padding: EdgeInsets.all(10.sp),
+                    padding: EdgeInsets.all(12.sp),
                     child: Text(
                       Utils.getNameStateByLocale(
-                              context, tournament.tournamentState)
+                              context, tournament.tournamentState!)
                           .toUpperCase(),
                       textAlign: TextAlign.center,
                       style: context.textTheme.bodyText1

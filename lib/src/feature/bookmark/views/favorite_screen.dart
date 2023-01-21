@@ -8,8 +8,8 @@ import 'package:esports_cuba/src/shared/loading_app.dart';
 import 'package:esports_cuba/src/models/favorites_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
-import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
-import 'package:esports_cuba/src/feature/favorites/views/widgets/favorites_card.dart';
+import 'package:esports_cuba/src/feature/bookmark/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/bookmark/views/widgets/favorites_card.dart';
 
 class FavoritesScreen extends StatefulWidget {
   FavoritesScreen({super.key});
@@ -21,7 +21,7 @@ class FavoritesScreen extends StatefulWidget {
 class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   void initState() {
-    BlocProvider.of<FavoritesCubit>(context).loadFavoritesByUser();
+    BlocProvider.of<BookmarkCubit>(context).loadFavoritesByUser();
     super.initState();
   }
 
@@ -39,7 +39,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 padding: EdgeInsets.only(right: 2.w),
                 child: Center(child: Text("Eliminar todo")))
           ]),
-      body: BlocBuilder<FavoritesCubit, FavoritesState>(
+      body: BlocBuilder<BookmarkCubit, BookmarkState>(
         builder: (context, state) {
           if (state is FavoritesLoaded) {
             apiResult = state.apiResult;

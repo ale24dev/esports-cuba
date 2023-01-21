@@ -15,14 +15,20 @@ TournamentBaseModel _$TournamentBaseModelFromJson(Map<String, dynamic> json) =>
       createdAt: Utils.parseDate(json['created_at']),
       imageLogo: json['image_logo'] as String,
       imageHeader: json['image_header'] as String,
-      description: json['description'] as String?,
-      tournamentType: TournamentTypeBaseModel.fromJson(
-          json['TournamentType'] as Map<String, dynamic>),
-      game: GameBaseModel.fromJson(json['Game'] as Map<String, dynamic>),
+      description: json['description'] as String,
+      tournamentType: json['TournamentType'] == null
+          ? null
+          : TournamentTypeBaseModel.fromJson(
+              json['TournamentType'] as Map<String, dynamic>),
+      game: json['Game'] == null
+          ? null
+          : GameBaseModel.fromJson(json['Game'] as Map<String, dynamic>),
       maxTeams: json['max_teams'] as int?,
       quantityGroups: json['quantity_groups'] as int?,
-      tournamentState: TournamentStateBaseModel.fromJson(
-          json['TournamentState'] as Map<String, dynamic>),
+      tournamentState: json['TournamentState'] == null
+          ? null
+          : TournamentStateBaseModel.fromJson(
+              json['TournamentState'] as Map<String, dynamic>),
       winners: json['Winners'] == null
           ? null
           : WinnersBaseModel.fromJson(json['Winners'] as Map<String, dynamic>),
@@ -41,9 +47,9 @@ Map<String, dynamic> _$TournamentBaseModelToJson(
       'image_header': instance.imageHeader,
       'quantity_groups': instance.quantityGroups,
       'max_teams': instance.maxTeams,
-      'TournamentType': instance.tournamentType.toJson(),
-      'TournamentState': instance.tournamentState.toJson(),
-      'Game': instance.game.toJson(),
+      'TournamentType': instance.tournamentType?.toJson(),
+      'TournamentState': instance.tournamentState?.toJson(),
+      'Game': instance.game?.toJson(),
       'Winners': instance.winners?.toJson(),
       'prizepool': instance.prizepool,
       'created_at': instance.createdAt.toIso8601String(),

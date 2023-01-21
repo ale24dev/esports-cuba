@@ -13,8 +13,16 @@ class TournamentLoading extends TournamentState {}
 
 class TournamentEmpty extends TournamentState {}
 
+class TournamentError extends TournamentState {
+  final ApiResult apiResult;
+
+  const TournamentError({required this.apiResult});
+}
+
 class TournamentLoaded extends TournamentState {
   final ApiResult apiResult;
 
   const TournamentLoaded({required this.apiResult});
 }
+
+

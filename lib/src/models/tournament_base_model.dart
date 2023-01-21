@@ -24,7 +24,7 @@ class TournamentBaseModel extends BaseModel {
   bool active;
 
   //Descripción del torneo
-  String? description;
+  String description;
 
   //Logo del torneo
   @JsonKey(name: "image_logo")
@@ -44,15 +44,15 @@ class TournamentBaseModel extends BaseModel {
 
   //Tipo de torneo
   @JsonKey(name: "TournamentType")
-  TournamentTypeBaseModel tournamentType;
+  TournamentTypeBaseModel? tournamentType;
 
   //Tipo de torneo
   @JsonKey(name: "TournamentState")
-  TournamentStateBaseModel tournamentState;
+  TournamentStateBaseModel? tournamentState;
 
   //Juego perteneciente al torneo
   @JsonKey(name: "Game")
-  GameBaseModel game;
+  GameBaseModel? game;
 
   //Ganadores del torneo
   @JsonKey(name: "Winners")
@@ -73,7 +73,7 @@ class TournamentBaseModel extends BaseModel {
     required this.createdAt,
     required this.imageLogo,
     required this.imageHeader,
-    this.description,
+    required this.description,
     required this.tournamentType,
     required this.game,
     required this.maxTeams,

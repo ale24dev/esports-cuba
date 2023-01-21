@@ -6,10 +6,10 @@ import 'package:esports_cuba/src/models/news_base_model.dart';
 import 'package:esports_cuba/src/models/favorites_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 
-class FavoritesRepository {
+class BookmarkRepository {
   final Supabase _supabase;
   late ApiResult apiResult;
-  FavoritesRepository(this._supabase) {
+  BookmarkRepository(this._supabase) {
     apiResult = ApiResult();
   }
 
@@ -20,7 +20,7 @@ class FavoritesRepository {
     try {
       List<FavoritesBaseModel> listFavorites = [];
       final List<dynamic> response =
-          await _supabase.client.from('Favorites').select('''
+          await _supabase.client.from('Bookmark').select('''
           id, created_at,
           User (
             id, username, image, email
@@ -48,7 +48,7 @@ class FavoritesRepository {
   Future<void> addNewsToFavoriteOfUser(
       NewsBaseModel newsBaseModel, AppInfo appInfo) async {
     try {
-      final dynamic response = await _supabase.client.from('Favorites').insert([
+      final dynamic response = await _supabase.client.from('Bookmark').insert([
         {'user': appInfo.user!.id, 'news': newsBaseModel.id},
       ]);
     } catch (e) {

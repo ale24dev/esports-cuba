@@ -52,12 +52,16 @@ class CategoryGames extends StatelessWidget {
                                           index + 1 == state.indexSelected)
                                 ],
                               )
-                            : GameCard(
-                                gameBaseModel: gameBaseModel,
-                                index: index + 1,
-                                apiResult: apiResultGame,
-                                selected: state is GameLoaded &&
-                                    index + 1 == state.indexSelected);
+                            : Row(
+                              children: [
+                                GameCard(
+                                    gameBaseModel: gameBaseModel,
+                                    index: index + 1,
+                                    apiResult: apiResultGame,
+                                    selected: state is GameLoaded &&
+                                        index + 1 == state.indexSelected),
+                              ],
+                            );
                       },
                     ),
                   ),
@@ -95,12 +99,12 @@ class GameCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
               color:
-                  selected ? GStyles.colorPrimary : GStyles.backGroundDarkColor,
-              borderRadius: BorderRadius.circular(10),
+                  selected ? GStyles.colorPrimary : GStyles.containerDarkColor,
+              borderRadius: BorderRadius.circular(5.0),
               boxShadow: const [
-                BoxShadow(color: Colors.black12, blurRadius: 4, spreadRadius: 4)
+                BoxShadow(color: Colors.black12, blurRadius: 2, spreadRadius: 2)
               ]),
-          margin: EdgeInsets.symmetric(vertical: 2.h, horizontal: 5.w),
+          margin: EdgeInsets.symmetric(vertical: 1.h, horizontal: 2.w),
           child: Padding(
             padding: EdgeInsets.all(12.sp),
             child: Text(gameBaseModel == null ? "Todos" : gameBaseModel!.name,
