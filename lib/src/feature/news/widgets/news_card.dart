@@ -1,5 +1,4 @@
 import 'package:esports_cuba/constants.dart';
-import 'package:esports_cuba/src/feature/bookmark/bloc/favorites_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -12,6 +11,7 @@ import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/src/route/app_router.gr.dart';
 import 'package:esports_cuba/resources/general_styles.dart';
 import 'package:esports_cuba/src/models/news_base_model.dart';
+import 'package:esports_cuba/src/feature/bookmark/bloc/bookmark_cubit.dart';
 
 class NewsCard extends StatelessWidget {
   const NewsCard({
@@ -118,15 +118,18 @@ class NewsCard extends StatelessWidget {
               onTap: () {
                 context
                     .read<BookmarkCubit>()
-                    .addNewsToFavoriteOfUser(newsBaseModel, context);
+                    .addBookmarkToUser(newsBaseModel, context);
               },
               child: Row(
                 children: [
                   FaIcon(FontAwesomeIcons.bookmark, size: 17.sp),
                   SizedBox(width: 2.w),
-                  Text(context.loc.save.toUpperCase(),
-                      style: context.textTheme.bodyText1
-                          ?.copyWith(fontSize: 14.sp))
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(context.loc.save.toUpperCase(),
+                        style: context.textTheme.bodyText1
+                            ?.copyWith(fontSize: 14.sp)),
+                  )
                 ],
               ),
             ),
