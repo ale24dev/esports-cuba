@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'favorites_base_model.dart';
+part of 'bookmark_base_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-FavoritesBaseModel _$FavoritesBaseModelFromJson(Map<String, dynamic> json) =>
-    FavoritesBaseModel(
+BookmarkBaseModel _$BookmarkBaseModelFromJson(Map<String, dynamic> json) =>
+    BookmarkBaseModel(
       id: json['id'] as int,
       userBaseModel:
           UserBaseModel.fromJson(json['User'] as Map<String, dynamic>),
@@ -15,7 +15,7 @@ FavoritesBaseModel _$FavoritesBaseModelFromJson(Map<String, dynamic> json) =>
           NewsBaseModel.fromJson(json['News'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$FavoritesBaseModelToJson(FavoritesBaseModel instance) =>
+Map<String, dynamic> _$BookmarkBaseModelToJson(BookmarkBaseModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'User': instance.userBaseModel.toJson(),

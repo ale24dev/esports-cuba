@@ -92,7 +92,7 @@ abstract class Utils {
                 child: IconButton(
                   icon: const Icon(Icons.person),
                   onPressed: (() {
-                    context.router.push(FavoritesScreen());
+                    
                   }),
                 ))
           ],

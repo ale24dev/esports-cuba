@@ -25,7 +25,7 @@ class SplashScreen extends StatelessWidget {
         // ),
         body: Stack(
       children: [
-        Image.asset(Images.wallpaper, fit: BoxFit.fitWidth, width: 100.w),
+        Image.asset(Images.wallpaper, fit: BoxFit.cover, width: 100.w),
         Opacity(
             opacity: .4,
             child: Container(height: 100.h, width: 100.w, color: Colors.black)),

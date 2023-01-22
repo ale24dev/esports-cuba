@@ -4,17 +4,17 @@ import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/src/shared/utils.dart';
 import 'package:flutter/material.dart';
 
-import 'package:esports_cuba/src/models/favorites_base_model.dart';
+import 'package:esports_cuba/src/models/bookmark_base_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class FavoritesCard extends StatelessWidget {
-  const FavoritesCard({
+class BookmarkCard extends StatelessWidget {
+  const BookmarkCard({
     Key? key,
-    required this.favoritesBaseModel,
+    required this.bookmarkBaseModel,
   }) : super(key: key);
 
-  final FavoritesBaseModel favoritesBaseModel;
+  final BookmarkBaseModel bookmarkBaseModel;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class FavoritesCard extends StatelessWidget {
                   SizedBox(
                     width: 60.w,
                     child: Text(
-                      favoritesBaseModel.newsBaseModel.title,
+                      bookmarkBaseModel.newsBaseModel.title,
                       softWrap: true,
                       style: context.textTheme.bodyText1?.copyWith(
                           fontSize: 17.sp,
@@ -44,7 +44,7 @@ class FavoritesCard extends StatelessWidget {
                   SizedBox(width: 8.sp),
                   Expanded(
                     child: Image.network(
-                      favoritesBaseModel.newsBaseModel.attachments[0],
+                      bookmarkBaseModel.newsBaseModel.attachments[0],
                       fit: BoxFit.cover,
                     ),
                   )
@@ -53,7 +53,7 @@ class FavoritesCard extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.sp),
                 child: Text(
-                    "${Utils.getDate(favoritesBaseModel.newsBaseModel.createdAt)} - ${favoritesBaseModel.userBaseModel.username}",
+                    "${Utils.getDate(bookmarkBaseModel.newsBaseModel.createdAt)} - ${bookmarkBaseModel.userBaseModel.username}",
                     style: context.textTheme.bodyText1
                         ?.copyWith(fontSize: 14.sp, color: Colors.white38)),
               ),

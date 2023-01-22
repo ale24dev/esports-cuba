@@ -16,7 +16,7 @@ import 'package:flutter/material.dart' as _i9;
 
 import '../feature/auth/views/login_screen.dart' as _i4;
 import '../feature/auth/views/signup_screen.dart' as _i6;
-import '../feature/bookmark/views/favorite_screen.dart' as _i7;
+import '../feature/bookmark/views/bookmark_screen.dart' as _i7;
 import '../feature/layout/views/layout_screen.dart' as _i5;
 import '../feature/news/view/news_details.dart' as _i2;
 import '../feature/splash/views/splash_screen.dart' as _i1;
@@ -78,12 +78,10 @@ class AppRouter extends _i8.RootStackRouter {
         child: const _i6.SignupScreen(),
       );
     },
-    FavoritesScreen.name: (routeData) {
-      final args = routeData.argsAs<FavoritesScreenArgs>(
-          orElse: () => const FavoritesScreenArgs());
+    BookmarkScreen.name: (routeData) {
       return _i8.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i7.FavoritesScreen(key: args.key),
+        child: const _i7.BookmarkScreen(),
       );
     },
   };
@@ -115,7 +113,7 @@ class AppRouter extends _i8.RootStackRouter {
           path: '/signup-screen',
         ),
         _i8.RouteConfig(
-          FavoritesScreen.name,
+          BookmarkScreen.name,
           path: '/bookmark-screen',
         ),
       ];
@@ -238,25 +236,13 @@ class SignupScreen extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.FavoritesScreen]
-class FavoritesScreen extends _i8.PageRouteInfo<FavoritesScreenArgs> {
-  FavoritesScreen({_i9.Key? key})
+/// [_i7.BookmarkScreen]
+class BookmarkScreen extends _i8.PageRouteInfo<void> {
+  const BookmarkScreen()
       : super(
-          FavoritesScreen.name,
+          BookmarkScreen.name,
           path: '/bookmark-screen',
-          args: FavoritesScreenArgs(key: key),
         );
 
-  static const String name = 'FavoritesScreen';
-}
-
-class FavoritesScreenArgs {
-  const FavoritesScreenArgs({this.key});
-
-  final _i9.Key? key;
-
-  @override
-  String toString() {
-    return 'FavoritesScreenArgs{key: $key}';
-  }
+  static const String name = 'BookmarkScreen';
 }

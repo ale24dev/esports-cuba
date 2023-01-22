@@ -43,60 +43,62 @@ class _TournamentDetailsState extends State<TournamentDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          ImageHeaderSection(
-              HEADER_TOURNAMENT_IMAGE: HEADER_TOURNAMENT_IMAGE,
-              tournament: widget.tournamentBaseModel),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            CategoryTournamentDetailsCard(
-              title: context.loc.information,
-              category: CategoryTournamentDetailsEnum.information,
-              selected:
-                  CategoryTournamentDetailsEnum.information == categorySelected,
-              callback: voidCallback,
+      body: SafeArea(
+        child: Column(
+          children: [
+            ImageHeaderSection(
+                HEADER_TOURNAMENT_IMAGE: HEADER_TOURNAMENT_IMAGE,
+                tournament: widget.tournamentBaseModel),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              CategoryTournamentDetailsCard(
+                title: context.loc.information,
+                category: CategoryTournamentDetailsEnum.information,
+                selected:
+                    CategoryTournamentDetailsEnum.information == categorySelected,
+                callback: voidCallback,
+              ),
+              CategoryTournamentDetailsCard(
+                title: context.loc.participants,
+                category: CategoryTournamentDetailsEnum.participants,
+                selected: CategoryTournamentDetailsEnum.participants ==
+                    categorySelected,
+                callback: voidCallback,
+              ),
+              CategoryTournamentDetailsCard(
+                title: context.loc.calendar,
+                category: CategoryTournamentDetailsEnum.calendar,
+                selected:
+                    CategoryTournamentDetailsEnum.calendar == categorySelected,
+                callback: voidCallback,
+              ),
+            ]),
+            BlocBuilder<TournamentDetailsCubit, TournamentDetailsState>(
+              builder: (context, state) {
+                if (state is TournamentDetailsLoading) {
+                  return const LoadingApp();
+                } else if (state is TournamentDetailsError) {
+                  return Center(
+                      child: Text(state.apiResult.message.toString(),
+                          style: context.textTheme.bodyText1));
+                } else if (state is TournamentDetailsEmpty) {
+                  return Center(
+                      child: Text(context.loc.emptyTeamsTournament,
+                          style: context.textTheme.bodyText1));
+                } else if (state is TournamentDetailsLoaded) {
+                  ///Mostramos el widget
+                  return TournamentDetailsWidget(
+                      listTeamTournaments: state.apiResult.responseObject,
+                      tournament: widget.tournamentBaseModel,
+                      category: categorySelected);
+                } else {
+                  return Center(
+                      child: Text(context.loc.unexpectedError,
+                          style: context.textTheme.bodyText1));
+                }
+              },
             ),
-            CategoryTournamentDetailsCard(
-              title: context.loc.participants,
-              category: CategoryTournamentDetailsEnum.participants,
-              selected: CategoryTournamentDetailsEnum.participants ==
-                  categorySelected,
-              callback: voidCallback,
-            ),
-            CategoryTournamentDetailsCard(
-              title: context.loc.calendar,
-              category: CategoryTournamentDetailsEnum.calendar,
-              selected:
-                  CategoryTournamentDetailsEnum.calendar == categorySelected,
-              callback: voidCallback,
-            ),
-          ]),
-          BlocBuilder<TournamentDetailsCubit, TournamentDetailsState>(
-            builder: (context, state) {
-              if (state is TournamentDetailsLoading) {
-                return const LoadingApp();
-              } else if (state is TournamentDetailsError) {
-                return Center(
-                    child: Text(state.apiResult.message.toString(),
-                        style: context.textTheme.bodyText1));
-              } else if (state is TournamentDetailsEmpty) {
-                return Center(
-                    child: Text(context.loc.emptyTeamsTournament,
-                        style: context.textTheme.bodyText1));
-              } else if (state is TournamentDetailsLoaded) {
-                ///Mostramos el widget
-                return TournamentDetailsWidget(
-                    listTeamTournaments: state.apiResult.responseObject,
-                    tournament: widget.tournamentBaseModel,
-                    category: categorySelected);
-              } else {
-                return Center(
-                    child: Text(context.loc.unexpectedError,
-                        style: context.textTheme.bodyText1));
-              }
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

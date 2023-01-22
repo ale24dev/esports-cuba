@@ -123,8 +123,6 @@ class _LayoutScreenState extends State<LayoutScreen> {
           currentIndex: state.index,
           selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white.withOpacity(0.5),
-          selectedLabelStyle: context.textTheme.subtitle1,
-          unselectedLabelStyle: context.textTheme.subtitle2,
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
@@ -181,7 +179,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
       );
     });
   }
-  
+
   Widget bottomNavIcon(String icon, {bool opacity = false}) {
     return Image.asset(
       icon,
@@ -195,9 +193,11 @@ class _LayoutScreenState extends State<LayoutScreen> {
         context: context,
         builder: (BuildContext context) => AlertDialog(
           backgroundColor: GStyles.backGroundDarkColor,
-          title: Text(context.loc.noConnection, style: context.textTheme.bodyText1?.copyWith(fontSize: 16.sp)),
+          title: Text(context.loc.noConnection,
+              style: context.textTheme.bodyText1?.copyWith(fontSize: 16.sp)),
           //content:  Text(context.loc.checkConnection, style: context.textTheme.bodyText1?.copyWith(fontSize: 16.sp)),
-          content:  Text(context.loc.checkConnection, style: TextStyle(color: Colors.white)),
+          content: Text(context.loc.checkConnection,
+              style: TextStyle(color: Colors.white)),
           actions: <Widget>[
             TextButton(
               onPressed: () async {
@@ -210,7 +210,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
                   setState(() => isAlertSet = true);
                 }
               },
-              child: Text(context.loc.accept, style: context.textTheme.bodyText1?.copyWith(fontSize: 16.sp)),
+              child: Text(context.loc.accept,
+                  style:
+                      context.textTheme.bodyText1?.copyWith(fontSize: 16.sp)),
             ),
           ],
         ),

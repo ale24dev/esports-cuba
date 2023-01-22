@@ -7,7 +7,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 import 'package:flutter/material.dart';
 import 'package:esports_cuba/locator.dart';
 import 'package:esports_cuba/src/shared/utils.dart';
@@ -37,6 +36,10 @@ class DrawerCubit extends Cubit<DrawerState> {
       SharedPreferences _prefs = await SharedPreferences.getInstance();
       ApiResult apiResult = await serviceLocator<UserRepository>()
           .getUserByUsername(_prefs.getString("username").toString());
+
+      ///Inicializamos el user y el token en el AppInfo
+      appInfo!.setUser(apiResult.responseObject);
+      appInfo!.setToken(_prefs.getString("token").toString());
       emit(DrawerLoaded(userBaseModel: apiResult.responseObject));
     } else {
       _user = appInfo?.user;

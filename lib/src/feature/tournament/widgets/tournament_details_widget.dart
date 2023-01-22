@@ -54,7 +54,7 @@ class TournamentDetailsWidget extends StatelessWidget {
           ),
         ));
 
-      default:
+      case CategoryTournamentDetailsEnum.participants:
         return Expanded(
             child: Padding(
           padding:
@@ -66,49 +66,76 @@ class TournamentDetailsWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5.0)),
             child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: Constants.MARGIN),
-                child: ListView.builder(
-                  itemCount: listTeamTournaments.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          color: index % 2 == 0
-                              ? GStyles.backGroundDarkColor
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.circular(5.0)),
-                      child: Padding(
-                        padding: EdgeInsets.all(8.sp),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Image.network(
-                                  listTeamTournaments[index]
-                                      .team!
-                                      .imageLogo
-                                      .toString(),
-                                  height: 30.sp,
-                                ),
-                                SizedBox(width: 1.w),
-                                Text(listTeamTournaments[index].team!.name,
-                                    style: context.textTheme.bodyText1
-                                        ?.copyWith(
-                                            fontSize: 16.sp,
-                                            fontFamily:
-                                                GStyles.fontSanFrancisco)),
-                              ],
+                child: listTeamTournaments.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: listTeamTournaments.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                color: index % 2 == 0
+                                    ? GStyles.backGroundDarkColor
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(5.0)),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.sp),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Image.network(
+                                        listTeamTournaments[index]
+                                            .team!
+                                            .imageLogo
+                                            .toString(),
+                                        height: 30.sp,
+                                      ),
+                                      SizedBox(width: 1.w),
+                                      Text(
+                                          listTeamTournaments[index].team!.name,
+                                          style: context.textTheme.bodyText1
+                                              ?.copyWith(
+                                                  fontSize: 16.sp,
+                                                  fontFamily: GStyles
+                                                      .fontSanFrancisco)),
+                                    ],
+                                  ),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon:
+                                          const FaIcon(FontAwesomeIcons.heart))
+                                ],
+                              ),
                             ),
-                            IconButton(
-                                onPressed: () {},
-                                icon: const FaIcon(FontAwesomeIcons.heart))
-                          ],
+                          );
+                        },
+                      )
+                    : Center(
+                        child: FittedBox(
+                          child: Text(context.loc.emptyParticipants,
+                              style: context.textTheme.bodyText1),
                         ),
-                      ),
-                    );
-                  },
-                )),
+                      )),
           ),
         ));
+      default:
+        return Expanded(
+          child: Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: Constants.MARGIN, vertical: 2.h),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: GStyles.containerDarkColor,
+                  borderRadius: BorderRadius.circular(5.0)),
+              child: Center(
+                  child: FittedBox(
+                      child: Text(context.loc.calendar,
+                          style: context.textTheme.bodyText1))),
+            ),
+          ),
+        );
     }
   }
 }

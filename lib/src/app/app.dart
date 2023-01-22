@@ -11,7 +11,7 @@ import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
 import 'package:esports_cuba/src/route/app_router.gr.dart';
 import 'package:esports_cuba/src/feature/news/bloc/news_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/game_cubit.dart';
-import 'package:esports_cuba/src/feature/bookmark/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/bookmark/bloc/bookmark_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_details/tournament_details_cubit.dart';
 
@@ -97,7 +97,7 @@ class _MyAppState extends State<MyApp> {
             // Locale('en', 'US'). If we do that, we may want to
             // provide an additional app_en_US.arb file for
             // region-specific translations.
-            // Locale('en', ''),
+            Locale('en', ''),
             Locale('es', ''),
           ],
           title: 'Esports Cuba',

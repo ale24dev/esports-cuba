@@ -5,47 +5,47 @@ import 'package:esports_cuba/locator.dart';
 import 'package:esports_cuba/src/shared/app_info.dart';
 import 'package:esports_cuba/src/models/news_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
-import 'package:esports_cuba/src/repositories/favorites_repository.dart';
+import 'package:esports_cuba/src/repositories/bookmark_repository.dart';
+import 'package:flutter/cupertino.dart';
 
-part 'favorites_state.dart';
+part 'bookmark_state.dart';
 
 class BookmarkCubit extends Cubit<BookmarkState> {
-  BookmarkCubit() : super(FavoritesInitial());
+  BookmarkCubit() : super(BookmarkInitial());
 
-  // void loadFavoritesByUser(UserBaseModel userBaseModel) async {
-  void loadFavoritesByUser() async {
-    emit(FavoritesLoading());
+  // void loadBookmarkByUser(UserBaseModel userBaseModel) async {
+  void loadBookmarkByUser(BuildContext context) async {
+    emit(BookmarkLoading());
     ApiResult apiResult = await serviceLocator<BookmarkRepository>()
-        // .getFavoritesByUser(userBaseModel);
-        .getFavoritesByUser();
+        .getBookmarksByUser(context);
     if (apiResult.error == null) {
       if (apiResult.responseObject.length == 0) {
-        emit(FavoritesEmpty());
+        emit(BookmarkEmpty());
       } else {
-        emit(FavoritesLoaded(apiResult: apiResult));
+        emit(BookmarkLoaded(apiResult: apiResult));
       }
     }
   }
 
-  void addNewsToFavoriteOfUser(NewsBaseModel newsBaseModel, context) async {
+  void addBookmarkToUser(NewsBaseModel newsBaseModel, context) async {
     AppInfo? appInfo = await AppInfo.getInstace(context);
     if (appInfo != null) {
-      emit(FavoritesLoading());
+      emit(BookmarkLoading());
       await serviceLocator<BookmarkRepository>()
-          .addNewsToFavoriteOfUser(newsBaseModel, appInfo);
+          .addBookmarkToUser(newsBaseModel, appInfo);
 
       ApiResult apiResult = await serviceLocator<BookmarkRepository>()
-          .getFavoritesByUser();
+          .getBookmarksByUser(context);
 
       if (apiResult.error == null) {
         if (apiResult.responseObject.length == 0) {
-          FavoritesEmpty();
+          BookmarkEmpty();
         } else {
-          emit(FavoritesLoaded(apiResult: apiResult));
+          emit(BookmarkLoaded(apiResult: apiResult));
         }
       }
     } else {
-      emit(FavoritesError());
+      emit(BookmarkError());
     }
   }
 }

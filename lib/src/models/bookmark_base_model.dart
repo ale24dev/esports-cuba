@@ -4,10 +4,10 @@ import 'package:esports_cuba/src/models/base_model.dart';
 import 'package:esports_cuba/src/models/user_base_model.dart';
 import 'package:esports_cuba/src/models/news_base_model.dart';
 
-part 'favorites_base_model.g.dart';
+part 'bookmark_base_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class FavoritesBaseModel extends BaseModel {
+class BookmarkBaseModel extends BaseModel {
   ///Identificador
   int id;
 
@@ -19,13 +19,13 @@ class FavoritesBaseModel extends BaseModel {
   @JsonKey(name: "News")
   NewsBaseModel newsBaseModel;
 
-  FavoritesBaseModel(
+  BookmarkBaseModel(
       {required this.id,
       required this.userBaseModel,
       required this.newsBaseModel});
 
-  factory FavoritesBaseModel.fromJson(Map<String, dynamic> json) =>
-      _$FavoritesBaseModelFromJson(json);
+  factory BookmarkBaseModel.fromJson(Map<String, dynamic> json) =>
+      _$BookmarkBaseModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$FavoritesBaseModelToJson(this);
+  Map<String, dynamic> toJson() => _$BookmarkBaseModelToJson(this);
 }

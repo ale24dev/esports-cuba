@@ -43,7 +43,7 @@ class Themes {
 
   static ThemeData get darkTheme => ThemeData(
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: GStyles.containerDarkColor),
+            backgroundColor: GStyles.containerDarkColor, selectedLabelStyle: TextStyle(fontFamily: GStyles.fontSanFrancisco, fontSize: 14.sp),unselectedLabelStyle: TextStyle(fontFamily: GStyles.fontSanFrancisco, fontSize: 13.sp)),
         scaffoldBackgroundColor: GStyles.backGroundDarkColor,
         primarySwatch: CustomMaterialColor.mdColor(
             r: GStyles.colorPrimary.red,

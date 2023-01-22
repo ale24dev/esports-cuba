@@ -5,23 +5,23 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:esports_cuba/src/shared/utils.dart';
 import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/src/shared/loading_app.dart';
-import 'package:esports_cuba/src/models/favorites_base_model.dart';
+import 'package:esports_cuba/src/models/bookmark_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
-import 'package:esports_cuba/src/feature/bookmark/bloc/favorites_cubit.dart';
-import 'package:esports_cuba/src/feature/bookmark/views/widgets/favorites_card.dart';
+import 'package:esports_cuba/src/feature/bookmark/bloc/bookmark_cubit.dart';
+import 'package:esports_cuba/src/feature/bookmark/views/widgets/bookmark_card.dart';
 
-class FavoritesScreen extends StatefulWidget {
-  FavoritesScreen({super.key});
+class BookmarkScreen extends StatefulWidget {
+  const BookmarkScreen({super.key});
 
   @override
-  State<FavoritesScreen> createState() => _FavoritesScreenState();
+  State<BookmarkScreen> createState() => _BookmarkScreenState();
 }
 
-class _FavoritesScreenState extends State<FavoritesScreen> {
+class _BookmarkScreenState extends State<BookmarkScreen> {
   @override
   void initState() {
-    BlocProvider.of<BookmarkCubit>(context).loadFavoritesByUser();
+    BlocProvider.of<BookmarkCubit>(context).loadBookmarkByUser(context);
     super.initState();
   }
 
@@ -32,33 +32,33 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     return Scaffold(
       appBar: Utils.appBarWidget(
           context: context,
-          title: "Elementos Guardados",
+          title: context.loc.bookmark,
           navigateBack: true,
           actions: [
             Padding(
                 padding: EdgeInsets.only(right: 2.w),
-                child: Center(child: Text("Eliminar todo")))
+                child: Center(child: Text(context.loc.deleteAll)))
           ]),
       body: BlocBuilder<BookmarkCubit, BookmarkState>(
         builder: (context, state) {
-          if (state is FavoritesLoaded) {
+          if (state is BookmarkLoaded) {
             apiResult = state.apiResult;
           }
-          return state is FavoritesLoading
+          return state is BookmarkLoading
               ? const LoadingApp()
-              : state is FavoritesEmpty
+              : state is BookmarkEmpty
                   ? EmptyDataMessage(message: context.loc.emptyFavsUser)
-                  : state is FavoritesError
+                  : state is BookmarkError
                       ? EmptyDataMessage(message: context.loc.unexpectedError)
                       : SizedBox(
                           height: 100.h,
                           child: ListView.builder(
                               itemCount: apiResult.responseObject.length,
                               itemBuilder: ((context, index) {
-                                FavoritesBaseModel favoritesBaseModel =
+                                BookmarkBaseModel bookmarkBaseModel =
                                     apiResult.responseObject[index];
-                                return FavoritesCard(
-                                    favoritesBaseModel: favoritesBaseModel);
+                                return BookmarkCard(
+                                    bookmarkBaseModel: bookmarkBaseModel);
                               })),
                         );
         },

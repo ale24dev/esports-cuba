@@ -235,8 +235,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       onChanged: bloc.changeEmail,
                       style: context.textTheme.bodyText1?.copyWith(
                           color: Colors.black,
-                          fontSize: 16.sp,
-                          fontFamily: GStyles.fontTeko),
+                          fontSize: 13.sp,
+                          fontFamily: GStyles.fontSanFrancisco),
                       decoration: InputDecoration(
                           //counterText: snapshot.data.toString(),
                           labelText: context.loc.email,
@@ -294,8 +294,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       onChanged: bloc.changePassword,
                       style: context.textTheme.bodyText1?.copyWith(
                           color: Colors.black,
-                          fontSize: 16.sp,
-                          fontFamily: GStyles.fontTeko),
+                          fontSize: 13.sp,
+                          fontFamily: GStyles.fontSanFrancisco),
                       decoration: InputDecoration(
                           //counterText: snapshot.data.toString(),
                           labelText: context.loc.password,

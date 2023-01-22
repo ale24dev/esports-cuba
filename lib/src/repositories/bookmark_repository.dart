@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:esports_cuba/src/shared/app_info.dart';
 import 'package:esports_cuba/src/models/news_base_model.dart';
-import 'package:esports_cuba/src/models/favorites_base_model.dart';
+import 'package:esports_cuba/src/models/bookmark_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 
 class BookmarkRepository {
@@ -13,14 +14,15 @@ class BookmarkRepository {
     apiResult = ApiResult();
   }
 
-  //Future<ApiResult> getFavoritesByUser(UserBaseModel userBaseModel) async {
-  Future<ApiResult> getFavoritesByUser() async {
-    String? username = await SharedPreferences.getInstance()
-        .then((value) => value.getString("username"));
+  //Future<ApiResult> getBookmarksByUser(UserBaseModel userBaseModel) async {
+  Future<ApiResult> getBookmarksByUser(BuildContext context) async {
+    AppInfo? appInfo = await AppInfo.getInstace(context);
+    print(appInfo!.user.toString());
+
     try {
-      List<FavoritesBaseModel> listFavorites = [];
+      List<BookmarkBaseModel> listBookmarks = [];
       final List<dynamic> response =
-          await _supabase.client.from('Bookmark').select('''
+          await _supabase.client.from('Bookmarks').select('''
           id, created_at,
           User (
             id, username, image, email
@@ -29,26 +31,28 @@ class BookmarkRepository {
             id, title, text, attachments, created_at, User (
             id, username, image, email
           ))
-          ''');
+          ''').eq('user', appInfo!.user!.id);
+      print(response.toString());
       for (var element in response) {
-        FavoritesBaseModel favoritesBaseModel =
-            FavoritesBaseModel.fromJson(element);
-        listFavorites.add(favoritesBaseModel);
+        BookmarkBaseModel bookmarkBaseModel =
+            BookmarkBaseModel.fromJson(element);
+        listBookmarks.add(bookmarkBaseModel);
       }
-      apiResult.responseObject = listFavorites;
+      apiResult.responseObject = listBookmarks;
       return apiResult;
     } catch (e) {
+      print(e.toString());
       apiResult.message = e.toString();
       apiResult.error = e;
       return apiResult;
     }
   }
 
-  //Future<void> addFavoriteToUser(FavoritesBaseModel favoritesBaseModel, UserBaseModel userBaseModel) async {
-  Future<void> addNewsToFavoriteOfUser(
+  //Future<void> addFavoriteToUser(BookmarkBaseModel bookmarkBaseModel, UserBaseModel userBaseModel) async {
+  Future<void> addBookmarkToUser(
       NewsBaseModel newsBaseModel, AppInfo appInfo) async {
     try {
-      final dynamic response = await _supabase.client.from('Bookmark').insert([
+      final dynamic response = await _supabase.client.from('Bookmarks').insert([
         {'user': appInfo.user!.id, 'news': newsBaseModel.id},
       ]);
     } catch (e) {
