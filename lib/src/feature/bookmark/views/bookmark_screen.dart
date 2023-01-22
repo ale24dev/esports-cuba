@@ -11,24 +11,12 @@ import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
 import 'package:esports_cuba/src/feature/bookmark/bloc/bookmark_cubit.dart';
 import 'package:esports_cuba/src/feature/bookmark/views/widgets/bookmark_card.dart';
 
-class BookmarkScreen extends StatefulWidget {
+class BookmarkScreen extends StatelessWidget {
   const BookmarkScreen({super.key});
 
   @override
-  State<BookmarkScreen> createState() => _BookmarkScreenState();
-}
-
-class _BookmarkScreenState extends State<BookmarkScreen> {
-  @override
-  void initState() {
-    BlocProvider.of<BookmarkCubit>(context).loadBookmarkByUser(context);
-    super.initState();
-  }
-
-  late ApiResult apiResult;
-
-  @override
   Widget build(BuildContext context) {
+    late ApiResult apiResult;
     return Scaffold(
       appBar: Utils.appBarWidget(
           context: context,

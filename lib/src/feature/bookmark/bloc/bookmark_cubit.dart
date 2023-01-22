@@ -8,16 +8,18 @@ import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/repositories/bookmark_repository.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../models/user_base_model.dart';
+
 part 'bookmark_state.dart';
 
 class BookmarkCubit extends Cubit<BookmarkState> {
   BookmarkCubit() : super(BookmarkInitial());
 
   // void loadBookmarkByUser(UserBaseModel userBaseModel) async {
-  void loadBookmarkByUser(BuildContext context) async {
+  void loadBookmarkByUser(UserBaseModel user) async {
     emit(BookmarkLoading());
     ApiResult apiResult = await serviceLocator<BookmarkRepository>()
-        .getBookmarksByUser(context);
+        .getBookmarksByUser(user);
     if (apiResult.error == null) {
       if (apiResult.responseObject.length == 0) {
         emit(BookmarkEmpty());

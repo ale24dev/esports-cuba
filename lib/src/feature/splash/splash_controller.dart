@@ -20,6 +20,7 @@ class SplashController {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
 
     await serviceLocator<VersionRepository>().getVersion();
+
     ///Inicializamos la data
     if (_prefs.getString("token") != null) {
       await getInitialData(context);
@@ -32,7 +33,7 @@ class SplashController {
 
   static getInitialData(BuildContext context) async {
     AppInfo? appInfo = await AppInfo.getInstace(context);
-  print(appInfo!.user.toString());
+
     ///Cargamos todos los juegos
     context.read<GameCubit>().loadGames();
 
@@ -43,7 +44,7 @@ class SplashController {
     context.read<NewsCubit>().loadNews();
 
     ///Cargamos todos los anuncios
-    //context.read<BookmarkCubit>().loadBookmarkByUser(appInfo!);
+    context.read<BookmarkCubit>().loadBookmarkByUser(appInfo!.user!);
 
     ///Cargamos la info del drawer
     context.read<DrawerCubit>().getUser(context);

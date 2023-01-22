@@ -7,6 +7,8 @@ import 'package:esports_cuba/src/models/news_base_model.dart';
 import 'package:esports_cuba/src/models/bookmark_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 
+import '../models/user_base_model.dart';
+
 class BookmarkRepository {
   final Supabase _supabase;
   late ApiResult apiResult;
@@ -15,9 +17,7 @@ class BookmarkRepository {
   }
 
   //Future<ApiResult> getBookmarksByUser(UserBaseModel userBaseModel) async {
-  Future<ApiResult> getBookmarksByUser(BuildContext context) async {
-    AppInfo? appInfo = await AppInfo.getInstace(context);
-    print(appInfo!.user.toString());
+  Future<ApiResult> getBookmarksByUser(UserBaseModel user) async {
 
     try {
       List<BookmarkBaseModel> listBookmarks = [];
@@ -31,7 +31,7 @@ class BookmarkRepository {
             id, title, text, attachments, created_at, User (
             id, username, image, email
           ))
-          ''').eq('user', appInfo!.user!.id);
+          ''').eq('user', user.id);
       print(response.toString());
       for (var element in response) {
         BookmarkBaseModel bookmarkBaseModel =
