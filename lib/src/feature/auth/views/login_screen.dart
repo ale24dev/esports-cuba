@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:esports_cuba/src/feature/splash/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,12 +98,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                                               if (apiResult
                                                                       .error ==
                                                                   null) {
-                                                                _scaffoldKey
-                                                                    .currentContext
-                                                                    ?.read<
-                                                                        DrawerCubit>()
-                                                                    .getUser(
-                                                                        context);
+                                                                ///Inicializamos la data
+                                                                SplashController
+                                                                    .getInitialData(
+                                                                        _scaffoldKey
+                                                                            .currentContext!);
                                                                 _scaffoldKey
                                                                     .currentContext
                                                                     ?.router
@@ -133,6 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                         }));
                                                                   },
                                                                 );
+
                                                                 ///Reseteamos el estado del bloc
                                                                 bloc.init();
                                                               }

@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:esports_cuba/src/feature/splash/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:esports_cuba/src/shared/utils.dart';
@@ -100,13 +103,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                                               if (apiResult
                                                                       .error ==
                                                                   null) {
-                                                                // ignore: use_build_context_synchronously
-                                                                _scaffoldKey
-                                                                    .currentContext
-                                                                    ?.read<
-                                                                        DrawerCubit>()
-                                                                    .getUser(
-                                                                        context);
+                                                                ///Inicializamos la data
+                                                                SplashController
+                                                                    .getInitialData(
+                                                                        _scaffoldKey
+                                                                            .currentContext!);
 
                                                                 _scaffoldKey
                                                                     .currentContext
@@ -116,7 +117,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                                               } else {
                                                                 showDialog(
                                                                   context:
-                                                                      _scaffoldKey.currentContext!,
+                                                                      _scaffoldKey
+                                                                          .currentContext!,
                                                                   builder:
                                                                       (context) {
                                                                     return FutureBuilder(

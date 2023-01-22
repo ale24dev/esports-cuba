@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:esports_cuba/src/feature/bookmark/bloc/bookmark_cubit.dart';
 import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
@@ -18,10 +19,10 @@ class SplashController {
   static checkLogin(BuildContext context) async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
 
-    ///Inicializamos la data
-    await getInitialData(context);
     await serviceLocator<VersionRepository>().getVersion();
+    ///Inicializamos la data
     if (_prefs.getString("token") != null) {
+      await getInitialData(context);
       context.read<DrawerCubit>().getUser(context);
       context.router.replace(const LayoutScreen());
     } else {
@@ -31,7 +32,7 @@ class SplashController {
 
   static getInitialData(BuildContext context) async {
     AppInfo? appInfo = await AppInfo.getInstace(context);
-
+  print(appInfo!.user.toString());
     ///Cargamos todos los juegos
     context.read<GameCubit>().loadGames();
 
@@ -41,7 +42,10 @@ class SplashController {
     ///Cargamos todos los anuncios
     context.read<NewsCubit>().loadNews();
 
+    ///Cargamos todos los anuncios
+    //context.read<BookmarkCubit>().loadBookmarkByUser(appInfo!);
+
     ///Cargamos la info del drawer
-    //context.read<DrawerCubit>().getUser(context);
+    context.read<DrawerCubit>().getUser(context);
   }
 }

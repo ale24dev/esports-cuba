@@ -12,7 +12,7 @@ import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
 import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
 
 class NewsScreen extends StatefulWidget {
-  NewsScreen({super.key});
+  const NewsScreen({super.key});
 
   @override
   State<NewsScreen> createState() => _NewsScreenState();

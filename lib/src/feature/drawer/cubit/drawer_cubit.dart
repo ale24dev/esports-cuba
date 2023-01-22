@@ -32,19 +32,8 @@ class DrawerCubit extends Cubit<DrawerState> {
   Future<void> getUser(BuildContext context) async {
     emit(DrawerLoading());
     appInfo = await AppInfo.getInstace(context);
-    if (appInfo?.user == null) {
-      SharedPreferences _prefs = await SharedPreferences.getInstance();
-      ApiResult apiResult = await serviceLocator<UserRepository>()
-          .getUserByUsername(_prefs.getString("username").toString());
-
-      ///Inicializamos el user y el token en el AppInfo
-      appInfo!.setUser(apiResult.responseObject);
-      appInfo!.setToken(_prefs.getString("token").toString());
-      emit(DrawerLoaded(userBaseModel: apiResult.responseObject));
-    } else {
-      _user = appInfo?.user;
-      emit(DrawerLoaded(userBaseModel: _user!));
-    }
+    _user = appInfo?.user;
+    emit(DrawerLoaded(userBaseModel: _user!));
   }
 
   Future<void> logOut(BuildContext context) async {
