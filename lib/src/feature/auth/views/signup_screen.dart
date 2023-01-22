@@ -116,11 +116,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                                               } else {
                                                                 showDialog(
                                                                   context:
-                                                                      context,
+                                                                      _scaffoldKey.currentContext!,
                                                                   builder:
                                                                       (context) {
                                                                     return FutureBuilder(
-                                                                        future: Utils.apiResultShow(
+                                                                        future: Utils.apiResultShowError(
                                                                             apiResult:
                                                                                 apiResult,
                                                                             context:
@@ -137,7 +137,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                                                         }));
                                                                   },
                                                                 );
-                                                                setState(() {});
+
+                                                                ///Reseteamos el estado del bloc
+                                                                bloc.init();
+                                                                //setState(() {});
                                                               }
                                                             },
                                                       child: Container(

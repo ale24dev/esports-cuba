@@ -17,9 +17,9 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthhState> with Validators {
   AuthCubit() : super(AuthInitial());
 
-  final _emailController = BehaviorSubject<String>();
-  final _passwordController = BehaviorSubject<String>();
-  final _usernameController = BehaviorSubject<String>();
+  BehaviorSubject<String> _emailController = BehaviorSubject<String>();
+  BehaviorSubject<String> _passwordController = BehaviorSubject<String>();
+  BehaviorSubject<String> _usernameController = BehaviorSubject<String>();
   bool _loading = false;
 
   ///Recuperar valores del stream
@@ -45,6 +45,14 @@ class AuthCubit extends Cubit<AuthhState> with Validators {
   String get email => _emailController.value;
   String get password => _passwordController.value;
   String get username => _usernameController.value;
+
+  ///Inicializar el bloc
+  void init() {
+    _emailController = BehaviorSubject<String>();
+    _passwordController = BehaviorSubject<String>();
+    _usernameController = BehaviorSubject<String>();
+    emit(AuthInitial());
+  }
 
   bool isEmailValid(String email) {
     return Utils.isEmailValid(email);

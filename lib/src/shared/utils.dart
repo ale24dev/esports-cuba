@@ -91,16 +91,14 @@ abstract class Utils {
                 padding: EdgeInsets.only(right: 2.w),
                 child: IconButton(
                   icon: const Icon(Icons.person),
-                  onPressed: (() {
-                    
-                  }),
+                  onPressed: (() {}),
                 ))
           ],
     );
   }
 
   ///Widget encargado de mostrar la data interna en el ApiResult
-  static Future<Widget> apiResultShow(
+  static Future<Widget> apiResultShowError(
       {required BuildContext context, required ApiResult apiResult}) async {
     late String title;
     switch (apiResult.error.runtimeType) {
@@ -115,10 +113,8 @@ abstract class Utils {
       default:
         title = context.loc.unexpectedError;
     }
-    return apiResult.error != null
-        ? DialogMessage(
-            title: title, text: apiResult.error.message, withTranslate: true)
-        : const SizedBox.shrink();
+    return DialogMessage(
+        title: title, text: apiResult.error.message, withTranslate: true);
   }
 
   static Future<SharedPreferences> sharedPreferencesInstance() async {

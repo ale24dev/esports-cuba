@@ -81,8 +81,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                                           : () async {
                                                               bloc.changeStateLoad(
                                                                   true);
-                                                              /*bloc.emit(
-                                                              AuthLoading());*/
                                                               print("Llegue");
                                                               ApiResult apiResult = await serviceLocator<
                                                                       AuthRepository>()
@@ -113,11 +111,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                                               } else {
                                                                 showDialog(
                                                                   context:
-                                                                      context,
+                                                                      _scaffoldKey
+                                                                          .currentContext!,
                                                                   builder:
                                                                       (context) {
                                                                     return FutureBuilder(
-                                                                        future: Utils.apiResultShow(
+                                                                        future: Utils.apiResultShowError(
                                                                             apiResult:
                                                                                 apiResult,
                                                                             context:
@@ -127,13 +126,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                                 AsyncSnapshot snapshot) {
                                                                           if (!snapshot
                                                                               .hasData) {
-                                                                            return const LoadingApp();
+                                                                            return const SizedBox.shrink();
                                                                           } else {
                                                                             return snapshot.data;
                                                                           }
                                                                         }));
                                                                   },
                                                                 );
+                                                                ///Reseteamos el estado del bloc
+                                                                bloc.init();
                                                               }
                                                             },
                                                       child: Container(
