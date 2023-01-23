@@ -1,5 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks
 
+import 'package:esports_cuba/src/feature/bookmark/views/widgets/bookmark_card.dart';
+import 'package:esports_cuba/src/models/bookmark_base_model.dart';
 import 'package:esports_cuba/src/shared/app_info.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ import 'package:esports_cuba/src/models/tournament_base_model.dart';
 import 'package:esports_cuba/src/shared/widgets/dialog_message.dart';
 import 'package:esports_cuba/src/models/tournament_state_base_model.dart';
 
+import '../models/news_base_model.dart';
 import '../route/app_router.gr.dart';
 
 abstract class Utils {
@@ -142,5 +145,17 @@ abstract class Utils {
 
     appInfo?.removeToken();
     appInfo?.setUser(null);
+  }
+
+  ///Chequea si una noticia esta en los bookmarks del usuario
+  static bool checkBookmarkInListNews(
+      {required List<BookmarkBaseModel> listBookmarks,
+      required NewsBaseModel newBaseModel}) {
+    for (var bookmark in listBookmarks) {
+      if (bookmark.newsBaseModel.id == newBaseModel.id) {
+        return true;
+      }
+    }
+    return false;
   }
 }

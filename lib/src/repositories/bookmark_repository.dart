@@ -18,11 +18,10 @@ class BookmarkRepository {
 
   //Future<ApiResult> getBookmarksByUser(UserBaseModel userBaseModel) async {
   Future<ApiResult> getBookmarksByUser(UserBaseModel user) async {
-
     try {
       List<BookmarkBaseModel> listBookmarks = [];
       final List<dynamic> response =
-          await _supabase.client.from('Bookmarks').select('''
+          await _supabase.client.from('bookmarks').select('''
           id, created_at,
           User (
             id, username, image, email
@@ -32,7 +31,6 @@ class BookmarkRepository {
             id, username, image, email
           ))
           ''').eq('user', user.id);
-      print(response.toString());
       for (var element in response) {
         BookmarkBaseModel bookmarkBaseModel =
             BookmarkBaseModel.fromJson(element);
@@ -41,20 +39,32 @@ class BookmarkRepository {
       apiResult.responseObject = listBookmarks;
       return apiResult;
     } catch (e) {
-      print(e.toString());
       apiResult.message = e.toString();
       apiResult.error = e;
       return apiResult;
     }
   }
 
-  //Future<void> addFavoriteToUser(BookmarkBaseModel bookmarkBaseModel, UserBaseModel userBaseModel) async {
   Future<void> addBookmarkToUser(
       NewsBaseModel newsBaseModel, AppInfo appInfo) async {
     try {
-      final dynamic response = await _supabase.client.from('Bookmarks').insert([
+      final dynamic response = await _supabase.client.from('bookmarks').insert([
         {'user': appInfo.user!.id, 'news': newsBaseModel.id},
       ]);
+    } catch (e) {
+      print("Error: " + e.toString());
+    }
+  }
+
+  Future<void> removeBookmarkOfUser(
+      NewsBaseModel newsBaseModel, AppInfo appInfo) async {
+    try {
+      final dynamic response = await _supabase.client
+          .from('bookmarks')
+          .delete()
+          .match({'news': newsBaseModel.id, 'user': appInfo.user!.id});
+
+      print("REMOVE: " + response.toString());
     } catch (e) {
       print("Error: " + e.toString());
     }

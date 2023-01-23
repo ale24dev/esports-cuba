@@ -104,7 +104,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                                                       .error ==
                                                                   null) {
                                                                 ///Inicializamos la data
-                                                                SplashController
+                                                                await SplashController
                                                                     .getInitialData(
                                                                         _scaffoldKey
                                                                             .currentContext!);

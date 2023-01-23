@@ -1,3 +1,4 @@
+import 'package:esports_cuba/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,15 +28,16 @@ class AppInfo {
   }
 
   static Future initialize(BuildContext context) async {
-    UserRepository userRepository = UserRepository(Supabase.instance);
     Future<SharedPreferences> preferences = SharedPreferences.getInstance();
     final SharedPreferences prefs = await preferences;
     String token = prefs.getString('token') ?? '';
-    String username = prefs.getString('username') ?? '';
     if (token.isNotEmpty) {
       _appInfo!.setToken(token);
       try {
-        ApiResult apiResult = await userRepository.getUserByUsername(username);
+        String username = prefs.getString('username') ?? '';
+
+        ApiResult apiResult =
+            await serviceLocator<UserRepository>().getUserByUsername(username);
         if (apiResult.error == null) {
           _appInfo!.setUser(apiResult.responseObject);
         }
@@ -64,5 +66,19 @@ class AppInfo {
       await initialize(context!);
     }
     return _appInfo;
+  }
+
+  static Future<void> initUser(SharedPreferences prefs) async {
+    try {
+      String username = prefs.getString('username') ?? '';
+      print(username);
+      ApiResult apiResult =
+          await serviceLocator<UserRepository>().getUserByUsername(username);
+      if (apiResult.error == null) {
+        _appInfo!.setUser(apiResult.responseObject);
+      }
+    } catch (e) {
+      _appInfo!.setUser(null);
+    }
   }
 }

@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                       .error ==
                                                                   null) {
                                                                 ///Inicializamos la data
-                                                                SplashController
+                                                                await SplashController
                                                                     .getInitialData(
                                                                         _scaffoldKey
                                                                             .currentContext!);

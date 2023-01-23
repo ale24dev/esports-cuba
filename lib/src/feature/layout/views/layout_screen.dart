@@ -28,7 +28,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
   @override
   void initState() {
     getConnectivity();
-    context.read<DrawerCubit>().getUser(context);
+   // context.read<DrawerCubit>().getUser(context);
     super.initState();
   }
 

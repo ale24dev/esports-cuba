@@ -19,6 +19,7 @@ class BookmarkError extends BookmarkState {}
 
 class BookmarkLoaded extends BookmarkState {
   late ApiResult apiResult;
+  late bool loading;
 
-  BookmarkLoaded({required this.apiResult});
+  BookmarkLoaded({required this.apiResult, required this.loading});
 }

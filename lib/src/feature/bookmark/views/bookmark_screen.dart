@@ -16,6 +16,7 @@ class BookmarkScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     late ApiResult apiResult;
     return Scaffold(
       appBar: Utils.appBarWidget(

@@ -5,8 +5,11 @@ import 'package:esports_cuba/src/shared/utils.dart';
 import 'package:flutter/material.dart';
 
 import 'package:esports_cuba/src/models/bookmark_base_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import '../../bloc/bookmark_cubit.dart';
 
 class BookmarkCard extends StatelessWidget {
   const BookmarkCard({
@@ -57,15 +60,27 @@ class BookmarkCard extends StatelessWidget {
                     style: context.textTheme.bodyText1
                         ?.copyWith(fontSize: 14.sp, color: Colors.white38)),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 3.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const SizedBox.shrink(),
-                    FaIcon(FontAwesomeIcons.solidBookmark, size: 18.sp)
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox.shrink(),
+                  InkWell(
+                    onTap: () {
+                      context.read<BookmarkCubit>().removeBookmarkOfUser(
+                          bookmarkBaseModel.newsBaseModel, context);
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const SizedBox.shrink(),
+                          FaIcon(FontAwesomeIcons.solidBookmark, size: 18.sp)
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               )
             ],
           ),

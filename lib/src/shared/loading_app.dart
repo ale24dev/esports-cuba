@@ -5,10 +5,12 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class LoadingApp extends StatelessWidget {
   const LoadingApp({
     Key? key,
-    this.loadingWidget,
+    this.loadingWidget, this.size,
   }) : super(key: key);
 
   final Widget? loadingWidget;
+
+  final double? size;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class LoadingApp extends StatelessWidget {
         child: loadingWidget ??
             SpinKitFadingCube(
               color: Colors.white,
-              size: 20.sp,
+              size: size ?? 20.sp,
             ));
   }
 }

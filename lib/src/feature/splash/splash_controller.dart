@@ -1,7 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'package:esports_cuba/src/feature/bookmark/bloc/bookmark_cubit.dart';
-import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +9,9 @@ import 'package:esports_cuba/src/shared/app_info.dart';
 import 'package:esports_cuba/src/route/app_router.gr.dart';
 import 'package:esports_cuba/src/feature/news/bloc/news_cubit.dart';
 import 'package:esports_cuba/src/repositories/version_repository.dart';
+import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/game_cubit.dart';
+import 'package:esports_cuba/src/feature/bookmark/bloc/bookmark_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
 
 class SplashController {
@@ -21,7 +20,7 @@ class SplashController {
 
     await serviceLocator<VersionRepository>().getVersion();
 
-    ///Inicializamos la data
+ ///Inicializamos la data
     if (_prefs.getString("token") != null) {
       await getInitialData(context);
       context.read<DrawerCubit>().getUser(context);
@@ -34,6 +33,12 @@ class SplashController {
   static getInitialData(BuildContext context) async {
     AppInfo? appInfo = await AppInfo.getInstace(context);
 
+    ///En caso de que se haya cerrado la sesión e ingresado de nuevo a la app se vuelve a inicializar el user
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (appInfo!.user == null) {
+      await AppInfo.initUser(prefs);
+    }
+
     ///Cargamos todos los juegos
     context.read<GameCubit>().loadGames();
 
@@ -43,10 +48,12 @@ class SplashController {
     ///Cargamos todos los anuncios
     context.read<NewsCubit>().loadNews();
 
-    ///Cargamos todos los anuncios
-    context.read<BookmarkCubit>().loadBookmarkByUser(appInfo!.user!);
+    if (appInfo.user != null) {
+      ///Cargamos la info del drawer
+      context.read<DrawerCubit>().getUser(context);
 
-    ///Cargamos la info del drawer
-    context.read<DrawerCubit>().getUser(context);
+      ///Cargamos todos los anuncios
+      context.read<BookmarkCubit>().loadBookmarkByUser(appInfo.user!);
+    }
   }
 }
