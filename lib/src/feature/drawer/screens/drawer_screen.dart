@@ -23,12 +23,19 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
   late String version;
 
-  List<String> listDrawerTileShorcouts = ["Favorites", "Tournaments", "Bookmarks"];
-
-  List<String> listDrawerTileSettings = ["Settings", "Help", "About"];
-
   @override
   Widget build(BuildContext context) {
+    List<String> listDrawerTileSettings = [
+      context.loc.settings,
+      context.loc.help,
+      context.loc.about
+    ];
+    List<String> listDrawerTileShorcouts = [
+      context.loc.favorites,
+      context.loc.tournament,
+      context.loc.bookmark
+    ];
+
     return BlocBuilder<DrawerCubit, DrawerState>(
       builder: (context, state) {
         if (state is DrawerLoaded) {
@@ -62,7 +69,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                               fontSize: 14.sp,
                                               color: Colors.grey)),
                                   SizedBox(height: 2.h),
-                                  Text("Editar perfil",
+                                  Text(context.loc.editProfile,
                                       style: context.textTheme.bodyText1
                                           ?.copyWith(
                                               fontSize: 14.sp,
@@ -87,10 +94,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           ),
                           SizedBox(height: 4.h),
                           DrawerSection(
-                              title: "SHORCOUTS",
+                              title: context.loc.shorcouts.toUpperCase(),
                               listDrawerTile: listDrawerTileShorcouts),
                           DrawerSection(
-                              title: "SETTINGS",
+                              title: context.loc.general.toUpperCase(),
                               listDrawerTile: listDrawerTileSettings),
                           const Spacer(),
                           const LogOutSection()
@@ -104,4 +111,3 @@ class _DrawerScreenState extends State<DrawerScreen> {
     );
   }
 }
-

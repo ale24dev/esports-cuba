@@ -31,7 +31,6 @@ class _NewsCardState extends State<NewsCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      key: ValueKey(widget.newsBaseModel.id),
       highlightColor: GStyles.containerDarkColor,
       onTap: () {
         context.router.push(NewsDetails(newsBaseModel: widget.newsBaseModel));
@@ -43,7 +42,7 @@ class _NewsCardState extends State<NewsCard> {
             color: GStyles.containerDarkColor,
             borderRadius: BorderRadius.circular(5.0)),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 3.h),
+          padding: EdgeInsets.symmetric(vertical: 2.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -56,12 +55,24 @@ class _NewsCardState extends State<NewsCard> {
               SizedBox(height: 7.sp),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.sp),
-                child: Text(Utils.getDate(widget.newsBaseModel.createdAt),
-                    style: context.textTheme.bodyText1
-                        ?.copyWith(fontSize: 14.sp, color: Colors.white38)),
+                child: Row(
+                  children: [
+                    Text(Utils.getDate(widget.newsBaseModel.createdAt),
+                        style: context.textTheme.bodyText1
+                            ?.copyWith(fontSize: 14.sp, color: Colors.white38)),
+                    SizedBox(
+                        child: Text(" - ",
+                            style: context.textTheme.bodyText1?.copyWith(
+                                fontSize: 14.sp, color: Colors.white38))),
+                    Text(
+                      widget.newsBaseModel.user.username,
+                      style: context.textTheme.bodyText1
+                          ?.copyWith(fontSize: 14.sp, color: Colors.white38),
+                    ),
+                  ],
+                ),
               ),
               imageNews(),
-              SizedBox(height: 1.h),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 child: Row(
@@ -82,7 +93,7 @@ class _NewsCardState extends State<NewsCard> {
   ///Verificamos que en caso de solo haber una imagen no hacer el efecto slider
   Widget imageNews() {
     return Container(
-      height: 30.h,
+      height: 25.h,
       width: 100.w,
       margin: EdgeInsets.symmetric(vertical: .6.h),
       child: widget.newsBaseModel.attachments.length != 1
@@ -131,7 +142,7 @@ class _NewsCardState extends State<NewsCard> {
 
   Widget bookmarkWidget(
       {required BuildContext context, ApiResult<dynamic>? apiResult}) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Utils.checkBookmarkInListNews(
                 listBookmarks:
@@ -144,20 +155,26 @@ class _NewsCardState extends State<NewsCard> {
                 .read<BookmarkCubit>()
                 .addBookmarkToUser(widget.newsBaseModel, context);
       },
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.sp, vertical: 12.sp),
-        child: Row(
-          children: [
-            Utils.checkBookmarkInListNews(
-                    listBookmarks:
-                        apiResult != null ? apiResult.responseObject : [],
-                    newBaseModel: widget.newsBaseModel)
-                ? FaIcon(FontAwesomeIcons.solidBookmark, size: 17.sp)
-                : FaIcon(FontAwesomeIcons.bookmark, size: 17.sp),
-            SizedBox(width: 2.w),
-            Text(context.loc.save.toUpperCase(),
-                style: context.textTheme.bodyText1?.copyWith(fontSize: 14.sp))
-          ],
+      child: Container(
+        color: Colors.transparent,
+        child: GestureDetector(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 14.sp, vertical: 19.sp),
+            child: Row(
+              children: [
+                Utils.checkBookmarkInListNews(
+                        listBookmarks:
+                            apiResult != null ? apiResult.responseObject : [],
+                        newBaseModel: widget.newsBaseModel)
+                    ? FaIcon(FontAwesomeIcons.solidBookmark, size: 17.sp)
+                    : FaIcon(FontAwesomeIcons.bookmark, size: 17.sp),
+                SizedBox(width: 2.w),
+                Text(context.loc.save.toUpperCase(),
+                    style:
+                        context.textTheme.bodyText1?.copyWith(fontSize: 14.sp))
+              ],
+            ),
+          ),
         ),
       ),
     );
