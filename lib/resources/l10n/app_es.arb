@@ -33,6 +33,7 @@
     "help": "Ayuda",
     "home": "Inicio",
     "information": "Información",
+    "legal": "Términos legales",
     "loading": "Cargando",
     "logout": "Cerrar Sesión",
     "logoutSuccessfully": "La sesión fue cerrada satisfactoriamente",
@@ -64,5 +65,7 @@
     "user": "Usuario",
     "username": "Usuario",
     "usernameInvalid": "Nombre de usuario inválido",
+    "version": "Versión",
+    "visitUs": "Visítanos",
     "wrongLogin": "Error de Inicio de Sesión"
 }

@@ -8,6 +8,8 @@ import 'package:esports_cuba/src/feature/news/view/news_details.dart';
 import 'package:esports_cuba/src/feature/splash/views/splash_screen.dart';
 import 'package:esports_cuba/src/feature/tournament/views/tournament_details.dart';
 
+import '../feature/about/views/about_screen.dart';
+
 ///Rutas de la aplicación
 /*@MaterialAutoRouter(
   routes: [
@@ -29,6 +31,7 @@ class $AppRouter {}
     MaterialRoute(page: LayoutScreen),
     MaterialRoute(page: SignupScreen),
     MaterialRoute(page: BookmarkScreen),
+    MaterialRoute(page: AboutScreen),
   ],
   replaceInRouteName: 'Page,Route',
 )

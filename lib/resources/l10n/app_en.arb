@@ -33,6 +33,7 @@
     "help": "Help",
     "home": "Home",
     "information": "Information",
+    "legal": "Legal",
     "loading": "Loading",
     "logout": "Logout",
     "logoutSuccessfully": "The session was closed successfully",
@@ -64,5 +65,7 @@
     "user": "User",
     "username": "Username",
     "usernameInvalid": "Username invalid",
+    "version": "Version",
+    "visitUs": "Visit us",
     "wrongLogin": "Login Error"
 }
