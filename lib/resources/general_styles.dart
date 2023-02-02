@@ -3,8 +3,10 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 class GStyles {
   ///Colors
-  static Color get colorPrimary => const Color.fromARGB(255, 156, 12, 12);
-  static Color get colorSecondary => Color.fromARGB(255, 14, 79, 139);
+  static Color get colorPrimary => const Color(0xFF686eff);
+  // static Color get colorPrimary => const Color.fromARGB(255, 156, 12, 12);
+  // static Color get colorSecondary => Color.fromARGB(255, 14, 79, 139);
+  static Color get colorSecondary => Color(0xFF73758e);
   static Color get colorSuccess => const Color.fromARGB(255, 17, 90, 20);
   static Color get colorFail => Color.fromARGB(255, 218, 20, 20);
   static Color get colorInProgress => const Color.fromARGB(255, 21, 70, 116);
@@ -26,6 +28,7 @@ class GStyles {
   static String get fontTeko => 'Teko';
   static String get fontEvilEmpire => 'EvilEmpire';
   static String get fontSanFrancisco => 'SanFrancisco';
+  static String get fontPoppins => 'Poppins';
 
   ///Text Styles
   static TextStyle get textBottomNavigationBarItemStyle => TextStyle(
@@ -39,7 +42,7 @@ class GStyles {
 
   static TextStyle get bodyText => TextStyle(
         fontSize: 18,
-        fontFamily: GStyles.fontSanFrancisco,
+        fontFamily: GStyles.fontPoppins,
         color: Colors.white,
       );
 

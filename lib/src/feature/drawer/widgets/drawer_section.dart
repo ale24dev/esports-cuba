@@ -40,9 +40,13 @@ class DrawerSection extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       switch (name) {
-                        case "Bookmarks": context.router.push(const BookmarkScreen());
-                          
+                        case "Bookmarks":
+                          context.router.push(const BookmarkScreen());
                           break;
+                        case "Elementos guardados":
+                          context.router.push(const BookmarkScreen());
+                          break;
+
                         default:
                       }
                       print("data");

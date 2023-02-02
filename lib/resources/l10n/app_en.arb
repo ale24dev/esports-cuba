@@ -37,6 +37,7 @@
     "logout": "Logout",
     "logoutSuccessfully": "The session was closed successfully",
     "name": "Name",
+    "news": "News",
     "noConnection": "No Connection",
     "open": "open",
     "participants": "Participants",

@@ -1,3 +1,4 @@
+import 'package:esports_cuba/src/shared/widgets/bookmark.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -28,12 +29,14 @@ class NewsCard extends StatefulWidget {
 }
 
 class _NewsCardState extends State<NewsCard> {
+  late ApiResult apiResult;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       highlightColor: GStyles.containerDarkColor,
       onTap: () {
-        context.router.push(NewsDetails(newsBaseModel: widget.newsBaseModel));
+        context.router.push(NewsDetails(
+            newsBaseModel: widget.newsBaseModel));
       },
       child: Container(
         margin:
@@ -123,60 +126,23 @@ class _NewsCardState extends State<NewsCard> {
   }
 
   Widget saveWidget(BuildContext context) {
-    late ApiResult apiResult;
     return BlocBuilder<BookmarkCubit, BookmarkState>(
       builder: (context, state) {
         if (state is BookmarkLoaded) {
           apiResult = state.apiResult;
         }
         return state is BookmarkLoaded
-            ? bookmarkWidget(context: context, apiResult: apiResult)
+            ? Bookmark(
+                newsBaseModel: widget.newsBaseModel,
+                apiResult: apiResult,
+                inDetails: false)
             : state is BookmarkEmpty
-                ? bookmarkWidget(context: context)
+                ? Bookmark(
+                    newsBaseModel: widget.newsBaseModel, inDetails: false)
                 : Padding(
                     padding: EdgeInsets.only(right: 14.w),
                     child: LoadingApp(size: 15.sp));
       },
-    );
-  }
-
-  Widget bookmarkWidget(
-      {required BuildContext context, ApiResult<dynamic>? apiResult}) {
-    return GestureDetector(
-      onTap: () {
-        Utils.checkBookmarkInListNews(
-                listBookmarks:
-                    apiResult != null ? apiResult.responseObject : [],
-                newBaseModel: widget.newsBaseModel)
-            ? context
-                .read<BookmarkCubit>()
-                .removeBookmarkOfUser(widget.newsBaseModel, context)
-            : context
-                .read<BookmarkCubit>()
-                .addBookmarkToUser(widget.newsBaseModel, context);
-      },
-      child: Container(
-        color: Colors.transparent,
-        child: GestureDetector(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.sp, vertical: 19.sp),
-            child: Row(
-              children: [
-                Utils.checkBookmarkInListNews(
-                        listBookmarks:
-                            apiResult != null ? apiResult.responseObject : [],
-                        newBaseModel: widget.newsBaseModel)
-                    ? FaIcon(FontAwesomeIcons.solidBookmark, size: 17.sp)
-                    : FaIcon(FontAwesomeIcons.bookmark, size: 17.sp),
-                SizedBox(width: 2.w),
-                Text(context.loc.save.toUpperCase(),
-                    style:
-                        context.textTheme.bodyText1?.copyWith(fontSize: 14.sp))
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 

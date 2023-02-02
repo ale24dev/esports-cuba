@@ -28,7 +28,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
   @override
   void initState() {
     getConnectivity();
-   // context.read<DrawerCubit>().getUser(context);
+    // context.read<DrawerCubit>().getUser(context);
     super.initState();
   }
 
@@ -95,7 +95,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
               builder: (context, state) {
             switch (state.navbarItem) {
               case NavbarItem.home:
-                return NewsScreen();
+                return const NewsScreen();
               case NavbarItem.tournament:
                 return const TournamentScreen();
 
@@ -118,64 +118,62 @@ class _LayoutScreenState extends State<LayoutScreen> {
   Widget bottomNavigationBarBuilder(BuildContext context) {
     return BlocBuilder<NavigationCubit, NavigationState>(
         builder: (context, state) {
-      return Container(
-        child: BottomNavigationBar(
-          currentIndex: state.index,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white.withOpacity(0.5),
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(
-                icon: FaIcon(
-                  FontAwesomeIcons.house,
-                  size: 20.sp,
-                ),
-                activeIcon: FaIcon(
-                  FontAwesomeIcons.house,
-                  color: Colors.white,
-                  size: 20.sp,
-                ),
-                label: context.loc.home),
-            BottomNavigationBarItem(
-                icon: FaIcon(
-                  FontAwesomeIcons.trophy,
-                  size: 20.sp,
-                ),
-                activeIcon: FaIcon(
-                  FontAwesomeIcons.trophy,
-                  size: 20.sp,
-                  color: Colors.white,
-                ),
-                label: context.loc.tournament),
-            BottomNavigationBarItem(
-                icon: FaIcon(
-                  FontAwesomeIcons.userAstronaut,
-                  size: 20.sp,
-                ),
-                activeIcon: FaIcon(
-                  FontAwesomeIcons.userAstronaut,
-                  color: Colors.white,
-                  size: 20.sp,
-                ),
-                label: context.loc.profile),
-          ],
-          onTap: (index) {
-            switch (index) {
-              case 0:
-                BlocProvider.of<NavigationCubit>(context)
-                    .getNavBarItem(NavbarItem.home);
-                break;
-              case 1:
-                BlocProvider.of<NavigationCubit>(context)
-                    .getNavBarItem(NavbarItem.tournament);
-                break;
-              case 2:
-                BlocProvider.of<NavigationCubit>(context)
-                    .getNavBarItem(NavbarItem.profile);
-                break;
-            }
-          },
-        ),
+      return BottomNavigationBar(
+        currentIndex: state.index,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white.withOpacity(0.5),
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+              icon: FaIcon(
+                Icons.newspaper,
+                size: 22.sp,
+              ),
+              activeIcon: FaIcon(
+                Icons.newspaper,
+                color: GStyles.colorPrimary,
+                size: 22.sp,
+              ),
+              label: context.loc.news),
+          BottomNavigationBarItem(
+              icon: FaIcon(
+                FontAwesomeIcons.trophy,
+                size: 20.sp,
+              ),
+              activeIcon: FaIcon(
+                FontAwesomeIcons.trophy,
+                size: 20.sp,
+                color: GStyles.colorPrimary,
+              ),
+              label: context.loc.tournament),
+          BottomNavigationBarItem(
+              icon: FaIcon(
+                FontAwesomeIcons.userAstronaut,
+                size: 20.sp,
+              ),
+              activeIcon: FaIcon(
+                FontAwesomeIcons.userAstronaut,
+                color: GStyles.colorPrimary,
+                size: 20.sp,
+              ),
+              label: context.loc.profile),
+        ],
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              BlocProvider.of<NavigationCubit>(context)
+                  .getNavBarItem(NavbarItem.home);
+              break;
+            case 1:
+              BlocProvider.of<NavigationCubit>(context)
+                  .getNavBarItem(NavbarItem.tournament);
+              break;
+            case 2:
+              BlocProvider.of<NavigationCubit>(context)
+                  .getNavBarItem(NavbarItem.profile);
+              break;
+          }
+        },
       );
     });
   }
@@ -197,7 +195,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
               style: context.textTheme.bodyText1?.copyWith(fontSize: 16.sp)),
           //content:  Text(context.loc.checkConnection, style: context.textTheme.bodyText1?.copyWith(fontSize: 16.sp)),
           content: Text(context.loc.checkConnection,
-              style: TextStyle(color: Colors.white)),
+              style: const TextStyle(color: Colors.white)),
           actions: <Widget>[
             TextButton(
               onPressed: () async {

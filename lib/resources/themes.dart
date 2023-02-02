@@ -56,16 +56,18 @@ class Themes {
         drawerTheme:
             DrawerThemeData(backgroundColor: GStyles.backGroundDarkColor),
         iconTheme: const IconThemeData(color: Colors.white),
+        
         inputDecorationTheme: InputDecorationTheme(
           contentPadding: const EdgeInsets.only(top: 10, bottom: 5),
           focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.grey)),
           hoverColor: Colors.grey,
           focusColor: Colors.grey,
+          
           labelStyle: GStyles.headline5.copyWith(
               color: Colors.grey,
               fontSize: 20.sp,
-              fontFamily: GStyles.fontSanFrancisco),
+              fontFamily: GStyles.fontEvilEmpire),
           errorStyle: TextStyle(color: GStyles.colorSecondary, fontSize: 16.sp),
         ),
         checkboxTheme: GStyles.checkBoxTheme,

@@ -26,7 +26,7 @@ class BookmarkScreen extends StatelessWidget {
           actions: [
             Padding(
                 padding: EdgeInsets.only(right: 2.w),
-                child: Center(child: Text(context.loc.deleteAll)))
+                child: Center(child: Text(context.loc.deleteAll, style: context.textTheme.bodyText1?.copyWith(fontSize: 14.sp),)))
           ]),
       body: BlocBuilder<BookmarkCubit, BookmarkState>(
         builder: (context, state) {

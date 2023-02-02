@@ -3,10 +3,16 @@ import 'package:esports_cuba/resources/general_styles.dart';
 import 'package:esports_cuba/src/models/news_base_model.dart';
 import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/src/shared/utils.dart';
+import 'package:esports_cuba/src/shared/widgets/bookmark.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import '../../../shared/loading_app.dart';
+import '../../../shared/repository/ApiResult.dart';
+import '../../bookmark/bloc/bookmark_cubit.dart';
 
 class NewsDetails extends StatelessWidget {
   ///Tamaño de la imagen de cabecera
@@ -43,7 +49,7 @@ class NewsDetails extends StatelessWidget {
               ],
             ),
           ),
-          footerNews()
+          footerNews(context)
         ],
       ),
     );
@@ -54,7 +60,10 @@ class NewsDetails extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: Constants.MARGIN),
       child: Text(newsBaseModel.text,
           softWrap: true,
-          style: TextStyle(color: Colors.white60, fontSize: 16.sp)),
+          style: TextStyle(
+              color: Colors.white60,
+              fontSize: 16.sp,
+              fontFamily: GStyles.fontPoppins)),
     );
   }
 
@@ -78,8 +87,7 @@ class NewsDetails extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  newsBaseModel.user.username,
+                Text(newsBaseModel.user.username,
                     style:
                         context.textTheme.bodyText1?.copyWith(fontSize: 16.sp)),
                 SizedBox(height: 5.sp),
@@ -147,7 +155,7 @@ class NewsDetails extends StatelessWidget {
     );
   }
 
-  Expanded footerNews() {
+  Expanded footerNews(BuildContext context) {
     return Expanded(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: Constants.MARGIN),
@@ -156,7 +164,21 @@ class NewsDetails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FaIcon(FontAwesomeIcons.solidPaperPlane, size: 18.sp),
-            FaIcon(FontAwesomeIcons.bookmark, size: 18.sp),
+            BlocBuilder<BookmarkCubit, BookmarkState>(
+              builder: (context, state) {
+                late ApiResult apiResult;
+                if (state is BookmarkLoaded) {
+                  apiResult = state.apiResult;
+                }
+                return state is BookmarkLoaded
+                    ? Bookmark(newsBaseModel: newsBaseModel, apiResult: apiResult, inDetails: true)
+                    : state is BookmarkEmpty
+                        ? Bookmark(newsBaseModel: newsBaseModel, inDetails: true)
+                        : Padding(
+                            padding: EdgeInsets.only(right: 14.w),
+                            child: LoadingApp(size: 15.sp));
+              },
+            ),
           ],
         ),
       ),

@@ -232,17 +232,14 @@ class _SignupScreenState extends State<SignupScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: TextFormField(
                       onChanged: bloc.changeEmail,
-                      style: context.textTheme.bodyText1?.copyWith(
-                          color: Colors.black,
-                          fontSize: 16.sp,
-                          fontFamily: GStyles.fontTeko),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14.sp,
+                      ),
                       decoration: InputDecoration(
                           //counterText: snapshot.data.toString(),
                           labelText: context.loc.email,
-                          labelStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: 13.sp,
-                              fontFamily: GStyles.fontSanFrancisco),
+                          labelStyle: const TextStyle(color: Colors.black),
                           prefixIcon:
                               const Icon(Icons.email, color: Colors.black),
                           //errorText: snapshot.error,
@@ -295,9 +292,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: TextFormField(
                       onChanged: bloc.changePassword,
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 13.sp,
-                          fontFamily: GStyles.fontSanFrancisco),
+                        color: Colors.black,
+                        fontSize: 14.sp,
+                      ),
                       decoration: InputDecoration(
                           //counterText: snapshot.data.toString(),
                           labelText: context.loc.password,
@@ -358,16 +355,13 @@ class _SignupScreenState extends State<SignupScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: TextFormField(
                       onChanged: bloc.changeUsername,
-                      style: context.textTheme.bodyText1?.copyWith(
-                          color: Colors.black,
-                          fontSize: 16.sp,
-                          fontFamily: GStyles.fontTeko),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14.sp,
+                      ),
                       decoration: InputDecoration(
                           labelText: context.loc.username,
-                          labelStyle: TextStyle(
-                              color: Colors.black,
-                              fontSize: 13.sp,
-                              fontFamily: GStyles.fontSanFrancisco),
+                          labelStyle: const TextStyle(color: Colors.black),
                           prefixIcon:
                               const Icon(Icons.person, color: Colors.black),
                           hintStyle: const TextStyle(
