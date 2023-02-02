@@ -49,7 +49,7 @@ class TournamentRepository {
           .from('Tournament')
           .select('''id, name, created_at, edition,
                active, image_logo, image_header,
-                quantity_groups, max_teams, prizepool,
+                quantity_groups, max_teams, prizepool, description,
                  TournamentType(id, name),
                  TournamentState(id, state),
                  Game(id, name, image),
@@ -64,6 +64,7 @@ class TournamentRepository {
       apiResult.responseObject = listTournaments;
       return apiResult;
     } catch (e) {
+      log(e.toString());
       apiResult.message = e.toString();
       apiResult.error = e.runtimeType;
       return apiResult;
