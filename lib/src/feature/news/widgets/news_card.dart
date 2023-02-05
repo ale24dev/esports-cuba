@@ -129,13 +129,15 @@ class _NewsCardState extends State<NewsCard> {
   Widget saveWidget(BuildContext context) {
     return BlocBuilder<BookmarkCubit, BookmarkState>(
       builder: (context, state) {
+        print(state);
         if (state is BookmarkLoaded) {
           apiResult = state.apiResult;
         }
         if (state is BookmarkError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              GenericSnackBar(text: context.loc.logoutSuccessfully)
-                  as SnackBar);
+          Utils.genericSnackBar(
+              context: context,
+              text: context.loc.unexpectedError,
+              color: GStyles.colorFail);
         }
         return state is BookmarkLoaded
             ? Bookmark(

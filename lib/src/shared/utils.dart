@@ -176,12 +176,13 @@ abstract class Utils {
   static void genericSnackBar(
       {required BuildContext context,
       required String text,
-      Duration? duration}) {
+      Duration? duration,
+      Color? color}) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
       margin: EdgeInsets.only(bottom: 2.h, left: 3.w, right: 3.w),
       content: Text(text),
-      backgroundColor: GStyles.colorPrimary,
+      backgroundColor: color ?? GStyles.colorPrimary,
       duration: duration ?? const Duration(seconds: 5),
     ));
   }

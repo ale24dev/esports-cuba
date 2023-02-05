@@ -45,6 +45,7 @@ class BookmarkCubit extends Cubit<BookmarkState> {
       NewsBaseModel newsBaseModel, BuildContext context) async {
     listLocalBookmarks.add(newsBaseModel);
     addBookmarkToUser(newsBaseModel, context);
+    emit(BookmarkLoading());
     emit(BookmarkLoaded(
         apiResult: ApiResult(responseObject: listLocalBookmarks),
         loading: false));
@@ -83,6 +84,7 @@ class BookmarkCubit extends Cubit<BookmarkState> {
     if (listLocalBookmarks.isEmpty) {
       emit(BookmarkEmpty());
     } else {
+      emit(BookmarkLoading());
       emit(BookmarkLoaded(
           apiResult: ApiResult(responseObject: listLocalBookmarks),
           loading: false));
