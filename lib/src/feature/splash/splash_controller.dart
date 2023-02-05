@@ -14,6 +14,7 @@ import 'package:esports_cuba/src/route/app_router.gr.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/feature/news/bloc/news_cubit.dart';
 import 'package:esports_cuba/src/repositories/version_repository.dart';
+import 'package:esports_cuba/src/feature/about/bloc/version_cubit.dart';
 import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/game_cubit.dart';
 import 'package:esports_cuba/src/feature/bookmark/bloc/bookmark_cubit.dart';
@@ -31,6 +32,7 @@ class SplashController {
         await serviceLocator<VersionRepository>().getVersion();
     if (apiResult.error == null) {
       VersionBaseModel versionBaseModel = apiResult.responseObject[0];
+      cntxt.read<VersionCubit>().loadVersion(versionBaseModel.versionApp!);
       print(versionBaseModel.versionApp);
       print(versionBaseModel.version);
       if (versionBaseModel.versionApp != versionBaseModel.version) {
