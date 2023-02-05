@@ -107,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                     .currentContext
                                                                     ?.router
                                                                     .replace(
-                                                                        const LayoutScreen());
+                                                                        LayoutScreen());
                                                               } else {
                                                                 showDialog(
                                                                   context:

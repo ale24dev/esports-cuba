@@ -10,11 +10,20 @@ class VersionBaseModel extends BaseModel {
   //Identificador
   int id;
 
-  //Version de la app
+  //Ultima version de la app en la BD
   String version;
+  
+  //Version de la app actual del usuario
+  String? versionApp;
 
   //Describe si la app es stable o beta
   String status;
+
+  //Url que apunta a la dirección de descarga
+  String url;
+
+  //Url que apunta a la dirección de descarga
+  List<String> features;
 
   //Define si es obligatorio actualizar la app para usarla
   @JsonKey(name: "breaking_change")
@@ -27,9 +36,12 @@ class VersionBaseModel extends BaseModel {
   VersionBaseModel(
       {required this.id,
       required this.version,
+      required this.versionApp,
       required this.status,
       required this.breakingChange,
       required this.createdAt,     
+      required this.url,     
+      required this.features,     
       });
 
   factory VersionBaseModel.fromJson(Map<String, dynamic> json) =>

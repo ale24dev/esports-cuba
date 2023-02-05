@@ -24,6 +24,7 @@ import '../feature/splash/views/splash_screen.dart' as _i1;
 import '../feature/tournament/views/tournament_details.dart' as _i3;
 import '../models/news_base_model.dart' as _i11;
 import '../models/tournament_base_model.dart' as _i12;
+import '../models/version_base_model.dart' as _i13;
 
 class AppRouter extends _i9.RootStackRouter {
   AppRouter([_i10.GlobalKey<_i10.NavigatorState>? navigatorKey])
@@ -68,9 +69,16 @@ class AppRouter extends _i9.RootStackRouter {
       );
     },
     LayoutScreen.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+      final args = routeData.argsAs<LayoutScreenArgs>(
+          orElse: () => const LayoutScreenArgs());
+      return _i9.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i5.LayoutScreen(),
+        child: _i5.LayoutScreen(
+          key: args.key,
+          versionBaseModel: args.versionBaseModel,
+        ),
+        opaque: true,
+        barrierDismissible: false,
       );
     },
     SignupScreen.name: (routeData) {
@@ -224,14 +232,36 @@ class LoginScreen extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.LayoutScreen]
-class LayoutScreen extends _i9.PageRouteInfo<void> {
-  const LayoutScreen()
-      : super(
+class LayoutScreen extends _i9.PageRouteInfo<LayoutScreenArgs> {
+  LayoutScreen({
+    _i10.Key? key,
+    _i13.VersionBaseModel? versionBaseModel,
+  }) : super(
           LayoutScreen.name,
           path: '/layout-screen',
+          args: LayoutScreenArgs(
+            key: key,
+            versionBaseModel: versionBaseModel,
+          ),
         );
 
   static const String name = 'LayoutScreen';
+}
+
+class LayoutScreenArgs {
+  const LayoutScreenArgs({
+    this.key,
+    this.versionBaseModel,
+  });
+
+  final _i10.Key? key;
+
+  final _i13.VersionBaseModel? versionBaseModel;
+
+  @override
+  String toString() {
+    return 'LayoutScreenArgs{key: $key, versionBaseModel: $versionBaseModel}';
+  }
 }
 
 /// generated route for

@@ -14,7 +14,7 @@ class UserRepository {
     try {
       List<UserBaseModel> listUsers = [];
       final List<Map<String, dynamic>> response =
-          await _supabase.client.from('User').select();
+          await _supabase.client.from('xuser').select();
       for (var element in response) {
         UserBaseModel gameBaseModel = UserBaseModel.fromJson(element);
         listUsers.add(gameBaseModel);
@@ -31,7 +31,7 @@ class UserRepository {
   Future<ApiResult> getUserByEmail(String email) async {
     try {
       final Map<String, dynamic> response =
-          await _supabase.client.from('User').select().eq('email', email).single();
+          await _supabase.client.from('xuser').select().eq('email', email).single();
       UserBaseModel userBaseModel = UserBaseModel.fromJson(response);
       apiResult.responseObject = userBaseModel;
       return apiResult;
@@ -46,7 +46,7 @@ class UserRepository {
   Future<ApiResult> getUserByUsername(String username) async {
     try {
       final Map<String, dynamic> response = await _supabase.client
-          .from('User')
+          .from('xuser')
           .select()
           .eq("username", username)
           .single();

@@ -14,7 +14,7 @@ class SupabaseDatabaseRepository {
   Future<ApiResult> getUserInformation(String userId) async {
     try {
       final Map<String, dynamic> response = await _supabase.client
-          .from('User')
+          .from('xuser')
           .select()
           .match({'id': userId}).single();
       UserBaseModel userBaseModel = UserBaseModel.fromJson(response);

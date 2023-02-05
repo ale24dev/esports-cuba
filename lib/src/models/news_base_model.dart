@@ -18,7 +18,7 @@ class NewsBaseModel extends BaseModel {
   String text;
 
   ///Usuario que realiza el anuncio
-  @JsonKey(name: "User")
+  @JsonKey(name: "xuser")
   UserBaseModel user;
 
   ///Usuario que realiza el anuncio

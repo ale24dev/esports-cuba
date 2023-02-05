@@ -17,8 +17,14 @@ import 'package:esports_cuba/src/feature/drawer/screens/drawer_screen.dart';
 import 'package:esports_cuba/src/feature/layout/constants/nav_bar_items.dart';
 import 'package:esports_cuba/src/feature/tournament/views/tournament_screen.dart';
 
+import '../../../models/version_base_model.dart';
+import '../../splash/widgets/update_dialog.dart';
+
 class LayoutScreen extends StatefulWidget {
-  const LayoutScreen({Key? key}) : super(key: key);
+  LayoutScreen({Key? key, this.versionBaseModel})
+      : super(key: key);
+
+  VersionBaseModel? versionBaseModel;
 
   @override
   State<LayoutScreen> createState() => _LayoutScreenState();
@@ -28,7 +34,21 @@ class _LayoutScreenState extends State<LayoutScreen> {
   @override
   void initState() {
     getConnectivity();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (widget.versionBaseModel != null) {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              return WillPopScope(
+                  onWillPop: Utils.exitApp(),
+                  child:
+                      UpdateDialog(versionBaseModel: widget.versionBaseModel!));
+            });
+      }
+    });
     // context.read<DrawerCubit>().getUser(context);
+
     super.initState();
   }
 

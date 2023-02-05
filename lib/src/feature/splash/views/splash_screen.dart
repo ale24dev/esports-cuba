@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SplashController.checkLogin(context);
+    SplashController.checkVersion(context);
     return Scaffold(
         // body: Column(
         //   mainAxisAlignment: MainAxisAlignment.center,

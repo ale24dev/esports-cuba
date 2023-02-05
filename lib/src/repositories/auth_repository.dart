@@ -56,7 +56,7 @@ class AuthRepository {
       required String username}) async {
     ///Averiguar si el usuario esta repetido
     ///
-    await _supabase.client.from('User').insert([
+    await _supabase.client.from('xuser').insert([
       {
         'id': id,
         'username': username,

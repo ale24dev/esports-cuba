@@ -1,4 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
+import 'dart:io';
+
+import 'package:esports_cuba/src/feature/splash/widgets/update_dialog.dart';
+import 'package:esports_cuba/src/models/version_base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:esports_cuba/locator.dart';
 import 'package:esports_cuba/src/shared/app_info.dart';
 import 'package:esports_cuba/src/route/app_router.gr.dart';
+import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/feature/news/bloc/news_cubit.dart';
 import 'package:esports_cuba/src/repositories/version_repository.dart';
 import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
@@ -14,17 +19,71 @@ import 'package:esports_cuba/src/feature/tournament/bloc/game_cubit.dart';
 import 'package:esports_cuba/src/feature/bookmark/bloc/bookmark_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
 
+import '../../shared/utils.dart';
+import '../../shared/widgets/error_dialog.dart';
+
 class SplashController {
-  static checkLogin(BuildContext context) async {
+  static Future checkVersion(BuildContext cntxt) async {
+    Future<SharedPreferences> preferences = SharedPreferences.getInstance();
+    final SharedPreferences prefs = await preferences;
+   // String lastVersion = prefs.getString('lastVersion') ?? '';
+    ApiResult apiResult =
+        await serviceLocator<VersionRepository>().getVersion();
+    if (apiResult.error == null) {
+      VersionBaseModel versionBaseModel = apiResult.responseObject[0];
+      print(versionBaseModel.versionApp);
+      print(versionBaseModel.version);
+      if (versionBaseModel.versionApp != versionBaseModel.version) {
+        if (versionBaseModel.breakingChange) {
+          await showDialog(
+              context: cntxt,
+              barrierDismissible: false,
+              builder: (context) {
+                return WillPopScope(
+                    onWillPop: Utils.exitApp(),
+                    child: UpdateDialog(versionBaseModel: versionBaseModel));
+              });
+        } else {
+          checkLogin(context: cntxt, versionBaseModel: versionBaseModel);
+        }
+      } else {
+        print("Entro");
+        //await showUpdateLogic(cntxt, false);
+        checkLogin(context: cntxt);
+      }
+    } else {
+      showDialog(
+        context: cntxt,
+        barrierDismissible: false,
+        builder: (_) {
+          return WillPopScope(
+            onWillPop: Utils.exitApp(),
+            child: ErrorDialog(
+              errorText: apiResult.message!,
+            ),
+          );
+        },
+      );
+    }
+  }
+
+  static Future<void> checkLogin(
+      {required BuildContext context,
+      VersionBaseModel? versionBaseModel}) async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
 
-    await serviceLocator<VersionRepository>().getVersion();
+    ApiResult apiResult =
+        await serviceLocator<VersionRepository>().getVersion();
 
- ///Inicializamos la data
+    if (apiResult.error == null) {
+      _prefs.setString("version", apiResult.responseObject[0].version);
+    }
+
+    ///Inicializamos la data
     if (_prefs.getString("token") != null) {
       await getInitialData(context);
       context.read<DrawerCubit>().getUser(context);
-      context.router.replace(const LayoutScreen());
+      context.router.replace(LayoutScreen(versionBaseModel: versionBaseModel));
     } else {
       context.router.replace(const SignupScreen());
     }

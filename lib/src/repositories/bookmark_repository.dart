@@ -23,14 +23,14 @@ class BookmarkRepository {
       final List<dynamic> response =
           await _supabase.client.from('bookmarks').select('''
           id, created_at,
-          User (
+          xuser (
             id, username, image, email
           ),
-          News (
-            id, title, text, attachments, created_at, User (
+          news (
+            id, title, text, attachments, created_at, xuser (
             id, username, image, email
           ))
-          ''').eq('user', user.id);
+          ''').eq('xuser', user.id);
       for (var element in response) {
         BookmarkBaseModel bookmarkBaseModel =
             BookmarkBaseModel.fromJson(element);
@@ -49,7 +49,7 @@ class BookmarkRepository {
       NewsBaseModel newsBaseModel, AppInfo appInfo) async {
     try {
       final dynamic response = await _supabase.client.from('bookmarks').insert([
-        {'user': appInfo.user!.id, 'news': newsBaseModel.id},
+        {'xuser': appInfo.user!.id, 'news': newsBaseModel.id},
       ]);
     } catch (e) {
       print("Error: " + e.toString());
@@ -62,7 +62,7 @@ class BookmarkRepository {
       final dynamic response = await _supabase.client
           .from('bookmarks')
           .delete()
-          .match({'news': newsBaseModel.id, 'user': appInfo.user!.id});
+          .match({'news': newsBaseModel.id, 'xuser': appInfo.user!.id});
 
       print("REMOVE: " + response.toString());
     } catch (e) {

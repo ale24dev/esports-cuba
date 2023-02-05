@@ -28,7 +28,7 @@ class $AppRouter {}
     CustomRoute(page: NewsDetails),
     CustomRoute(page: TournamentDetails),
     MaterialRoute(page: LoginScreen),
-    MaterialRoute(page: LayoutScreen),
+    CustomRoute(page: LayoutScreen),
     MaterialRoute(page: SignupScreen),
     MaterialRoute(page: BookmarkScreen),
     MaterialRoute(page: AboutScreen),

@@ -12,7 +12,7 @@ class BookmarkBaseModel extends BaseModel {
   int id;
 
   ///Usuario asociado a los favoritos
-  @JsonKey(name: "User")
+  @JsonKey(name: "xuser")
   UserBaseModel userBaseModel;
 
   ///Noticia guardada

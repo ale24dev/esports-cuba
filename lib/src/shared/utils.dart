@@ -1,8 +1,11 @@
 // ignore_for_file: unrelated_type_equality_checks
 
+import 'dart:io';
+
 import 'package:esports_cuba/src/feature/bookmark/views/widgets/bookmark_card.dart';
 import 'package:esports_cuba/src/models/bookmark_base_model.dart';
 import 'package:esports_cuba/src/shared/app_info.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
@@ -92,9 +95,10 @@ abstract class Utils {
           [
             Padding(
                 padding: EdgeInsets.only(right: 2.w),
-                child: IconButton(
-                  icon: const Icon(Icons.person),
-                  onPressed: (() {}),
+                child: Container(
+                  width: 5.w,
+                  color: Colors.transparent,
+                  //margin: EdgeInsets.only(right: 5.w)
                 ))
           ],
     );
@@ -158,4 +162,13 @@ abstract class Utils {
     }
     return false;
   }
+
+  static Future<bool> Function()? exitApp() => () async {
+    if (Platform.isAndroid) {
+      SystemNavigator.pop();
+    } else if (Platform.isIOS) {
+      exit(0);
+    }
+    return false;
+  };
 }
