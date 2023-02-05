@@ -153,10 +153,10 @@ abstract class Utils {
 
   ///Chequea si una noticia esta en los bookmarks del usuario
   static bool checkBookmarkInListNews(
-      {required List<BookmarkBaseModel> listBookmarks,
+      {required List<NewsBaseModel> listNewsbaseModel,
       required NewsBaseModel newBaseModel}) {
-    for (var bookmark in listBookmarks) {
-      if (bookmark.newsBaseModel.id == newBaseModel.id) {
+    for (var newsBaseModel in listNewsbaseModel) {
+      if (newsBaseModel.id == newBaseModel.id) {
         return true;
       }
     }
@@ -164,11 +164,25 @@ abstract class Utils {
   }
 
   static Future<bool> Function()? exitApp() => () async {
-    if (Platform.isAndroid) {
-      SystemNavigator.pop();
-    } else if (Platform.isIOS) {
-      exit(0);
-    }
-    return false;
-  };
+        if (Platform.isAndroid) {
+          SystemNavigator.pop();
+        } else if (Platform.isIOS) {
+          exit(0);
+        }
+        return false;
+      };
+
+  ///SnackBar genérico
+  static void genericSnackBar(
+      {required BuildContext context,
+      required String text,
+      Duration? duration}) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      behavior: SnackBarBehavior.floating,
+      margin: EdgeInsets.only(bottom: 2.h, left: 3.w, right: 3.w),
+      content: Text(text),
+      backgroundColor: GStyles.colorPrimary,
+      duration: duration ?? const Duration(seconds: 5),
+    ));
+  }
 }

@@ -15,7 +15,11 @@ class BookmarkLoading extends BookmarkState {}
 
 class BookmarkEmpty extends BookmarkState {}
 
-class BookmarkError extends BookmarkState {}
+class BookmarkError extends BookmarkState {
+  late ApiResult apiResult;
+
+  BookmarkError({required this.apiResult});
+}
 
 class BookmarkLoaded extends BookmarkState {
   late ApiResult apiResult;

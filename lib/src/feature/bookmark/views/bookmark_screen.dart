@@ -1,3 +1,4 @@
+import 'package:esports_cuba/src/models/news_base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -44,10 +45,10 @@ class BookmarkScreen extends StatelessWidget {
                           child: ListView.builder(
                               itemCount: apiResult.responseObject.length,
                               itemBuilder: ((context, index) {
-                                BookmarkBaseModel bookmarkBaseModel =
+                                NewsBaseModel newsBaseModel =
                                     apiResult.responseObject[index];
                                 return BookmarkCard(
-                                    bookmarkBaseModel: bookmarkBaseModel);
+                                    newsBaseModel: newsBaseModel);
                               })),
                         );
         },

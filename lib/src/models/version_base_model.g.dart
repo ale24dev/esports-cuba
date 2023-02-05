@@ -10,7 +10,7 @@ VersionBaseModel _$VersionBaseModelFromJson(Map<String, dynamic> json) =>
     VersionBaseModel(
       id: json['id'] as int,
       version: json['version'] as String,
-      versionApp: json['version_app'] as String?,
+      versionApp: json['versionApp'] as String?,
       status: json['status'] as String,
       breakingChange: json['breaking_change'] as bool,
       createdAt: Utils.parseDate(json['created_at']),
@@ -23,7 +23,7 @@ Map<String, dynamic> _$VersionBaseModelToJson(VersionBaseModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'version': instance.version,
-      'version_app': instance.versionApp,
+      'versionApp': instance.versionApp,
       'status': instance.status,
       'url': instance.url,
       'features': instance.features,

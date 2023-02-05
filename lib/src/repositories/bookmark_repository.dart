@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +22,7 @@ class BookmarkRepository {
   Future<ApiResult> getBookmarksByUser(UserBaseModel user) async {
     try {
       List<BookmarkBaseModel> listBookmarks = [];
+      print("ENTROOOO");
       final List<dynamic> response =
           await _supabase.client.from('bookmarks').select('''
           id, created_at,
@@ -39,34 +42,40 @@ class BookmarkRepository {
       apiResult.responseObject = listBookmarks;
       return apiResult;
     } catch (e) {
+      print(e.toString());
       apiResult.message = e.toString();
       apiResult.error = e;
       return apiResult;
     }
   }
 
-  Future<void> addBookmarkToUser(
+  Future<ApiResult?> addBookmarkToUser(
       NewsBaseModel newsBaseModel, AppInfo appInfo) async {
     try {
       final dynamic response = await _supabase.client.from('bookmarks').insert([
         {'xuser': appInfo.user!.id, 'news': newsBaseModel.id},
       ]);
     } catch (e) {
-      print("Error: " + e.toString());
+      apiResult.error = e;
+      apiResult.message = e.toString();
+      return apiResult;
+      //print("Error: " + e.toString());
     }
+    return null;
   }
 
-  Future<void> removeBookmarkOfUser(
+  Future<ApiResult?> removeBookmarkOfUser(
       NewsBaseModel newsBaseModel, AppInfo appInfo) async {
     try {
-      final dynamic response = await _supabase.client
+      await _supabase.client
           .from('bookmarks')
           .delete()
           .match({'news': newsBaseModel.id, 'xuser': appInfo.user!.id});
-
-      print("REMOVE: " + response.toString());
     } catch (e) {
-      print("Error: " + e.toString());
+      apiResult.error = e;
+      apiResult.message = e.toString();
+      return apiResult;
     }
+    return null;
   }
 }

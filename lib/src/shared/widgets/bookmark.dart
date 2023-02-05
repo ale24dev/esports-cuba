@@ -28,15 +28,15 @@ class Bookmark extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Utils.checkBookmarkInListNews(
-                listBookmarks:
+                listNewsbaseModel:
                     apiResult != null ? apiResult!.responseObject : [],
                 newBaseModel: newsBaseModel)
             ? context
                 .read<BookmarkCubit>()
-                .removeBookmarkOfUser(newsBaseModel, context)
+                .removeLocalBookmarkOfUser(newsBaseModel, context)
             : context
                 .read<BookmarkCubit>()
-                .addBookmarkToUser(newsBaseModel, context);
+                .addBookmarkLocalToUser(newsBaseModel, context);
       },
       child: Container(
         color: Colors.transparent,
@@ -46,7 +46,7 @@ class Bookmark extends StatelessWidget {
             child: Row(
               children: [
                 Utils.checkBookmarkInListNews(
-                        listBookmarks:
+                        listNewsbaseModel:
                             apiResult != null ? apiResult!.responseObject : [],
                         newBaseModel: newsBaseModel)
                     ? FaIcon(FontAwesomeIcons.solidBookmark, size: 17.sp)

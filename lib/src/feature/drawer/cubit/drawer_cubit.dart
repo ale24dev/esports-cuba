@@ -39,11 +39,8 @@ class DrawerCubit extends Cubit<DrawerState> {
   Future<void> logOut(BuildContext context) async {
     try {
       await serviceLocator<AuthRepository>().logOut();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(context.loc.logoutSuccessfully),
-        backgroundColor: GStyles.colorPrimary,
-        duration: const Duration(seconds: 5),
-      ));
+      Utils.genericSnackBar(
+          context: context, text: context.loc.logoutSuccessfully);
 
       Utils.logOut(context);
       context.router.replace(const SignupScreen());

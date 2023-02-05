@@ -16,6 +16,8 @@ import 'package:esports_cuba/src/models/news_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/feature/bookmark/bloc/bookmark_cubit.dart';
 
+import '../../../shared/widgets/generic_snack_bar.dart';
+
 class NewsCard extends StatefulWidget {
   const NewsCard({
     Key? key,
@@ -35,8 +37,7 @@ class _NewsCardState extends State<NewsCard> {
     return InkWell(
       highlightColor: GStyles.containerDarkColor,
       onTap: () {
-        context.router.push(NewsDetails(
-            newsBaseModel: widget.newsBaseModel));
+        context.router.push(NewsDetails(newsBaseModel: widget.newsBaseModel));
       },
       child: Container(
         margin:
@@ -130,6 +131,11 @@ class _NewsCardState extends State<NewsCard> {
       builder: (context, state) {
         if (state is BookmarkLoaded) {
           apiResult = state.apiResult;
+        }
+        if (state is BookmarkError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              GenericSnackBar(text: context.loc.logoutSuccessfully)
+                  as SnackBar);
         }
         return state is BookmarkLoaded
             ? Bookmark(

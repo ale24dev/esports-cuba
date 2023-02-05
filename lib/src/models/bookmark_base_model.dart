@@ -16,7 +16,7 @@ class BookmarkBaseModel extends BaseModel {
   UserBaseModel userBaseModel;
 
   ///Noticia guardada
-  @JsonKey(name: "News")
+  @JsonKey(name: "news")
   NewsBaseModel newsBaseModel;
 
   BookmarkBaseModel(
