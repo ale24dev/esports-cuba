@@ -77,8 +77,9 @@ abstract class Utils {
           child: Text(title ?? context.loc.appTitle,
               style: context.textTheme.headline4?.copyWith(
                   fontFamily: GStyles.fontEvilEmpire, fontSize: 18.sp))),
-      leading: navigateBack
-          ? InkWell(
+      leading: !navigateBack
+          ? null
+          : InkWell(
               highlightColor: GStyles.containerDarkColor,
               customBorder: const CircleBorder(),
               onTap: (() {
@@ -89,8 +90,7 @@ abstract class Utils {
                 FontAwesomeIcons.arrowLeft,
                 size: 17.sp,
               )),
-            )
-          : null,
+            ),
       actions: actions ??
           [
             Padding(

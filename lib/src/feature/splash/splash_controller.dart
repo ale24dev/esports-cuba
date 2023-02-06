@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:io';
 
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
 import 'package:esports_cuba/src/feature/splash/widgets/update_dialog.dart';
 import 'package:esports_cuba/src/models/version_base_model.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class SplashController {
   static Future checkVersion(BuildContext cntxt) async {
     Future<SharedPreferences> preferences = SharedPreferences.getInstance();
     final SharedPreferences prefs = await preferences;
-   // String lastVersion = prefs.getString('lastVersion') ?? '';
+    // String lastVersion = prefs.getString('lastVersion') ?? '';
     ApiResult apiResult =
         await serviceLocator<VersionRepository>().getVersion();
     if (apiResult.error == null) {
@@ -113,8 +114,11 @@ class SplashController {
       ///Cargamos la info del drawer
       context.read<DrawerCubit>().getUser(context);
 
-      ///Cargamos todos los anuncios
+      ///Cargamos todos los elementos guardados
       context.read<BookmarkCubit>().loadBookmarkByUser(appInfo.user!);
+
+      ///Cargamos todos los favoritos
+      context.read<FavoritesCubit>().loadFavs(appInfo.user!);
     }
   }
 }

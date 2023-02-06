@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -82,6 +83,7 @@ class _MyAppState extends State<MyApp> {
           RepositoryProvider<TournamentDetailsCubit>(
               create: (context) => TournamentDetailsCubit()),
           RepositoryProvider<VersionCubit>(create: (context) => VersionCubit()),
+          RepositoryProvider<FavoritesCubit>(create: (context) => FavoritesCubit()),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

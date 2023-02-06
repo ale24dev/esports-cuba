@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:esports_cuba/constants.dart';
 import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -87,15 +88,31 @@ class TournamentList extends StatelessWidget {
     );
   }
 
-  ClipRRect imageCard(TournamentBaseModel tournament) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10.0),
-      child: Image.network(
-        tournament.imageHeader,
-        height: 20.h,
-        width: 95.w,
-        fit: BoxFit.cover,
-      ),
+  Widget imageCard(TournamentBaseModel tournament) {
+    return Stack(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: Image.network(
+            tournament.imageHeader,
+            height: 20.h,
+            width: 95.w,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Positioned(
+            top: 1.h,
+            right: 2.w,
+            child: Container(
+              height: 24.sp,
+              width: 24.sp,
+              decoration: BoxDecoration(
+                  color: GStyles.backGroundDarkColor, shape: BoxShape.circle),
+              child: Center(
+                child: FaIcon(FontAwesomeIcons.solidHeart, color: GStyles.colorFail, size: 17.sp),
+              ),
+            ))
+      ],
     );
   }
 

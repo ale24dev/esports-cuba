@@ -47,6 +47,10 @@ class DrawerSection extends StatelessWidget {
                           context.router.push(const BookmarkScreen());
                           break;
 
+                        case "Favoritos":
+                          context.router.push(const FavoritesScreen());
+                          break;
+
                         case "Acerca de":
                           context.router.push(const AboutScreen());
                           break;

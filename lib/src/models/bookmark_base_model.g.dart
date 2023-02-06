@@ -19,5 +19,5 @@ Map<String, dynamic> _$BookmarkBaseModelToJson(BookmarkBaseModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'xuser': instance.userBaseModel.toJson(),
-      'News': instance.newsBaseModel.toJson(),
+      'news': instance.newsBaseModel.toJson(),
     };

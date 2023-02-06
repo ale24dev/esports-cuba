@@ -1,0 +1,1 @@
+enum CategoryFavoritesEnum { ALL, TEAMS, TOURNAMENTS, PLAYERS }

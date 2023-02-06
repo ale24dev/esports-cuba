@@ -41,7 +41,7 @@ class GStyles {
       textBottomNavigationBarItemStyle.copyWith(color: Colors.white);
 
   static TextStyle get bodyText => TextStyle(
-        fontSize: 18,
+        fontSize: 16.sp,
         fontFamily: GStyles.fontPoppins,
         color: Colors.white,
       );

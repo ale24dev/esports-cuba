@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -5,6 +7,7 @@ import 'package:esports_cuba/locator.dart';
 import 'package:esports_cuba/src/models/bookmark_base_model.dart';
 import 'package:esports_cuba/src/shared/app_info.dart';
 import 'package:esports_cuba/src/models/news_base_model.dart';
+import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/repositories/bookmark_repository.dart';
 import 'package:flutter/cupertino.dart';
@@ -66,6 +69,9 @@ class BookmarkCubit extends Cubit<BookmarkState> {
 
         emit(BookmarkError(apiResult: apiResult));
       }
+    } else {
+      emit(BookmarkError(
+          apiResult: ApiResult(message: context.loc.unexpectedError)));
     }
   }
 
