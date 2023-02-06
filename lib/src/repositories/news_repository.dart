@@ -3,6 +3,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 
+import '../shared/database/query_supabase.dart.dart';
+
 class NewsRepository {
   final Supabase _supabase;
   late ApiResult apiResult;
@@ -14,12 +16,7 @@ class NewsRepository {
     try {
       List<NewsBaseModel> listGames = [];
       final List<Map<String, dynamic>> response =
-          await _supabase.client.from('news').select('''
-          id, created_at, title, text, attachments,
-          xuser (
-            id, username, image, email
-            )
-          ''');
+          await _supabase.client.from('news').select(QuerySupabase.news);
       for (var element in response) {
         NewsBaseModel announcementBaseModel = NewsBaseModel.fromJson(element);
         listGames.add(announcementBaseModel);

@@ -5,14 +5,13 @@ import 'dart:developer';
 import 'package:esports_cuba/src/models/player_base_model.dart';
 import 'package:esports_cuba/src/models/team_base_model.dart';
 import 'package:esports_cuba/src/models/tournament_base_model.dart';
+import 'package:esports_cuba/src/shared/database/query_supabase.dart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 
 import '../models/favorites_base_model.dart';
 import '../models/user_base_model.dart';
-import '../models/version_base_model.dart';
 import '../shared/app_info.dart';
 
 class FavoritesRepository {
@@ -26,21 +25,12 @@ class FavoritesRepository {
     try {
       List<FavoritesBaseModel> listFavorites = [];
 
-      final List<dynamic> response =
-          await _supabase.client.from('favorites').select('''id,
-            xuser(id, username, image, email),
-            Team(id, name, created_at, country, ceo, image_header, image_logo),
-            Player(id, nickname, name, image, country),               
-            Tournament(
-              id, name, created_at, edition,
-                    active, image_logo, image_header,
-                    quantity_groups, max_teams, prizepool, description,
-                    TournamentType(id, name),
-                    TournamentState(id, state),
-                    Game(id, name, image),
-                    Winners(id, first_place, second_place, third_place)
-                    )
-                 ''').eq('xuser', user.id);
+      final List<dynamic> response = await _supabase.client
+          .from('favorites')
+          .select(QuerySupabase.favorites)
+          .eq('xuser', user.id);
+
+      print(response);
       for (var element in response) {
         FavoritesBaseModel favoritesBaseModel =
             FavoritesBaseModel.fromJson(element);

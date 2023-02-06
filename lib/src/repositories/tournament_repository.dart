@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:esports_cuba/locator.dart';
 import 'package:esports_cuba/src/models/tournament_state_base_model.dart';
+import 'package:esports_cuba/src/shared/database/query_supabase.dart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:esports_cuba/src/models/game_base_model.dart';
@@ -47,14 +48,7 @@ class TournamentRepository {
       List<TournamentBaseModel> listTournaments = [];
       final List<dynamic> response = await _supabase.client
           .from('Tournament')
-          .select('''id, name, created_at, edition,
-               active, image_logo, image_header,
-                quantity_groups, max_teams, prizepool, description,
-                 TournamentType(id, name),
-                 TournamentState(id, state),
-                 Game(id, name, image),
-                 Winners(id, first_place, second_place, third_place)
-                 ''').eq('game', '${game.id}');
+          .select(QuerySupabase.tournament).eq('game', '${game.id}');
       for (var element in response) {
         TournamentBaseModel gameBaseModel =
             TournamentBaseModel.fromJson(element);

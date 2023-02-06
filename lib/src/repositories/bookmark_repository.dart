@@ -10,6 +10,7 @@ import 'package:esports_cuba/src/models/bookmark_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 
 import '../models/user_base_model.dart';
+import '../shared/database/query_supabase.dart.dart';
 
 class BookmarkRepository {
   final Supabase _supabase;
@@ -21,19 +22,12 @@ class BookmarkRepository {
   //Future<ApiResult> getBookmarksByUser(UserBaseModel userBaseModel) async {
   Future<ApiResult> getBookmarksByUser(UserBaseModel user) async {
     try {
+      print(QuerySupabase.bookmark);
       List<BookmarkBaseModel> listBookmarks = [];
-      print("ENTROOOO");
-      final List<dynamic> response =
-          await _supabase.client.from('bookmarks').select('''
-          id, created_at,
-          xuser (
-            id, username, image, email
-          ),
-          news (
-            id, title, text, attachments, created_at, xuser (
-            id, username, image, email
-          ))
-          ''').eq('xuser', user.id);
+      final List<dynamic> response = await _supabase.client
+          .from('bookmarks')
+          .select(QuerySupabase.bookmark)
+          .eq('xuser', user.id);
       for (var element in response) {
         BookmarkBaseModel bookmarkBaseModel =
             BookmarkBaseModel.fromJson(element);

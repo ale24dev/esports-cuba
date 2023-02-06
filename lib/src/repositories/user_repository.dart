@@ -36,7 +36,6 @@ class UserRepository {
       apiResult.responseObject = userBaseModel;
       return apiResult;
     } catch (e) {
-      print("ERROR User Id: " + e.toString());
       apiResult.message = e.toString();
       apiResult.error = e.runtimeType;
       return apiResult;
