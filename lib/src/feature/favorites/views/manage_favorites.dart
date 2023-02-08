@@ -38,7 +38,10 @@ class ManageFavorites extends StatelessWidget {
                             itemBuilder: (context, index) {
                               var favorite = apiResult.responseObject[index];
                               return FavoritesCard(
-                                  favorite: favorite, index: index);
+                                  favorite: favorite,
+                                  index: index,
+                                  isLastIndex: index ==
+                                      apiResult.responseObject.length - 1);
                             },
                           ),
                         )

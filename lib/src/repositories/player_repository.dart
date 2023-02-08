@@ -22,7 +22,6 @@ class PlayerRepository {
       apiResult.responseObject = listPlayers;
       return apiResult;
     } catch (e) {
-      print(e);
       apiResult.message = e.toString();
       apiResult.error = e.runtimeType;
       return apiResult;

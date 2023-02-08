@@ -36,8 +36,7 @@ class SplashController {
     if (apiResult.error == null) {
       VersionBaseModel versionBaseModel = apiResult.responseObject[0];
       cntxt.read<VersionCubit>().loadVersion(versionBaseModel.versionApp!);
-      print(versionBaseModel.versionApp);
-      print(versionBaseModel.version);
+
       if (versionBaseModel.versionApp != versionBaseModel.version) {
         if (versionBaseModel.breakingChange) {
           await showDialog(
@@ -52,7 +51,6 @@ class SplashController {
           checkLogin(context: cntxt, versionBaseModel: versionBaseModel);
         }
       } else {
-        print("Entro");
         //await showUpdateLogic(cntxt, false);
         checkLogin(context: cntxt);
       }

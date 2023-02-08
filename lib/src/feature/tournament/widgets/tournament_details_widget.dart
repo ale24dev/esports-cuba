@@ -46,7 +46,7 @@ class TournamentDetailsWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(tournament.description,
-                        style: const TextStyle(color: Colors.white)),
+                        style: const TextStyle(color: Colors.white60)),
                   ],
                 ),
               ),
@@ -65,49 +65,55 @@ class TournamentDetailsWidget extends StatelessWidget {
                 color: GStyles.containerDarkColor,
                 borderRadius: BorderRadius.circular(5.0)),
             child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: Constants.MARGIN),
+                padding: EdgeInsets.symmetric(
+                    horizontal: Constants.MARGIN, vertical: 1.h),
                 child: listTeamTournaments.isNotEmpty
                     ? ListView.builder(
                         itemCount: listTeamTournaments.length,
                         itemBuilder: (context, index) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: index % 2 == 0
-                                    ? GStyles.backGroundDarkColor
-                                    : Colors.transparent,
-                                borderRadius: BorderRadius.circular(5.0)),
-                            child: Padding(
-                              padding: EdgeInsets.all(8.sp),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Image.network(
-                                        listTeamTournaments[index]
-                                            .team!
-                                            .image
-                                            .toString(),
-                                        height: 30.sp,
+                          return Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Constants.MARGIN),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      height: 28.sp,
+                                      width: 28.sp,
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.circle),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: Image.network(
+                                            listTeamTournaments[index]
+                                                .team!
+                                                .image),
                                       ),
-                                      SizedBox(width: 1.w),
-                                      Text(
-                                          listTeamTournaments[index].team!.name,
-                                          style: context.textTheme.bodyText1
-                                              ?.copyWith(
-                                                  fontSize: 16.sp,
-                                                  fontFamily: GStyles
-                                                      .fontSanFrancisco)),
-                                    ],
-                                  ),
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon:
-                                          const FaIcon(FontAwesomeIcons.heart))
-                                ],
+                                    ),
+                                    SizedBox(width: 4.w),
+                                    Expanded(
+                                        child: Text(
+                                      listTeamTournaments[index].team!.name,
+                                      style: context.textTheme.bodyText1,
+                                      textAlign: TextAlign.start,
+                                    )),
+                                    FaIcon(FontAwesomeIcons.solidHeart,
+                                        color: GStyles.colorFail, size: 19.sp)
+                                  ],
+                                ),
                               ),
-                            ),
+                              index != listTeamTournaments.length - 1
+                                  ? Container(
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 5.w),
+                                      child: const Divider(
+                                        color: Colors.white10,
+                                      ))
+                                  : const SizedBox.shrink()
+                            ],
                           );
                         },
                       )
@@ -122,8 +128,8 @@ class TournamentDetailsWidget extends StatelessWidget {
       default:
         return Expanded(
           child: Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: Constants.MARGIN, vertical: 2.h),
+            padding: EdgeInsets.symmetric(
+                horizontal: Constants.MARGIN, vertical: 2.h),
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(

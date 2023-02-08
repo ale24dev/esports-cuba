@@ -18,7 +18,6 @@ class PlayerCubit extends Cubit<PlayerState> {
     listPlayers = [];
     emit(PlayerLoading());
     ApiResult apiResult = await serviceLocator<PlayerRepository>().getAllPlayers();
-    print(apiResult.toString());
     if (apiResult.error == null) {
       if (apiResult.responseObject.isEmpty) {
         emit(PlayerEmpty());

@@ -82,7 +82,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                                           : () async {
                                                               bloc.changeStateLoad(
                                                                   true);
-                                                              print("Llegue");
                                                               ApiResult apiResult = await serviceLocator<
                                                                       AuthRepository>()
                                                                   .logIn(

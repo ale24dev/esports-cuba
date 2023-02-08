@@ -218,7 +218,6 @@ abstract class Utils {
   ///Método para obtener los jugadores populares
   static List<PlayerBaseModel> getPopularPlayers(
       List<PlayerBaseModel> listPlayersBaseModel) {
-    print(listPlayersBaseModel.toString());
     List<PlayerBaseModel> listPopularPlayers = [];
 
     for (var player in listPlayersBaseModel) {

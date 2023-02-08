@@ -68,7 +68,6 @@ class TournamentRepository {
 
       return apiResult;
     } catch (e) {
-      print(e.toString());
       apiResult.message = e.toString();
       apiResult.error = e.runtimeType;
       return apiResult;
