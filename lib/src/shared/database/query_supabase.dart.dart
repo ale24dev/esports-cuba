@@ -12,16 +12,16 @@ abstract class QuerySupabase {
           xuser($xuser)
           ''';
 
-  static String get player => "id, nickname, name, image, country";
+  static String get player => "id, nickname, name, image, country, popular";
 
   static String get team =>
-      "id, name, created_at, country, ceo, image_header, image_logo";
+      "id, name, created_at, country, ceo, image_header, image, popular";
 
   static String get teamTournament =>
       "id, created_at, active, Team($team), Tournament($tournament)";
 
   static String get tournament =>
-      '''id, name, created_at, edition, active, image_logo, image_header, description,
+      '''id, name, created_at, edition, active, image, image_header, quantity_groups, max_teams, prizepool, description, popular, 
       TournamentType($tournamentType), TournamentState($tournamentState), Game($game), Winners($winners)''';
 
   static String get tournamentState => "id, state";

@@ -1,29 +1,29 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:esports_cuba/locator.dart';
-import 'package:esports_cuba/src/feature/tournament/constants/category_tournament_details.dart';
 
 import 'package:esports_cuba/src/models/game_base_model.dart';
 import 'package:esports_cuba/src/models/tournament_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/repositories/tournament_repository.dart';
 
-import '../../../repositories/team_tournament_repository.dart';
-
 part 'tournament_state.dart';
 
 class TournamentCubit extends Cubit<TournamentState> {
+  late List<TournamentBaseModel> listTournaments;
   TournamentCubit() : super(TournamentInitial());
 
   ///Cargamos todos los torneos
   void loadTournaments() async {
+    listTournaments = [];
     emit(TournamentLoading());
     ApiResult apiResult =
         await serviceLocator<TournamentRepository>().getAllTournaments();
     if (apiResult.error == null) {
-      if (apiResult.responseObject.length == 0) {
+      if (apiResult.responseObject.isEmpty) {
         TournamentEmpty();
       } else {
+        listTournaments.addAll(apiResult.responseObject);
         emit(TournamentLoaded(apiResult: apiResult));
       }
     }

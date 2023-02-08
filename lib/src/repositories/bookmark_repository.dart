@@ -22,7 +22,6 @@ class BookmarkRepository {
   //Future<ApiResult> getBookmarksByUser(UserBaseModel userBaseModel) async {
   Future<ApiResult> getBookmarksByUser(UserBaseModel user) async {
     try {
-      print(QuerySupabase.bookmark);
       List<BookmarkBaseModel> listBookmarks = [];
       final List<dynamic> response = await _supabase.client
           .from('bookmarks')
@@ -36,7 +35,6 @@ class BookmarkRepository {
       apiResult.responseObject = listBookmarks;
       return apiResult;
     } catch (e) {
-      print(e.toString());
       apiResult.message = e.toString();
       apiResult.error = e;
       return apiResult;

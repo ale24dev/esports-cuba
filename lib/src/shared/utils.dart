@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:esports_cuba/src/feature/bookmark/views/widgets/bookmark_card.dart';
 import 'package:esports_cuba/src/models/bookmark_base_model.dart';
+import 'package:esports_cuba/src/models/team_base_model.dart';
 import 'package:esports_cuba/src/shared/app_info.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -22,6 +23,7 @@ import 'package:esports_cuba/src/shared/widgets/dialog_message.dart';
 import 'package:esports_cuba/src/models/tournament_state_base_model.dart';
 
 import '../models/news_base_model.dart';
+import '../models/player_base_model.dart';
 import '../route/app_router.gr.dart';
 
 abstract class Utils {
@@ -185,5 +187,45 @@ abstract class Utils {
       backgroundColor: color ?? GStyles.colorPrimary,
       duration: duration ?? const Duration(seconds: 5),
     ));
+  }
+
+  ///Método para obtener los torneos populares
+  static List<TournamentBaseModel> getPopularTournaments(
+      List<TournamentBaseModel> listTournamentsBaseModel) {
+    List<TournamentBaseModel> listPopularTournaments = [];
+
+    for (var tournament in listTournamentsBaseModel) {
+      if (tournament.popular) {
+        listPopularTournaments.add(tournament);
+      }
+    }
+    return listPopularTournaments;
+  }
+
+  ///Método para obtener los equipos populares
+  static List<TeamBaseModel> getPopularTeams(
+      List<TeamBaseModel> listTeamsBaseModel) {
+    List<TeamBaseModel> listPopularTeams = [];
+
+    for (var team in listTeamsBaseModel) {
+      if (team.popular) {
+        listPopularTeams.add(team);
+      }
+    }
+    return listPopularTeams;
+  }
+
+  ///Método para obtener los jugadores populares
+  static List<PlayerBaseModel> getPopularPlayers(
+      List<PlayerBaseModel> listPlayersBaseModel) {
+    print(listPlayersBaseModel.toString());
+    List<PlayerBaseModel> listPopularPlayers = [];
+
+    for (var player in listPlayersBaseModel) {
+      if (player.popular) {
+        listPopularPlayers.add(player);
+      }
+    }
+    return listPopularPlayers;
   }
 }

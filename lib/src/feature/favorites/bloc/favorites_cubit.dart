@@ -4,9 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:esports_cuba/src/models/favorites_base_model.dart';
 import 'package:esports_cuba/src/shared/extensions.dart';
+import 'package:esports_cuba/src/shared/utils.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../locator.dart';
+import '../../../models/tournament_base_model.dart';
 import '../../../models/user_base_model.dart';
 import '../../../shared/app_info.dart';
 import '../../../shared/repository/ApiResult.dart';
@@ -77,5 +79,10 @@ class FavoritesCubit extends Cubit<FavoritesState> {
       emit(FavoritesError(
           apiResult: ApiResult(message: context.loc.unexpectedError)));
     }
+  }
+
+  List<TournamentBaseModel> getPopularTournaments(
+      List<TournamentBaseModel> listTournamentsBaseModel) {
+    return Utils.getPopularTournaments(listTournamentsBaseModel);
   }
 }

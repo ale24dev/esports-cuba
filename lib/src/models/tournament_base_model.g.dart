@@ -10,20 +10,21 @@ TournamentBaseModel _$TournamentBaseModelFromJson(Map<String, dynamic> json) =>
     TournamentBaseModel(
       id: json['id'] as int,
       name: json['name'] as String,
-      edition: json['edition'] as int,
+      game: json['Game'] == null
+          ? null
+          : GameBaseModel.fromJson(json['Game'] as Map<String, dynamic>),
       active: json['active'] as bool,
+      edition: json['edition'] as int,
+      popular: json['popular'] as bool,
+      maxTeams: json['max_teams'] as int?,
       createdAt: Utils.parseDate(json['created_at']),
-      imageLogo: json['image_logo'] as String,
+      image: json['image'] as String,
       imageHeader: json['image_header'] as String,
       description: json['description'] as String,
       tournamentType: json['TournamentType'] == null
           ? null
           : TournamentTypeBaseModel.fromJson(
               json['TournamentType'] as Map<String, dynamic>),
-      game: json['Game'] == null
-          ? null
-          : GameBaseModel.fromJson(json['Game'] as Map<String, dynamic>),
-      maxTeams: json['max_teams'] as int?,
       quantityGroups: json['quantity_groups'] as int?,
       tournamentState: json['TournamentState'] == null
           ? null
@@ -43,14 +44,15 @@ Map<String, dynamic> _$TournamentBaseModelToJson(
       'edition': instance.edition,
       'active': instance.active,
       'description': instance.description,
-      'image_logo': instance.imageLogo,
+      'image': instance.image,
       'image_header': instance.imageHeader,
       'quantity_groups': instance.quantityGroups,
       'max_teams': instance.maxTeams,
+      'prizepool': instance.prizepool,
+      'popular': instance.popular,
       'TournamentType': instance.tournamentType?.toJson(),
       'TournamentState': instance.tournamentState?.toJson(),
       'Game': instance.game?.toJson(),
       'Winners': instance.winners?.toJson(),
-      'prizepool': instance.prizepool,
       'created_at': instance.createdAt.toIso8601String(),
     };

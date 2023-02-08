@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../shared/utils.dart';
+import '../../../shared/widgets/empty_data_message.dart';
 import '../bloc/favorites_cubit.dart';
 import '../widgets/favorites_card.dart';
 import '../../../shared/loading_app.dart';
@@ -28,7 +29,7 @@ class ManageFavorites extends StatelessWidget {
                   child: LoadingApp(),
                 )
               : state is FavoritesEmpty
-                  ? Center(child: Text(context.loc.emptyFavsUser))
+                  ? EmptyDataMessage(message: context.loc.emptyFavsUser)
                   : state is FavoritesLoaded
                       ? Container(
                           margin: EdgeInsets.symmetric(vertical: 2.h),
@@ -54,4 +55,3 @@ class ManageFavorites extends StatelessWidget {
     );
   }
 }
-

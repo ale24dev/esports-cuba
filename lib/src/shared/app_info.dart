@@ -71,7 +71,6 @@ class AppInfo {
   static Future<void> initUser(SharedPreferences prefs) async {
     try {
       String username = prefs.getString('username') ?? '';
-      print(username);
       ApiResult apiResult =
           await serviceLocator<UserRepository>().getUserByUsername(username);
       if (apiResult.error == null) {

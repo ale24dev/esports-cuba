@@ -13,14 +13,12 @@ class TeamTournamentRepository {
   }
 
   Future<ApiResult> getTeamsByTournament(TournamentBaseModel tournament) async {
-    print(tournament.id);
     try {
       List<TeamTournamentBaseModel> listTeamTournamet = [];
       final List<dynamic> response = await _supabase.client
           .from('TeamTournament')
           .select(QuerySupabase.teamTournament)
           .eq('tournament', tournament.id);
-      print(response.toString());
       for (var element in response) {
         TeamTournamentBaseModel teamTournamentBaseModel =
             TeamTournamentBaseModel.fromJson(element);

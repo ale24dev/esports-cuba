@@ -19,26 +19,31 @@ class TeamBaseModel extends BaseModel {
   ///Usuario que realiza el anuncio
   String? ceo;
 
+  ///Determina si es popular
+  bool popular;
+
   ///Usuario que realiza el anuncio
   @JsonKey(name: "image_header")
   String imageHeader;
 
   ///Usuario que realiza el anuncio
-  @JsonKey(name: "image_logo")
-  String imageLogo;
+  @JsonKey(name: "image")
+  String image;
 
   //Fecha de creación del anuncio
   @JsonKey(name: "created_at", fromJson: Utils.parseDate)
   DateTime createdAt;
 
-  TeamBaseModel(
-      {required this.id,
-      required this.name,
-      required this.country,
-      required this.ceo,
-      required this.createdAt,
-      required this.imageLogo,
-      required this.imageHeader});
+  TeamBaseModel({
+    required this.id,
+    required this.name,
+    required this.country,
+    required this.ceo,
+    required this.createdAt,
+    required this.image,
+    required this.imageHeader,
+    required this.popular,
+  });
 
   factory TeamBaseModel.fromJson(Map<String, dynamic> json) =>
       _$TeamBaseModelFromJson(json);

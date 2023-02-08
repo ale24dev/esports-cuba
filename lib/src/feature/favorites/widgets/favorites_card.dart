@@ -36,9 +36,7 @@ class FavoritesCard extends StatelessWidget {
               decoration: const BoxDecoration(shape: BoxShape.circle),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
-                child: Image.network(favorite is PlayerBaseModel
-                    ? favorite.image
-                    : favorite.imageLogo),
+                child: Image.network(favorite.image),
               ),
             ),
             SizedBox(width: 4.w),

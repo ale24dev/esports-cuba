@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'category_favorites.dart';
+import 'list_popular_favorites.dart';
 import '../constants/category_favorites.dart';
 import '../../../../resources/general_styles.dart';
 import 'package:esports_cuba/src/shared/extensions.dart';
+
 
 class AddBottomFavoritesSection extends StatefulWidget {
   const AddBottomFavoritesSection({
@@ -26,38 +29,50 @@ class _AddBottomFavoritesSectionState extends State<AddBottomFavoritesSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 1.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Expanded(
+      child: Column(
         children: [
-          CategoryFavorites(
-            title: "Todos",
-            isSelected: categoryFavoritesSelected == CategoryFavoritesEnum.ALL,
-            category: CategoryFavoritesEnum.ALL,
-            callback: voidCallback,
+          Container(
+            color: GStyles.containerDarkColor,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 1.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CategoryFavorites(
+                    title: context.loc.all,
+                    isSelected:
+                        categoryFavoritesSelected == CategoryFavoritesEnum.ALL,
+                    category: CategoryFavoritesEnum.ALL,
+                    callback: voidCallback,
+                  ),
+                  CategoryFavorites(
+                    title: context.loc.teams,
+                    isSelected: categoryFavoritesSelected ==
+                        CategoryFavoritesEnum.TEAMS,
+                    category: CategoryFavoritesEnum.TEAMS,
+                    callback: voidCallback,
+                  ),
+                  CategoryFavorites(
+                    title: context.loc.tournament,
+                    isSelected: categoryFavoritesSelected ==
+                        CategoryFavoritesEnum.TOURNAMENTS,
+                    category: CategoryFavoritesEnum.TOURNAMENTS,
+                    callback: voidCallback,
+                  ),
+                  CategoryFavorites(
+                    title: context.loc.players,
+                    isSelected: categoryFavoritesSelected ==
+                        CategoryFavoritesEnum.PLAYERS,
+                    category: CategoryFavoritesEnum.PLAYERS,
+                    callback: voidCallback,
+                  ),
+                ],
+              ),
+            ),
           ),
-          CategoryFavorites(
-            title: "Equipos",
-            isSelected:
-                categoryFavoritesSelected == CategoryFavoritesEnum.TEAMS,
-            category: CategoryFavoritesEnum.TEAMS,
-            callback: voidCallback,
-          ),
-          CategoryFavorites(
-            title: context.loc.tournament,
-            isSelected:
-                categoryFavoritesSelected == CategoryFavoritesEnum.TOURNAMENTS,
-            category: CategoryFavoritesEnum.TOURNAMENTS,
-            callback: voidCallback,
-          ),
-          CategoryFavorites(
-            title: "Jugadores",
-            isSelected:
-                categoryFavoritesSelected == CategoryFavoritesEnum.PLAYERS,
-            category: CategoryFavoritesEnum.PLAYERS,
-            callback: voidCallback,
-          ),
+          SizedBox(height: 2.h),
+          ListPopularFavorites(categorySelected: categoryFavoritesSelected)
         ],
       ),
     );
@@ -87,48 +102,3 @@ class _AddBottomFavoritesSectionState extends State<AddBottomFavoritesSection> {
   }
 }
 
-class CategoryFavorites extends StatelessWidget {
-  const CategoryFavorites({
-    super.key,
-    required this.title,
-    required this.isSelected,
-    required this.callback,
-    required this.category,
-  });
-
-  ///Título de la categoría
-  final String title;
-
-  ///Bandera que determina si esta seleccionada la categoría
-  final bool isSelected;
-
-  ///Categoría
-  final CategoryFavoritesEnum category;
-
-  ///Function callback
-  final Function callback;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        callback(category);
-      },
-      child: Container(
-        decoration: BoxDecoration(
-            color:
-                isSelected ? GStyles.colorPrimary : GStyles.backGroundDarkColor,
-            borderRadius: BorderRadius.circular(5)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            title,
-            style: context.textTheme.bodyText1?.copyWith(
-                color: isSelected ? Colors.white : Colors.grey,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
-          ),
-        ),
-      ),
-    );
-  }
-}

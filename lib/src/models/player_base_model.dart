@@ -7,7 +7,7 @@ part 'player_base_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class PlayerBaseModel extends BaseModel {
   ///Identificador
-  String id;
+  int id;
 
   ///Nickname del usuario
   String nickname;
@@ -21,12 +21,16 @@ class PlayerBaseModel extends BaseModel {
   ///Correo del usuario
   String country;
 
+  ///Determina si es popular
+  bool popular;
+
   PlayerBaseModel({
     required this.id,
     required this.nickname,
     required this.name,
     required this.image,
     required this.country,
+    required this.popular,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`

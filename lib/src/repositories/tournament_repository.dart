@@ -1,13 +1,12 @@
 import 'dart:developer';
 
-import 'package:esports_cuba/locator.dart';
-import 'package:esports_cuba/src/models/tournament_state_base_model.dart';
-import 'package:esports_cuba/src/shared/database/query_supabase.dart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:esports_cuba/src/models/game_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/models/tournament_base_model.dart';
+import 'package:esports_cuba/src/models/tournament_state_base_model.dart';
+import 'package:esports_cuba/src/shared/database/query_supabase.dart.dart';
 
 class TournamentRepository {
   late final Supabase _supabase;
@@ -21,14 +20,7 @@ class TournamentRepository {
       List<TournamentBaseModel> listTournaments = [];
       final List<Map<String, dynamic>> response = await _supabase.client
           .from('Tournament')
-          .select('''id, name, created_at, edition,
-               active, image_logo, image_header,
-                quantity_groups, max_teams, prizepool, description,
-                 TournamentType(id, name),
-                 TournamentState(id, state),
-                 Game(id, name, image),
-                 Winners(id, first_place, second_place, third_place)
-                 ''');
+          .select(QuerySupabase.tournament);
       for (var element in response) {
         TournamentBaseModel tournamentBaseModel =
             TournamentBaseModel.fromJson(element);
@@ -76,6 +68,7 @@ class TournamentRepository {
 
       return apiResult;
     } catch (e) {
+      print(e.toString());
       apiResult.message = e.toString();
       apiResult.error = e.runtimeType;
       return apiResult;

@@ -29,8 +29,6 @@ class FavoritesRepository {
           .from('favorites')
           .select(QuerySupabase.favorites)
           .eq('xuser', user.id);
-
-      print(response);
       for (var element in response) {
         FavoritesBaseModel favoritesBaseModel =
             FavoritesBaseModel.fromJson(element);

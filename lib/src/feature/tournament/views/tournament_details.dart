@@ -75,7 +75,7 @@ class _TournamentDetailsState extends State<TournamentDetails> {
             BlocBuilder<TournamentDetailsCubit, TournamentDetailsState>(
               builder: (context, state) {
                 if (state is TournamentDetailsLoading) {
-                  return const LoadingApp();
+                  return Expanded(child: Center(child: const LoadingApp()));
                 } else if (state is TournamentDetailsError) {
                   return Center(
                       child: Text(state.apiResult.message.toString(),

@@ -87,7 +87,7 @@ class TournamentDetailsWidget extends StatelessWidget {
                                       Image.network(
                                         listTeamTournaments[index]
                                             .team!
-                                            .imageLogo
+                                            .image
                                             .toString(),
                                         height: 30.sp,
                                       ),

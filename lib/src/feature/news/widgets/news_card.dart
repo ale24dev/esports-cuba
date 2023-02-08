@@ -129,7 +129,6 @@ class _NewsCardState extends State<NewsCard> {
   Widget saveWidget(BuildContext context) {
     return BlocBuilder<BookmarkCubit, BookmarkState>(
       builder: (context, state) {
-        print(state);
         if (state is BookmarkLoaded) {
           apiResult = state.apiResult;
         }

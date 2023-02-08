@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/team/bloc/team_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -18,6 +20,7 @@ import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_details/tournament_details_cubit.dart';
 
 import '../../resources/themes.dart';
+import '../feature/player/cubit/player_cubit.dart';
 
 final supabase = Supabase.instance.client;
 
@@ -69,6 +72,12 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    ///Bloquear la orientación horizontal
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     return ResponsiveSizer(builder: (context, orientation, screenType) {
       return MultiRepositoryProvider(
         providers: [
@@ -83,7 +92,12 @@ class _MyAppState extends State<MyApp> {
           RepositoryProvider<TournamentDetailsCubit>(
               create: (context) => TournamentDetailsCubit()),
           RepositoryProvider<VersionCubit>(create: (context) => VersionCubit()),
-          RepositoryProvider<FavoritesCubit>(create: (context) => FavoritesCubit()),
+          RepositoryProvider<FavoritesCubit>(
+              create: (context) => FavoritesCubit()),
+          RepositoryProvider<TeamCubit>(
+              create: (context) => TeamCubit()),
+          RepositoryProvider<PlayerCubit>(
+              create: (context) => PlayerCubit()),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

@@ -13,8 +13,9 @@ TeamBaseModel _$TeamBaseModelFromJson(Map<String, dynamic> json) =>
       country: json['country'] as String,
       ceo: json['ceo'] as String?,
       createdAt: Utils.parseDate(json['created_at']),
-      imageLogo: json['image_logo'] as String,
+      image: json['image'] as String,
       imageHeader: json['image_header'] as String,
+      popular: json['popular'] as bool,
     );
 
 Map<String, dynamic> _$TeamBaseModelToJson(TeamBaseModel instance) =>
@@ -23,7 +24,8 @@ Map<String, dynamic> _$TeamBaseModelToJson(TeamBaseModel instance) =>
       'name': instance.name,
       'country': instance.country,
       'ceo': instance.ceo,
+      'popular': instance.popular,
       'image_header': instance.imageHeader,
-      'image_logo': instance.imageLogo,
+      'image': instance.image,
       'created_at': instance.createdAt.toIso8601String(),
     };

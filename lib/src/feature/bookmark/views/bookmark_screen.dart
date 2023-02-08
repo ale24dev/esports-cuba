@@ -37,7 +37,7 @@ class BookmarkScreen extends StatelessWidget {
           return state is BookmarkLoading
               ? const LoadingApp()
               : state is BookmarkEmpty
-                  ? EmptyDataMessage(message: context.loc.emptyFavsUser)
+                  ? EmptyDataMessage(message: context.loc.emptyBookmarks)
                   : state is BookmarkError
                       ? EmptyDataMessage(message: context.loc.unexpectedError)
                       : SizedBox(

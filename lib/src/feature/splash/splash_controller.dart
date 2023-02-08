@@ -2,7 +2,9 @@
 import 'dart:io';
 
 import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/player/cubit/player_cubit.dart';
 import 'package:esports_cuba/src/feature/splash/widgets/update_dialog.dart';
+import 'package:esports_cuba/src/feature/team/bloc/team_cubit.dart';
 import 'package:esports_cuba/src/models/version_base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
@@ -106,6 +108,12 @@ class SplashController {
 
     ///Cargamos todos los torneos
     context.read<TournamentCubit>().loadTournaments();
+
+    ///Cargamos todos los equipos
+    context.read<TeamCubit>().loadTeams();
+
+    ///Cargamos todos los equipos
+    context.read<PlayerCubit>().loadPlayers();
 
     ///Cargamos todos los anuncios
     context.read<NewsCubit>().loadNews();

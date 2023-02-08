@@ -27,8 +27,8 @@ class TournamentBaseModel extends BaseModel {
   String description;
 
   //Logo del torneo
-  @JsonKey(name: "image_logo")
-  String imageLogo;
+  @JsonKey(name: "image")
+  String image;
 
   //Imagen de cabecera del torneo
   @JsonKey(name: "image_header")
@@ -41,6 +41,12 @@ class TournamentBaseModel extends BaseModel {
   //máxima capacidad de equipos
   @JsonKey(name: "max_teams")
   int? maxTeams;
+
+  //Premio del torneo
+  int? prizepool;
+
+  ///Determina si es popular
+  bool popular;
 
   //Tipo de torneo
   @JsonKey(name: "TournamentType")
@@ -58,8 +64,6 @@ class TournamentBaseModel extends BaseModel {
   @JsonKey(name: "Winners")
   WinnersBaseModel? winners;
 
-  //Premio del torneo
-  int? prizepool;
 
   //Fecha de creación del torneo
   @JsonKey(name: "created_at", fromJson: Utils.parseDate)
@@ -68,15 +72,16 @@ class TournamentBaseModel extends BaseModel {
   TournamentBaseModel({
     required this.id,
     required this.name,
-    required this.edition,
+    required this.game,
     required this.active,
+    required this.edition,
+    required this.popular,
+    required this.maxTeams,
     required this.createdAt,
-    required this.imageLogo,
+    required this.image,
     required this.imageHeader,
     required this.description,
     required this.tournamentType,
-    required this.game,
-    required this.maxTeams,
     required this.quantityGroups,
     required this.tournamentState,
     this.winners,
