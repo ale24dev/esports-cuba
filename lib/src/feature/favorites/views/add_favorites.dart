@@ -4,8 +4,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../constants.dart';
 import '../../../../resources/general_styles.dart';
-import '../widgets/add_bottom_category_section.dart.dart';
 import 'package:esports_cuba/src/shared/utils.dart';
+import '../widgets/add_bottom_category_section.dart.dart';
 
 
 class AddFavorites extends StatelessWidget {

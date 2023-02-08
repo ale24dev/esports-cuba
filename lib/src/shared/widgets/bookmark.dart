@@ -26,22 +26,20 @@ class Bookmark extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool equalElement = Utils.checkBookmarkInListNews(
+        listNewsBaseModel: apiResult != null ? apiResult!.responseObject : [],
+        newBaseModel: newsBaseModel);
     return GestureDetector(
       onTap: () {
-        if (Utils.checkBookmarkInListNews(
-            listNewsbaseModel:
-                apiResult != null ? apiResult!.responseObject : [],
-            newBaseModel: newsBaseModel)) {
+        if (equalElement) {
           context
               .read<BookmarkCubit>()
               .removeLocalBookmarkOfUser(newsBaseModel, context);
-
-         
         } else {
           context
               .read<BookmarkCubit>()
               .addBookmarkLocalToUser(newsBaseModel, context);
-               Utils.genericSnackBar(
+          Utils.genericSnackBar(
               context: context,
               text: context.loc.newsAdd,
               color: GStyles.colorPrimary);
@@ -54,10 +52,7 @@ class Bookmark extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 14.sp, vertical: 19.sp),
             child: Row(
               children: [
-                Utils.checkBookmarkInListNews(
-                        listNewsbaseModel:
-                            apiResult != null ? apiResult!.responseObject : [],
-                        newBaseModel: newsBaseModel)
+                equalElement
                     ? FaIcon(FontAwesomeIcons.solidBookmark, size: 17.sp)
                     : FaIcon(FontAwesomeIcons.bookmark, size: 17.sp),
                 SizedBox(width: 2.w),

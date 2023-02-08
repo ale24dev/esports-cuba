@@ -48,7 +48,13 @@ class FavoritesRepository {
       dynamic favorite, AppInfo appInfo) async {
     try {
       if (favorite is PlayerBaseModel) {
+        await _supabase.client.from('favorites').insert([
+          {"player": favorite.id, "xuser": appInfo.user!.id},
+        ]);
       } else if (favorite is TeamBaseModel) {
+        await _supabase.client.from('favorites').insert([
+          {"team": favorite.id, "xuser": appInfo.user!.id},
+        ]);
       } else if (favorite is TournamentBaseModel) {
         await _supabase.client.from('favorites').insert([
           {"tournament": favorite.id, "xuser": appInfo.user!.id},
@@ -59,5 +65,29 @@ class FavoritesRepository {
       apiResult.message = e.toString();
       return apiResult;
     }
+  }
+
+  Future<ApiResult?> removeFavoriteToUser(
+      dynamic favorite, AppInfo appInfo) async {
+    try {
+      if (favorite is PlayerBaseModel) {
+        await _supabase.client.from('favorites').delete().match(
+          {"player": favorite.id, "xuser": appInfo.user!.id},
+        );
+      } else if (favorite is TeamBaseModel) {
+        await _supabase.client.from('favorites').delete().match(
+          {"team": favorite.id, "xuser": appInfo.user!.id},
+        );
+      } else if (favorite is TournamentBaseModel) {
+        await _supabase.client.from('favorites').delete().match(
+          {"tournament": favorite.id, "xuser": appInfo.user!.id},
+        );
+      }
+    } catch (e) {
+      apiResult.error = e;
+      apiResult.message = e.toString();
+      return apiResult;
+    }
+    return null;
   }
 }

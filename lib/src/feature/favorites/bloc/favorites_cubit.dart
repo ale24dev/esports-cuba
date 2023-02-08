@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:esports_cuba/src/models/favorites_base_model.dart';
@@ -58,11 +60,31 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   void addLocalFavoriteToUser(dynamic favorite, BuildContext context) {
     ///Añadimos localmente el favorito a la lista
     listLocalFavs.add(favorite);
+    print(listLocalFavs.length);
     emit(FavoritesLoading());
     emit(FavoritesLoaded(apiResult: ApiResult(responseObject: listLocalFavs)));
 
     ///Añadimos el elemento a la BD
     addFavoriteToUser(favorite, context);
+  }
+
+  void removeLocalFavoriteToUser(dynamic favorite, BuildContext context) {
+    ///Bandera que determina si se encontro el elemento
+    bool found = false;
+    for (var i = 0; i < listLocalFavs.length || !found; i++) {
+      if (listLocalFavs[i].runtimeType == favorite.runtimeType) {
+        if (listLocalFavs[i].id == favorite.id) {
+          found = true;
+          listLocalFavs.removeAt(i);
+        }
+      }
+    }
+
+    emit(FavoritesLoading());
+    emit(FavoritesLoaded(apiResult: ApiResult(responseObject: listLocalFavs)));
+
+    ///Eliminamos el elemento a la BD
+    removeFavoriteToUser(favorite, context);
   }
 
   void addFavoriteToUser(dynamic favorite, BuildContext context) async {
@@ -78,6 +100,19 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     } else {
       emit(FavoritesError(
           apiResult: ApiResult(message: context.loc.unexpectedError)));
+    }
+  }
+
+  void removeFavoriteToUser(dynamic favorite, BuildContext context) async {
+    AppInfo? appInfo = await AppInfo.getInstace(context);
+    if (appInfo != null) {
+      ApiResult? apiResult = await serviceLocator<FavoritesRepository>()
+          .removeFavoriteToUser(favorite, appInfo);
+      if (apiResult != null) {
+        ///Añadimos la noticia añadida a la lista local
+        listLocalFavs.add(favorite);
+        emit(FavoritesError(apiResult: apiResult));
+      }
     }
   }
 

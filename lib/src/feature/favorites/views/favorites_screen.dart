@@ -23,13 +23,13 @@ class FavoritesScreen extends StatelessWidget {
                 context.router.replace(const AddFavorites());
               },
               child:
-                  const FavoriteTile(name: "Añadir favorito", isLast: false)),
+                  FavoriteTile(name: context.loc.addFavorites, isLast: false)),
           InkWell(
               onTap: () {
                 context.router.replace(ManageFavorites());
               },
               child:
-                  const FavoriteTile(name: "Gestionar favoritos", isLast: true))
+                  FavoriteTile(name: context.loc.manageFavorites, isLast: true))
         ],
       ),
     );

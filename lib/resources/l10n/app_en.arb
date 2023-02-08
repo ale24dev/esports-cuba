@@ -1,5 +1,6 @@
 {
     "about": "About",
+    "addFavorites": "Add favorites",
     "all": "All",
     "anyPopulars": "There are no popular in this section",
     "appTitle": "Esports Cuba",
@@ -40,6 +41,7 @@
     "loading": "Loading",
     "logout": "Logout",
     "logoutSuccessfully": "The session was closed successfully",
+    "manageFavorites": "Manage favorites",
     "name": "Name",
     "news": "News",
     "newsAdd": "News added to your bookmark ",

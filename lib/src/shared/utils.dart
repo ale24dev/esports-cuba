@@ -155,11 +155,24 @@ abstract class Utils {
 
   ///Chequea si una noticia esta en los bookmarks del usuario
   static bool checkBookmarkInListNews(
-      {required List<NewsBaseModel> listNewsbaseModel,
+      {required List<NewsBaseModel> listNewsBaseModel,
       required NewsBaseModel newBaseModel}) {
-    for (var newsBaseModel in listNewsbaseModel) {
+    for (var newsBaseModel in listNewsBaseModel) {
       if (newsBaseModel.id == newBaseModel.id) {
         return true;
+      }
+    }
+    return false;
+  }
+
+  ///Chequea si un elemento esta en la lista de favoritos
+  static bool checkFavoriteInList(
+      {required List<dynamic> listBaseModel, required dynamic dynamic}) {
+    for (var dynamicBaseModel in listBaseModel) {
+      if (dynamicBaseModel.runtimeType == dynamic.runtimeType) {
+        if (dynamicBaseModel.id == dynamic.id) {
+          return true;
+        }
       }
     }
     return false;
@@ -183,7 +196,10 @@ abstract class Utils {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
       margin: EdgeInsets.only(bottom: 1.h, left: 3.w, right: 3.w),
-      content: Text(text, style: const TextStyle(fontWeight: FontWeight.w500),),
+      content: Text(
+        text,
+        style: const TextStyle(fontWeight: FontWeight.w500),
+      ),
       backgroundColor: color ?? GStyles.colorPrimary,
       duration: duration ?? const Duration(seconds: 3),
     ));

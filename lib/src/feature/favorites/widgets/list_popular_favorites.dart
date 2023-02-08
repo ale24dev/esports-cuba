@@ -1,3 +1,4 @@
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
 import 'package:esports_cuba/src/feature/favorites/constants/category_favorites.dart';
 import 'package:esports_cuba/src/feature/player/cubit/player_cubit.dart';
 import 'package:esports_cuba/src/feature/team/bloc/team_cubit.dart';
@@ -13,6 +14,7 @@ import '../../../../constants.dart';
 import '../../../../resources/general_styles.dart';
 import '../../../models/player_base_model.dart';
 import '../../../models/tournament_base_model.dart';
+import '../../../shared/loading_app.dart';
 import '../../../shared/utils.dart';
 import '../../../shared/widgets/empty_data_message.dart';
 
@@ -29,48 +31,48 @@ class ListPopularFavorites extends StatelessWidget {
   Widget build(BuildContext context) {
     ///Bandera que indica si el favorito es el primero en su categoría en una lista
     bool isFirst = true;
-    List<dynamic> listFavorites = [];
+    List<dynamic> listPopulars = [];
 
     switch (categorySelected) {
       case CategoryFavoritesEnum.TOURNAMENTS:
-        listFavorites = Utils.getPopularTournaments(
+        listPopulars = Utils.getPopularTournaments(
             context.read<TournamentCubit>().listTournaments);
         break;
 
       case CategoryFavoritesEnum.TEAMS:
-        listFavorites =
+        listPopulars =
             Utils.getPopularTeams(context.read<TeamCubit>().listTeams);
         break;
 
       case CategoryFavoritesEnum.PLAYERS:
-        listFavorites =
+        listPopulars =
             Utils.getPopularPlayers(context.read<PlayerCubit>().listPlayers);
         break;
 
       default:
-        listFavorites.addAll(Utils.getPopularTournaments(
+        listPopulars.addAll(Utils.getPopularTournaments(
             context.read<TournamentCubit>().listTournaments));
-        listFavorites
+        listPopulars
             .addAll(Utils.getPopularTeams(context.read<TeamCubit>().listTeams));
-        listFavorites.addAll(
+        listPopulars.addAll(
             Utils.getPopularPlayers(context.read<PlayerCubit>().listPlayers));
     }
     return Expanded(
-        child: listFavorites.isEmpty
+        child: listPopulars.isEmpty
             ? EmptyDataMessage(message: context.loc.anyPopulars)
             : ListView.builder(
                 shrinkWrap: true,
-                itemCount: listFavorites.length,
+                itemCount: listPopulars.length,
                 itemBuilder: (context, index) {
                   if (categorySelected == CategoryFavoritesEnum.ALL) {
                     if (index != 0 &&
-                        listFavorites[index].runtimeType ==
-                            listFavorites[index - 1].runtimeType &&
+                        listPopulars[index].runtimeType ==
+                            listPopulars[index - 1].runtimeType &&
                         isFirst) {
                       isFirst = !isFirst;
                     } else if (index != 0 &&
-                        listFavorites[index].runtimeType !=
-                            listFavorites[index - 1].runtimeType &&
+                        listPopulars[index].runtimeType !=
+                            listPopulars[index - 1].runtimeType &&
                         !isFirst) {
                       isFirst = !isFirst;
                     }
@@ -106,9 +108,9 @@ class ListPopularFavorites extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: Constants.MARGIN / 2),
                                 child: Text(
-                                  listFavorites[index] is TeamBaseModel
+                                  listPopulars[index] is TeamBaseModel
                                       ? context.loc.popularTeams.toUpperCase()
-                                      : listFavorites[index]
+                                      : listPopulars[index]
                                               is TournamentBaseModel
                                           ? context.loc.popularTournaments
                                               .toUpperCase()
@@ -134,27 +136,59 @@ class ListPopularFavorites extends StatelessWidget {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
                                   child:
-                                      Image.network(listFavorites[index].image),
+                                      Image.network(listPopulars[index].image),
                                 ),
                               ),
                               SizedBox(width: 4.w),
                               Expanded(
                                   child: Text(
-                                listFavorites[index] is PlayerBaseModel
-                                    ? listFavorites[index].nickname
-                                    : listFavorites[index].name,
+                                listPopulars[index] is PlayerBaseModel
+                                    ? listPopulars[index].nickname
+                                    : listPopulars[index].name,
                                 style: context.textTheme.bodyText1,
                                 textAlign: TextAlign.start,
                               )),
-                              FaIcon(FontAwesomeIcons.solidHeart,
-                                  color: GStyles.colorFail, size: 19.sp)
+                              BlocBuilder<FavoritesCubit, FavoritesState>(
+                                builder: (context, state) {
+                                  bool equalElement = Utils.checkFavoriteInList(
+                                      dynamic: listPopulars[index],
+                                      listBaseModel: context
+                                          .read<FavoritesCubit>()
+                                          .listLocalFavs);
+                                  return state is FavoritesLoading
+                                      ? const LoadingApp()
+                                      : GestureDetector(
+                                          onTap: () {
+                                            if (equalElement) {
+                                              context
+                                                  .read<FavoritesCubit>()
+                                                  .removeLocalFavoriteToUser(
+                                                      listPopulars[index],
+                                                      context);
+                                            } else {
+                                              context
+                                                  .read<FavoritesCubit>()
+                                                  .addLocalFavoriteToUser(
+                                                      listPopulars[index],
+                                                      context);
+                                            }
+                                          },
+                                          child: FaIcon(
+                                              equalElement
+                                                  ? FontAwesomeIcons.solidHeart
+                                                  : FontAwesomeIcons.heart,
+                                              color: GStyles.colorFail,
+                                              size: 19.sp),
+                                        );
+                                },
+                              )
                             ],
                           ),
                         ),
                         SizedBox(
                           height: 1.h,
                         ),
-                        index != listFavorites.length - 1
+                        index != listPopulars.length - 1
                             ? Container(
                                 margin: EdgeInsets.symmetric(horizontal: 5.w),
                                 child: const Divider(
