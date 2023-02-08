@@ -11,8 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../../route/app_router.gr.dart';
-import '../../bloc/bookmark_cubit.dart';
+import '../../../route/app_router.gr.dart';
+import '../bloc/bookmark_cubit.dart';
 
 class BookmarkCard extends StatelessWidget {
   const BookmarkCard({

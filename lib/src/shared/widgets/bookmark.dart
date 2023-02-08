@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../resources/general_styles.dart';
 import '../../feature/bookmark/bloc/bookmark_cubit.dart';
 import '../utils.dart';
 
@@ -27,16 +28,24 @@ class Bookmark extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Utils.checkBookmarkInListNews(
-                listNewsbaseModel:
-                    apiResult != null ? apiResult!.responseObject : [],
-                newBaseModel: newsBaseModel)
-            ? context
-                .read<BookmarkCubit>()
-                .removeLocalBookmarkOfUser(newsBaseModel, context)
-            : context
-                .read<BookmarkCubit>()
-                .addBookmarkLocalToUser(newsBaseModel, context);
+        if (Utils.checkBookmarkInListNews(
+            listNewsbaseModel:
+                apiResult != null ? apiResult!.responseObject : [],
+            newBaseModel: newsBaseModel)) {
+          context
+              .read<BookmarkCubit>()
+              .removeLocalBookmarkOfUser(newsBaseModel, context);
+
+         
+        } else {
+          context
+              .read<BookmarkCubit>()
+              .addBookmarkLocalToUser(newsBaseModel, context);
+               Utils.genericSnackBar(
+              context: context,
+              text: context.loc.newsAdd,
+              color: GStyles.colorPrimary);
+        }
       },
       child: Container(
         color: Colors.transparent,

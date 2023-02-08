@@ -42,6 +42,7 @@
     "logoutSuccessfully": "La sesión fue cerrada satisfactoriamente",
     "name": "Nombre",
     "news": "Noticias",
+    "newsAdd": "Noticia añadida a elementos guardados",
     "newUpdate": "Nueva actualización",
     "noConnection": "Sin Conexión",
     "open": "abierto",

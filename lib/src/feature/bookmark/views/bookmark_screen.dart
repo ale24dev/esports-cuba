@@ -10,7 +10,7 @@ import 'package:esports_cuba/src/models/bookmark_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
 import 'package:esports_cuba/src/feature/bookmark/bloc/bookmark_cubit.dart';
-import 'package:esports_cuba/src/feature/bookmark/views/widgets/bookmark_card.dart';
+import 'package:esports_cuba/src/feature/bookmark/widgets/bookmark_card.dart';
 
 class BookmarkScreen extends StatelessWidget {
   const BookmarkScreen({super.key});

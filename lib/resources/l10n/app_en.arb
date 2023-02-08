@@ -42,6 +42,7 @@
     "logoutSuccessfully": "The session was closed successfully",
     "name": "Name",
     "news": "News",
+    "newsAdd": "News added to your bookmark ",
     "newUpdate": "New update",
     "noConnection": "No Connection",
     "open": "open",

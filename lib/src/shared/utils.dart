@@ -2,7 +2,7 @@
 
 import 'dart:io';
 
-import 'package:esports_cuba/src/feature/bookmark/views/widgets/bookmark_card.dart';
+import 'package:esports_cuba/src/feature/bookmark/widgets/bookmark_card.dart';
 import 'package:esports_cuba/src/models/bookmark_base_model.dart';
 import 'package:esports_cuba/src/models/team_base_model.dart';
 import 'package:esports_cuba/src/shared/app_info.dart';
@@ -182,10 +182,10 @@ abstract class Utils {
       Color? color}) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
-      margin: EdgeInsets.only(bottom: 2.h, left: 3.w, right: 3.w),
-      content: Text(text),
+      margin: EdgeInsets.only(bottom: 1.h, left: 3.w, right: 3.w),
+      content: Text(text, style: const TextStyle(fontWeight: FontWeight.w500),),
       backgroundColor: color ?? GStyles.colorPrimary,
-      duration: duration ?? const Duration(seconds: 5),
+      duration: duration ?? const Duration(seconds: 3),
     ));
   }
 
