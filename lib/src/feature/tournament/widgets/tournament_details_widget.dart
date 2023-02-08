@@ -1,10 +1,14 @@
 import 'package:esports_cuba/resources/general_styles.dart';
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/models/team_base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../constants.dart';
+import '../../../shared/loading_app.dart';
+import '../../../shared/utils.dart';
 import '../bloc/tournament_cubit.dart';
 import '../../../models/tournament_base_model.dart';
 import '../constants/category_tournament_details.dart';
@@ -71,6 +75,7 @@ class TournamentDetailsWidget extends StatelessWidget {
                     ? ListView.builder(
                         itemCount: listTeamTournaments.length,
                         itemBuilder: (context, index) {
+                          TeamBaseModel team = listTeamTournaments[index].team!;
                           return Column(
                             children: [
                               Padding(
@@ -87,21 +92,58 @@ class TournamentDetailsWidget extends StatelessWidget {
                                           shape: BoxShape.circle),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(50),
-                                        child: Image.network(
-                                            listTeamTournaments[index]
-                                                .team!
-                                                .image),
+                                        child: Image.network(team.image),
                                       ),
                                     ),
                                     SizedBox(width: 4.w),
                                     Expanded(
                                         child: Text(
-                                      listTeamTournaments[index].team!.name,
+                                      team.name,
                                       style: context.textTheme.bodyText1,
                                       textAlign: TextAlign.start,
                                     )),
-                                    FaIcon(FontAwesomeIcons.solidHeart,
-                                        color: GStyles.colorFail, size: 19.sp)
+                                    BlocBuilder<FavoritesCubit, FavoritesState>(
+                                      builder: (context, state) {
+                                        bool equalElement =
+                                            Utils.checkFavoriteInList(
+                                                dynamic: team,
+                                                listBaseModel: context
+                                                    .read<FavoritesCubit>()
+                                                    .listLocalFavs);
+                                        return state is FavoritesLoading
+                                            ? const LoadingApp()
+                                            : GestureDetector(
+                                              onTap: () {
+                                                  print("anda");
+                                                  if (equalElement) {
+                                                    context
+                                                        .read<FavoritesCubit>()
+                                                        .removeLocalFavoriteToUser(
+                                                            team, context);
+                                                  } else {
+                                                    context
+                                                        .read<FavoritesCubit>()
+                                                        .addLocalFavoriteToUser(
+                                                            team, context);
+                                                  }
+                                                },
+                                              child: Container(
+                                                color: Colors.transparent,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: FaIcon(
+                                                        equalElement
+                                                            ? FontAwesomeIcons
+                                                                .solidHeart
+                                                            : FontAwesomeIcons
+                                                                .heart,
+                                                        color: GStyles.colorFail,
+                                                        size: 19.sp),
+                                                ),
+                                              ),
+                                            );
+                                      },
+                                    )
                                   ],
                                 ),
                               ),

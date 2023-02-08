@@ -173,12 +173,20 @@ class ListPopularFavorites extends StatelessWidget {
                                                       context);
                                             }
                                           },
-                                          child: FaIcon(
-                                              equalElement
-                                                  ? FontAwesomeIcons.solidHeart
-                                                  : FontAwesomeIcons.heart,
-                                              color: GStyles.colorFail,
-                                              size: 19.sp),
+                                          child: Container(
+                                                color: Colors.transparent,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: FaIcon(
+                                                        equalElement
+                                                            ? FontAwesomeIcons
+                                                                .solidHeart
+                                                            : FontAwesomeIcons
+                                                                .heart,
+                                                        color: GStyles.colorFail,
+                                                        size: 19.sp),
+                                                ),
+                                              ),
                                         );
                                 },
                               )

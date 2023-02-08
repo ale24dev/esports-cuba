@@ -18,7 +18,7 @@ class ManageFavorites extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Utils.appBarWidget(context: context, navigateBack: false),
+      appBar: Utils.appBarWidget(context: context, navigateBack: false, title: context.loc.manageFavorites),
       body: BlocBuilder<FavoritesCubit, FavoritesState>(
         builder: (context, state) {
           if (state is FavoritesLoaded) {

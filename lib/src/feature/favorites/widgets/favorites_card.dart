@@ -1,4 +1,7 @@
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/models/player_base_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -43,12 +46,25 @@ class FavoritesCard extends StatelessWidget {
               SizedBox(width: 4.w),
               Expanded(
                   child: Text(
-                favorite.name,
+                favorite is PlayerBaseModel ? favorite.nickname : favorite.name,
                 style: context.textTheme.bodyText1,
                 textAlign: TextAlign.start,
               )),
-              FaIcon(FontAwesomeIcons.solidHeart,
-                  color: GStyles.colorFail, size: 19.sp)
+              GestureDetector(
+                onTap: () {
+                  context
+                      .read<FavoritesCubit>()
+                      .removeLocalFavoriteToUser(favorite, context);
+                },
+                child: Container(
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FaIcon(FontAwesomeIcons.solidHeart,
+                        color: GStyles.colorFail, size: 19.sp),
+                  ),
+                ),
+              )
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:esports_cuba/constants.dart';
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
 import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -100,18 +101,46 @@ class TournamentList extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        Positioned(
-            top: 1.h,
-            right: 2.w,
-            child: Container(
-              height: 24.sp,
-              width: 24.sp,
-              decoration: BoxDecoration(
-                  color: GStyles.backGroundDarkColor, shape: BoxShape.circle),
-              child: Center(
-                child: FaIcon(FontAwesomeIcons.solidHeart, color: GStyles.colorFail, size: 17.sp),
-              ),
-            ))
+        BlocBuilder<FavoritesCubit, FavoritesState>(
+          builder: (context, state) {
+            bool equalElement = Utils.checkFavoriteInList(
+                dynamic: tournament,
+                listBaseModel: context.read<FavoritesCubit>().listLocalFavs);
+            return state is FavoritesLoading
+                ? const LoadingApp()
+                : Positioned(
+                    top: 1.h,
+                    right: 2.w,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (equalElement) {
+                          context
+                              .read<FavoritesCubit>()
+                              .removeLocalFavoriteToUser(tournament, context);
+                        } else {
+                          context
+                              .read<FavoritesCubit>()
+                              .addLocalFavoriteToUser(tournament, context);
+                        }
+                      },
+                      child: Container(
+                        height: 24.sp,
+                        width: 24.sp,
+                        decoration: BoxDecoration(
+                            color: GStyles.backGroundDarkColor,
+                            shape: BoxShape.circle),
+                        child: Center(
+                          child: FaIcon(
+                              equalElement
+                                  ? FontAwesomeIcons.solidHeart
+                                  : FontAwesomeIcons.heart,
+                              color: GStyles.colorFail,
+                              size: 17.sp),
+                        ),
+                      ),
+                    ));
+          },
+        )
       ],
     );
   }

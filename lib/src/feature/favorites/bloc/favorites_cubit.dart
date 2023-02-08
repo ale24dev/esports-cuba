@@ -79,9 +79,13 @@ class FavoritesCubit extends Cubit<FavoritesState> {
         }
       }
     }
-
-    emit(FavoritesLoading());
-    emit(FavoritesLoaded(apiResult: ApiResult(responseObject: listLocalFavs)));
+    if (listLocalFavs.isEmpty) {
+      emit(FavoritesEmpty());
+    } else {
+      emit(FavoritesLoading());
+      emit(
+          FavoritesLoaded(apiResult: ApiResult(responseObject: listLocalFavs)));
+    }
 
     ///Eliminamos el elemento a la BD
     removeFavoriteToUser(favorite, context);
