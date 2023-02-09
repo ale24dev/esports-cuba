@@ -19,7 +19,6 @@ class SearchRepository {
   }
 
   Future<ApiResult> getResultSearch(String text) async {
-    print("Texto API: " + text);
     try {
       List<dynamic> resultSearch = [];
       List<dynamic> response = [];
@@ -27,11 +26,10 @@ class SearchRepository {
       response = await _supabase.client
           .from('team')
           .select(QuerySupabase.team)
-          .textSearch('fts', "$text:*")
+          .textSearch('fts', "${text.trim().split(" ").join("&")}:*")
           .order('name', ascending: false)
           .limit(10);
 
-          print("TEAM: " + response.toString());
 
       for (var element in response) {
         TeamBaseModel teamBaseModel = TeamBaseModel.fromJson(element);
@@ -41,11 +39,10 @@ class SearchRepository {
       response = await _supabase.client
           .from('tournament')
           .select(QuerySupabase.tournament)
-          .textSearch('fts', "$text:*")
+          .textSearch('fts', "${text.trim().split(" ").join("&")}:*")
           .order('name', ascending: false)
           .limit(10);
 
-          print("TOURNMANENT: " + response.toString());
 
       for (var element in response) {
         TournamentBaseModel tournamentBaseModel =
@@ -56,21 +53,18 @@ class SearchRepository {
       response = await _supabase.client
           .from('player')
           .select(QuerySupabase.player)
-          .textSearch('fts', "$text:*")
+          .textSearch('fts', "${text.trim().split(" ").join("&")}:*")
           .order('nickname', ascending: false)
           .limit(10);
 
-          print("PLAYER: " + response.toString());
       for (var element in response) {
         PlayerBaseModel playerBaseModel = PlayerBaseModel.fromJson(element);
         resultSearch.add(playerBaseModel);
       }
 
-      print("Result elements: " + resultSearch.length.toString());
       apiResult.responseObject = resultSearch;
       return apiResult;
     } catch (e) {
-      print("Errooooooor: " + e.toString());
       apiResult.message = e.toString();
       apiResult.error = e.runtimeType;
       return apiResult;

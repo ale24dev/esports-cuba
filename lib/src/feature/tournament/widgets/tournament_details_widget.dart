@@ -114,7 +114,6 @@ class TournamentDetailsWidget extends StatelessWidget {
                                             ? const LoadingApp()
                                             : GestureDetector(
                                               onTap: () {
-                                                  print("anda");
                                                   if (equalElement) {
                                                     context
                                                         .read<FavoritesCubit>()

@@ -29,7 +29,6 @@ class AddFavorites extends StatelessWidget {
             context: context, navigateBack: true, title: context.loc.favorites),
         body: BlocBuilder<SearchCubit, SearchState>(
           builder: (context, state) {
-            print(state);
             if (state is SearchEmpty) {
               categorySearch = CategorySearch.EMPTY;
             } else if (state is SearchEmptyResults) {

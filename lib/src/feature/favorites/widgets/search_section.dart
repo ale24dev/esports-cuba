@@ -50,7 +50,7 @@ class _SearchSectionState extends State<SearchSection> {
           margin: EdgeInsets.symmetric(horizontal: Constants.MARGIN),
           child: Center(
             child: TextFormField(
-              autocorrect: false,
+              autocorrect: false,         
               decoration: InputDecoration(
                   hintStyle: const TextStyle(color: Colors.grey),
                   hintText: context.loc.search,
