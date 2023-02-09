@@ -20,7 +20,7 @@ class VersionRepository {
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
       final List<dynamic> response = await _supabase.client
-          .from('Version')
+          .from('version')
           .select()
           .order('id', ascending: false)
           .limit(1);

@@ -10,9 +10,9 @@ TournamentBaseModel _$TournamentBaseModelFromJson(Map<String, dynamic> json) =>
     TournamentBaseModel(
       id: json['id'] as int,
       name: json['name'] as String,
-      game: json['Game'] == null
+      game: json['game'] == null
           ? null
-          : GameBaseModel.fromJson(json['Game'] as Map<String, dynamic>),
+          : GameBaseModel.fromJson(json['game'] as Map<String, dynamic>),
       active: json['active'] as bool,
       edition: json['edition'] as int,
       popular: json['popular'] as bool,
@@ -21,18 +21,18 @@ TournamentBaseModel _$TournamentBaseModelFromJson(Map<String, dynamic> json) =>
       image: json['image'] as String,
       imageHeader: json['image_header'] as String,
       description: json['description'] as String,
-      tournamentType: json['TournamentType'] == null
+      tournamentType: json['tournamenttype'] == null
           ? null
           : TournamentTypeBaseModel.fromJson(
-              json['TournamentType'] as Map<String, dynamic>),
+              json['tournamenttype'] as Map<String, dynamic>),
       quantityGroups: json['quantity_groups'] as int?,
-      tournamentState: json['TournamentState'] == null
+      tournamentState: json['tournamentstate'] == null
           ? null
           : TournamentStateBaseModel.fromJson(
-              json['TournamentState'] as Map<String, dynamic>),
-      winners: json['Winners'] == null
+              json['tournamentstate'] as Map<String, dynamic>),
+      winners: json['winners'] == null
           ? null
-          : WinnersBaseModel.fromJson(json['Winners'] as Map<String, dynamic>),
+          : WinnersBaseModel.fromJson(json['winners'] as Map<String, dynamic>),
       prizepool: json['prizepool'] as int?,
     );
 
@@ -50,9 +50,9 @@ Map<String, dynamic> _$TournamentBaseModelToJson(
       'max_teams': instance.maxTeams,
       'prizepool': instance.prizepool,
       'popular': instance.popular,
-      'TournamentType': instance.tournamentType?.toJson(),
-      'TournamentState': instance.tournamentState?.toJson(),
-      'Game': instance.game?.toJson(),
-      'Winners': instance.winners?.toJson(),
+      'tournamenttype': instance.tournamentType?.toJson(),
+      'tournamentstate': instance.tournamentState?.toJson(),
+      'game': instance.game?.toJson(),
+      'winners': instance.winners?.toJson(),
       'created_at': instance.createdAt.toIso8601String(),
     };

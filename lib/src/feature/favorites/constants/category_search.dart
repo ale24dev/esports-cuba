@@ -1,0 +1,1 @@
+enum CategorySearch { EMPTY, LOADING, LOADED, EMPTYRESULT }

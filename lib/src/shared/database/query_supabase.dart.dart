@@ -3,7 +3,7 @@ abstract class QuerySupabase {
   static String get bookmark => "id, news($news), xuser($xuser)";
 
   static String get favorites =>
-      "id, xuser($xuser), Tournament($tournament), Player($player), Team($team)";
+      "id, xuser($xuser), tournament($tournament), player($player), team($team)";
 
   static String get game => "id, name, image";
 
@@ -18,11 +18,11 @@ abstract class QuerySupabase {
       "id, name, created_at, country, ceo, image_header, image, popular";
 
   static String get teamTournament =>
-      "id, created_at, active, Team($team), Tournament($tournament)";
+      "id, created_at, active, team($team), tournament($tournament)";
 
   static String get tournament =>
       '''id, name, created_at, edition, active, image, image_header, quantity_groups, max_teams, prizepool, description, popular, 
-      TournamentType($tournamentType), TournamentState($tournamentState), Game($game), Winners($winners)''';
+      tournamenttype($tournamentType), tournamentstate($tournamentState), game($game), winners($winners)''';
 
   static String get tournamentState => "id, state";
 

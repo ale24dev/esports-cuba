@@ -14,11 +14,10 @@ class LoadingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: loadingWidget ??
-            SpinKitFadingCube(
-              color: Colors.white,
-              size: size ?? 20.sp,
-            ));
+    return loadingWidget ??
+        SpinKitFadingCube(
+          color: Colors.white,
+          size: size ?? 20.sp,
+        );
   }
 }

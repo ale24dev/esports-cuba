@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:io';
 
-import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites/favorites_cubit.dart';
 import 'package:esports_cuba/src/feature/player/cubit/player_cubit.dart';
 import 'package:esports_cuba/src/feature/splash/widgets/update_dialog.dart';
 import 'package:esports_cuba/src/feature/team/bloc/team_cubit.dart';

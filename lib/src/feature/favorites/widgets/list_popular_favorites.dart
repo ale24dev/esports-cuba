@@ -1,4 +1,4 @@
-import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites/favorites_cubit.dart';
 import 'package:esports_cuba/src/feature/favorites/constants/category_favorites.dart';
 import 'package:esports_cuba/src/feature/player/cubit/player_cubit.dart';
 import 'package:esports_cuba/src/feature/team/bloc/team_cubit.dart';
@@ -183,7 +183,7 @@ class ListPopularFavorites extends StatelessWidget {
                                                                 .solidHeart
                                                             : FontAwesomeIcons
                                                                 .heart,
-                                                        color: GStyles.colorFail,
+                                                        color: GStyles.colorPrimary,
                                                         size: 19.sp),
                                                 ),
                                               ),

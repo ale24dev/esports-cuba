@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites/favorites_cubit.dart';
 import 'package:esports_cuba/src/feature/team/bloc/team_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

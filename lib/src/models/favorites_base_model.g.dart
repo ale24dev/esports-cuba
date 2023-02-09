@@ -11,23 +11,23 @@ FavoritesBaseModel _$FavoritesBaseModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int,
       userBaseModel:
           UserBaseModel.fromJson(json['xuser'] as Map<String, dynamic>),
-      teamBaseModel: json['Team'] == null
+      teamBaseModel: json['team'] == null
           ? null
-          : TeamBaseModel.fromJson(json['Team'] as Map<String, dynamic>),
-      tournamentBaseModel: json['Tournament'] == null
+          : TeamBaseModel.fromJson(json['team'] as Map<String, dynamic>),
+      tournamentBaseModel: json['tournament'] == null
           ? null
           : TournamentBaseModel.fromJson(
-              json['Tournament'] as Map<String, dynamic>),
-      playerBaseModel: json['Player'] == null
+              json['tournament'] as Map<String, dynamic>),
+      playerBaseModel: json['player'] == null
           ? null
-          : PlayerBaseModel.fromJson(json['Player'] as Map<String, dynamic>),
+          : PlayerBaseModel.fromJson(json['player'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$FavoritesBaseModelToJson(FavoritesBaseModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'xuser': instance.userBaseModel.toJson(),
-      'Team': instance.teamBaseModel?.toJson(),
-      'Tournament': instance.tournamentBaseModel?.toJson(),
-      'Player': instance.playerBaseModel?.toJson(),
+      'team': instance.teamBaseModel?.toJson(),
+      'tournament': instance.tournamentBaseModel?.toJson(),
+      'player': instance.playerBaseModel?.toJson(),
     };

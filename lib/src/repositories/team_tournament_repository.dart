@@ -16,7 +16,7 @@ class TeamTournamentRepository {
     try {
       List<TeamTournamentBaseModel> listTeamTournamet = [];
       final List<dynamic> response = await _supabase.client
-          .from('TeamTournament')
+          .from('teamtournament')
           .select(QuerySupabase.teamTournament)
           .eq('tournament', tournament.id);
       for (var element in response) {

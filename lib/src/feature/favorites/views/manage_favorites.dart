@@ -4,7 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../shared/utils.dart';
 import '../../../shared/widgets/empty_data_message.dart';
-import '../bloc/favorites_cubit.dart';
+import '../bloc/favorites/favorites_cubit.dart';
 import '../widgets/favorites_card.dart';
 import '../../../shared/loading_app.dart';
 import '../../../shared/repository/ApiResult.dart';

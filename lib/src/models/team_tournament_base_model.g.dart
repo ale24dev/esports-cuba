@@ -12,13 +12,13 @@ TeamTournamentBaseModel _$TeamTournamentBaseModelFromJson(
       id: json['id'] as int,
       active: json['active'] as bool,
       createdAt: Utils.parseDate(json['created_at']),
-      team: json['Team'] == null
+      team: json['team'] == null
           ? null
-          : TeamBaseModel.fromJson(json['Team'] as Map<String, dynamic>),
-      tournament: json['Tournament'] == null
+          : TeamBaseModel.fromJson(json['team'] as Map<String, dynamic>),
+      tournament: json['tournament'] == null
           ? null
           : TournamentBaseModel.fromJson(
-              json['Tournament'] as Map<String, dynamic>),
+              json['tournament'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$TeamTournamentBaseModelToJson(
@@ -27,6 +27,6 @@ Map<String, dynamic> _$TeamTournamentBaseModelToJson(
       'id': instance.id,
       'active': instance.active,
       'created_at': instance.createdAt.toIso8601String(),
-      'Team': instance.team?.toJson(),
-      'Tournament': instance.tournament?.toJson(),
+      'team': instance.team?.toJson(),
+      'tournament': instance.tournament?.toJson(),
     };

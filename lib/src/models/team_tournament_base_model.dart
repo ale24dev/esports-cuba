@@ -21,11 +21,11 @@ class TeamTournamentBaseModel extends BaseModel {
   DateTime createdAt;
 
   ///Usuario que realiza el anuncio
-  @JsonKey(name: "Team")
+  @JsonKey(name: "team")
   TeamBaseModel? team;
 
   ///Usuario que realiza el anuncio
-  @JsonKey(name: "Tournament")
+  @JsonKey(name: "tournament")
   TournamentBaseModel? tournament;
 
   TeamTournamentBaseModel({

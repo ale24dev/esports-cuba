@@ -1,4 +1,4 @@
-import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites/favorites_cubit.dart';
 import 'package:esports_cuba/src/models/player_base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,7 +61,7 @@ class FavoritesCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FaIcon(FontAwesomeIcons.solidHeart,
-                        color: GStyles.colorFail, size: 19.sp),
+                        color: GStyles.colorPrimary, size: 19.sp),
                   ),
                 ),
               )

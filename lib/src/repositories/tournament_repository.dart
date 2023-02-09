@@ -19,7 +19,7 @@ class TournamentRepository {
     try {
       List<TournamentBaseModel> listTournaments = [];
       final List<Map<String, dynamic>> response = await _supabase.client
-          .from('Tournament')
+          .from('tournament')
           .select(QuerySupabase.tournament);
       for (var element in response) {
         TournamentBaseModel tournamentBaseModel =
@@ -39,7 +39,7 @@ class TournamentRepository {
     try {
       List<TournamentBaseModel> listTournaments = [];
       final List<dynamic> response = await _supabase.client
-          .from('Tournament')
+          .from('tournament')
           .select(QuerySupabase.tournament).eq('game', '${game.id}');
       for (var element in response) {
         TournamentBaseModel gameBaseModel =
@@ -59,7 +59,7 @@ class TournamentRepository {
   Future<ApiResult> getStateByTournament(TournamentBaseModel tournament) async {
     try {
       final Map<String, dynamic> response = await _supabase.client
-          .from('Tournament_State')
+          .from('tournamentstate')
           .select()
           .match({'id': tournament.tournamentState}).single();
       TournamentStateBaseModel gameBaseModel =

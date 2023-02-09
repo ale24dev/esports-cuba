@@ -1,7 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:esports_cuba/src/models/team_base_model.dart';
 
 import '../shared/repository/ApiResult.dart';
+import 'package:esports_cuba/src/models/team_base_model.dart';
 
 class TeamRepository {
   final Supabase _supabase;
@@ -14,7 +14,7 @@ class TeamRepository {
     try {
       List<TeamBaseModel> listTeams = [];
       final List<Map<String, dynamic>> response =
-          await _supabase.client.from('Team').select();
+          await _supabase.client.from('team').select();
       for (var element in response) {
         TeamBaseModel teamBaseModel = TeamBaseModel.fromJson(element);
         listTeams.add(teamBaseModel);

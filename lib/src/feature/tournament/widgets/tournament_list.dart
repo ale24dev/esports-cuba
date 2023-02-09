@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:esports_cuba/constants.dart';
-import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites/favorites_cubit.dart';
 import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -134,7 +134,7 @@ class TournamentList extends StatelessWidget {
                               equalElement
                                   ? FontAwesomeIcons.solidHeart
                                   : FontAwesomeIcons.heart,
-                              color: GStyles.colorFail,
+                              color: GStyles.colorPrimary,
                               size: 17.sp),
                         ),
                       ),

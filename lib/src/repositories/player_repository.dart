@@ -14,7 +14,7 @@ class PlayerRepository {
     try {
       List<PlayerBaseModel> listPlayers = [];
       final List<Map<String, dynamic>> response =
-          await _supabase.client.from('Player').select();
+          await _supabase.client.from('player').select();
       for (var element in response) {
         PlayerBaseModel playerBaseModel = PlayerBaseModel.fromJson(element);
         listPlayers.add(playerBaseModel);

@@ -14,7 +14,7 @@ class GameDatabaseRepository {
     try {
       List<GameBaseModel> listGames = [];
       final List<Map<String, dynamic>> response =
-          await _supabase.client.from('Game').select();
+          await _supabase.client.from('game').select();
       for (var element in response) {
         GameBaseModel gameBaseModel = GameBaseModel.fromJson(element);
         listGames.add(gameBaseModel);

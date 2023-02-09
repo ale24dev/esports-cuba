@@ -9,12 +9,12 @@ import 'package:esports_cuba/src/shared/extensions.dart';
 import 'package:esports_cuba/src/shared/utils.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../locator.dart';
-import '../../../models/tournament_base_model.dart';
-import '../../../models/user_base_model.dart';
-import '../../../shared/app_info.dart';
-import '../../../shared/repository/ApiResult.dart';
-import '../../../repositories/favorites_repository.dart';
+import '../../../../../locator.dart';
+import '../../../../models/tournament_base_model.dart';
+import '../../../../models/user_base_model.dart';
+import '../../../../repositories/favorites_repository.dart';
+import '../../../../shared/app_info.dart';
+import '../../../../shared/repository/ApiResult.dart';
 
 part 'favorites_state.dart';
 
@@ -60,7 +60,6 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   void addLocalFavoriteToUser(dynamic favorite, BuildContext context) {
     ///Añadimos localmente el favorito a la lista
     listLocalFavs.add(favorite);
-    print(listLocalFavs.length);
     emit(FavoritesLoading());
     emit(FavoritesLoaded(apiResult: ApiResult(responseObject: listLocalFavs)));
 

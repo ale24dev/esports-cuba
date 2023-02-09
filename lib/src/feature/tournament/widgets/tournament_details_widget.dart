@@ -1,5 +1,5 @@
 import 'package:esports_cuba/resources/general_styles.dart';
-import 'package:esports_cuba/src/feature/favorites/bloc/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites/favorites_cubit.dart';
 import 'package:esports_cuba/src/models/team_base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -137,7 +137,7 @@ class TournamentDetailsWidget extends StatelessWidget {
                                                                 .solidHeart
                                                             : FontAwesomeIcons
                                                                 .heart,
-                                                        color: GStyles.colorFail,
+                                                        color: GStyles.colorPrimary,
                                                         size: 19.sp),
                                                 ),
                                               ),

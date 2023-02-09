@@ -49,19 +49,19 @@ class TournamentBaseModel extends BaseModel {
   bool popular;
 
   //Tipo de torneo
-  @JsonKey(name: "TournamentType")
+  @JsonKey(name: "tournamenttype")
   TournamentTypeBaseModel? tournamentType;
 
   //Tipo de torneo
-  @JsonKey(name: "TournamentState")
+  @JsonKey(name: "tournamentstate")
   TournamentStateBaseModel? tournamentState;
 
   //Juego perteneciente al torneo
-  @JsonKey(name: "Game")
+  @JsonKey(name: "game")
   GameBaseModel? game;
 
   //Ganadores del torneo
-  @JsonKey(name: "Winners")
+  @JsonKey(name: "winners")
   WinnersBaseModel? winners;
 
 

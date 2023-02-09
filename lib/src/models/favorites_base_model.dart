@@ -21,15 +21,15 @@ class FavoritesBaseModel extends BaseModel {
   UserBaseModel userBaseModel;
 
   ///Equipo
-  @JsonKey(name: "Team")
+  @JsonKey(name: "team")
   TeamBaseModel? teamBaseModel;
 
   ///Equipo
-  @JsonKey(name: "Tournament")
+  @JsonKey(name: "tournament")
   TournamentBaseModel? tournamentBaseModel;
 
   ///Jugador
-  @JsonKey(name: "Player")
+  @JsonKey(name: "player")
   PlayerBaseModel? playerBaseModel;
 
   FavoritesBaseModel(
