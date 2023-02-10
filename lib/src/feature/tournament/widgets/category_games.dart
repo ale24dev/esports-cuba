@@ -42,26 +42,26 @@ class CategoryGames extends StatelessWidget {
                                   GameCard(
                                       index: index,
                                       apiResult: apiResultGame,
-                                      selected: state is GameLoaded &&
+                                      isSelected: state is GameLoaded &&
                                           index == state.indexSelected),
                                   GameCard(
                                       gameBaseModel: gameBaseModel,
                                       index: index + 1,
                                       apiResult: apiResultGame,
-                                      selected: state is GameLoaded &&
+                                      isSelected: state is GameLoaded &&
                                           index + 1 == state.indexSelected)
                                 ],
                               )
                             : Row(
-                              children: [
-                                GameCard(
-                                    gameBaseModel: gameBaseModel,
-                                    index: index + 1,
-                                    apiResult: apiResultGame,
-                                    selected: state is GameLoaded &&
-                                        index + 1 == state.indexSelected),
-                              ],
-                            );
+                                children: [
+                                  GameCard(
+                                      gameBaseModel: gameBaseModel,
+                                      index: index + 1,
+                                      apiResult: apiResultGame,
+                                      isSelected: state is GameLoaded &&
+                                          index + 1 == state.indexSelected),
+                                ],
+                              );
                       },
                     ),
                   ),
@@ -78,7 +78,7 @@ class GameCard extends StatelessWidget {
     this.gameBaseModel,
     required this.index,
     required this.apiResult,
-    required this.selected,
+    required this.isSelected,
   }) : super(key: key);
 
   ///Juego a mostrar
@@ -88,7 +88,7 @@ class GameCard extends StatelessWidget {
   final int index;
 
   ///bandera para saber si la categoría está seleccionada
-  final bool selected;
+  final bool isSelected;
 
   ///Lista de juegos para no volver a cargar todos los juegos al refrescar el estado del cubit
   final ApiResult apiResult;
@@ -97,19 +97,23 @@ class GameCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 2.w),
           decoration: BoxDecoration(
-              color:
-                  selected ? GStyles.colorPrimary : GStyles.containerDarkColor,
-              borderRadius: BorderRadius.circular(5.0),
+              color: isSelected
+                  ? GStyles.colorPrimary
+                  : GStyles.containerDarkColor,
+              borderRadius: BorderRadius.circular(5),
               boxShadow: const [
                 BoxShadow(color: Colors.black12, blurRadius: 2, spreadRadius: 2)
               ]),
-          margin: EdgeInsets.symmetric(vertical: 1.h, horizontal: 2.w),
           child: Padding(
-            padding: EdgeInsets.all(12.sp),
-            child: Text(gameBaseModel == null ? "Todos" : gameBaseModel!.name,
-                textAlign: TextAlign.center,
-                style: context.textTheme.headline5),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              gameBaseModel == null ? "Todos" : gameBaseModel!.name,
+              style: context.textTheme.bodyText1?.copyWith(
+                  color: isSelected ? Colors.white : Colors.grey,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
+            ),
           ),
         ),
         onTap: () {

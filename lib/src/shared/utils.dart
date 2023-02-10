@@ -22,6 +22,7 @@ import 'package:esports_cuba/src/models/tournament_base_model.dart';
 import 'package:esports_cuba/src/shared/widgets/dialog_message.dart';
 import 'package:esports_cuba/src/models/tournament_state_base_model.dart';
 
+import '../feature/tournament/constants/tournament_state_type.dart';
 import '../models/news_base_model.dart';
 import '../models/player_base_model.dart';
 import '../route/app_router.gr.dart';
@@ -242,5 +243,46 @@ abstract class Utils {
       }
     }
     return listPopularPlayers;
+  }
+
+  static List<TournamentBaseModel> getTournamentsByEnum(
+      List<TournamentBaseModel> listTournaments,
+      TournamentStateType tournamentType) {
+    List<TournamentBaseModel> listTournamentResult = [];
+    for (var tournament in listTournaments) {
+      switch (tournamentType) {
+        case TournamentStateType.open:
+          print(tournament.tournamentState);
+          if (tournament.tournamentState!.state == "open") {
+            listTournamentResult.add(tournament);
+          }
+          break;
+        case TournamentStateType.closed:
+          if (tournament.tournamentState!.state == "closed") {
+            listTournamentResult.add(tournament);
+          }
+
+          break;
+        case TournamentStateType.progress:
+          if (tournament.tournamentState!.state == "in_progress") {
+            listTournamentResult.add(tournament);
+          }
+          break;
+
+        case TournamentStateType.finished:
+          if (tournament.tournamentState!.state == "finished") {
+            listTournamentResult.add(tournament);
+          }
+
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    print("Tamaño: " + listTournamentResult.length.toString());
+
+    return listTournamentResult;
   }
 }

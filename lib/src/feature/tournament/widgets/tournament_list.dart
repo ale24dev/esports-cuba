@@ -1,11 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:esports_cuba/constants.dart';
-import 'package:esports_cuba/src/feature/favorites/bloc/favorites/favorites_cubit.dart';
-import 'package:esports_cuba/src/shared/widgets/empty_data_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:esports_cuba/src/shared/loading_app.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:esports_cuba/src/shared/utils.dart';
@@ -16,13 +12,23 @@ import 'package:esports_cuba/src/models/tournament_base_model.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
 
 import '../../../route/app_router.gr.dart';
+import '../../../shared/loading_app.dart';
+import '../../../shared/widgets/empty_data_message.dart';
+import '../../favorites/bloc/favorites/favorites_cubit.dart';
+import '../constants/tournament_state_type.dart';
 
 class TournamentList extends StatelessWidget {
   late ApiResult apiResult;
 
+  late List<TournamentBaseModel> listTournaments;
+
   TournamentList({
     Key? key,
+    required this.tournamentStateType,
   }) : super(key: key);
+
+  ///Estado seleccionado del torneo
+  final TournamentStateType tournamentStateType;
 
   @override
   Widget build(BuildContext context) {
@@ -30,20 +36,33 @@ class TournamentList extends StatelessWidget {
       child: BlocBuilder<TournamentCubit, TournamentState>(
         builder: (context, state) {
           if (state is TournamentLoaded) {
+            listTournaments = [];
             apiResult = state.apiResult;
+
+            listTournaments = Utils.getTournamentsByEnum(
+                apiResult.responseObject, tournamentStateType);
+          }
+          if (state is TournamentLoaded && listTournaments.isEmpty) {
+            return EmptyDataMessage(message: context.loc.emptyTournaments);
           }
           return state is TournamentLoading
               ? const LoadingApp()
               //  : SizedBox();
-              : state is TournamentEmpty?
+              : state is TournamentEmpty
                   ? EmptyDataMessage(message: context.loc.emptyTournaments)
-                  : ListView.builder(
-                      itemCount: apiResult.responseObject.length,
-                      itemBuilder: ((context, index) {
-                        TournamentBaseModel tournament =
-                            apiResult.responseObject[index];
-                        return tournamentCard(tournament, context, index);
-                      }));
+                  : state is TournamentLoaded
+                      ? ListView.builder(
+                          itemCount: listTournaments.length,
+                          itemBuilder: ((context, index) {
+                            TournamentBaseModel tournament =
+                                listTournaments[index];
+                            return tournamentCard(tournament, context, index);
+                          }))
+                      : state is TournamentError
+                          ? EmptyDataMessage(
+                              message: state.apiResult.message.toString())
+                          : EmptyDataMessage(
+                              message: context.loc.unexpectedError);
         },
       ),
     );

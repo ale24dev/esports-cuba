@@ -1,1 +1,1 @@
-enum TournamentStateType { open, closed, finished }
+enum TournamentStateType { open, closed, progress, finished }
