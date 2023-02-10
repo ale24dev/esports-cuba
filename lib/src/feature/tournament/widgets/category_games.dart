@@ -25,10 +25,10 @@ class CategoryGames extends StatelessWidget {
         return state is GameLoading
             ? const LoadingApp()
             : SizedBox(
-                height: 9.5.h,
+                height: 9.h,
                 child: Center(
                   child: Padding(
-                    padding: EdgeInsets.all(8.sp),
+                    padding: EdgeInsets.all(5.sp),
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: apiResultGame.responseObject.length,
@@ -97,7 +97,7 @@ class GameCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 2.w),
+          margin: EdgeInsets.symmetric(horizontal: 1.5.w),
           decoration: BoxDecoration(
               color: isSelected
                   ? GStyles.colorPrimary

@@ -8,6 +8,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../constants.dart';
 import '../../../../resources/general_styles.dart';
+import '../../../../resources/images.dart';
 import '../../../shared/loading_app.dart';
 import '../../../shared/widgets/empty_data_message.dart';
 import '../bloc/favorites/favorites_cubit.dart';
@@ -88,8 +89,13 @@ class AddFavorites extends StatelessWidget {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               50),
-                                                      child: Image.network(
-                                                          resultSearch.image),
+                                                      child: FadeInImage
+                                                          .assetNetwork(
+                                                        placeholder:
+                                                            Images.loadingGif,
+                                                        image:
+                                                            resultSearch.image,
+                                                      ),
                                                     ),
                                                   ),
                                                   SizedBox(width: 4.w),

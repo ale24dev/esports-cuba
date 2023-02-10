@@ -11,7 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../resources/images.dart';
 import '../../../route/app_router.gr.dart';
+import '../../../shared/loading_app.dart';
 import '../bloc/bookmark_cubit.dart';
 
 class BookmarkCard extends StatelessWidget {
@@ -54,10 +56,14 @@ class BookmarkCard extends StatelessWidget {
                     ),
                     SizedBox(width: 8.sp),
                     Expanded(
-                      child: Image.network(
+                      child: FadeInImage.assetNetwork(
+                          placeholder: Images.loadingGif,
+                          image: newsBaseModel.attachments[0],
+                          fit: BoxFit.cover),
+                      /* child: Image.network(
                         newsBaseModel.attachments[0],
                         fit: BoxFit.cover,
-                      ),
+                      ),*/
                     )
                   ],
                 ),

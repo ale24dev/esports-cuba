@@ -4,6 +4,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../resources/general_styles.dart';
+import '../../../../resources/images.dart';
 import '../../../models/tournament_base_model.dart';
 
 class ImageHeaderSection extends StatelessWidget {
@@ -21,13 +22,13 @@ class ImageHeaderSection extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          height: HEADER_TOURNAMENT_IMAGE,
-          width: double.infinity,
-          child: Image.network(
-            tournament.imageHeader,
-            fit: BoxFit.cover,
-          ),
-        ),
+            height: HEADER_TOURNAMENT_IMAGE,
+            width: double.infinity,
+            child: FadeInImage.assetNetwork(
+              placeholder: Images.loadingGif,
+              image: tournament.imageHeader,
+              fit: BoxFit.cover,
+            )),
         Container(
           height: HEADER_TOURNAMENT_IMAGE,
           width: double.infinity,

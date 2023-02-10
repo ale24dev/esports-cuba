@@ -48,6 +48,9 @@ class TournamentBaseModel extends BaseModel {
   ///Determina si es popular
   bool popular;
 
+  ///Determina si el torneo es por individual o por equipos
+  bool individual;
+
   //Tipo de torneo
   @JsonKey(name: "tournamenttype")
   TournamentTypeBaseModel? tournamentType;
@@ -73,12 +76,13 @@ class TournamentBaseModel extends BaseModel {
     required this.id,
     required this.name,
     required this.game,
+    required this.image,
     required this.active,
     required this.edition,
     required this.popular,
     required this.maxTeams,
     required this.createdAt,
-    required this.image,
+    required this.individual,
     required this.imageHeader,
     required this.description,
     required this.tournamentType,

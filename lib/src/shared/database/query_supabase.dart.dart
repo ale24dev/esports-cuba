@@ -21,7 +21,7 @@ abstract class QuerySupabase {
       "id, created_at, active, team($team), tournament($tournament)";
 
   static String get tournament =>
-      '''id, name, created_at, edition, active, image, image_header, quantity_groups, max_teams, prizepool, description, popular, 
+      '''id, name, created_at, edition, active, image, image_header, quantity_groups, max_teams, prizepool, description, popular,individual,
       tournamenttype($tournamentType), tournamentstate($tournamentState), game($game), winners($winners)''';
 
   static String get tournamentState => "id, state";

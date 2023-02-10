@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../../resources/images.dart';
 import '../../../shared/loading_app.dart';
 import '../../../shared/repository/ApiResult.dart';
 import '../../bookmark/bloc/bookmark_cubit.dart';
@@ -81,7 +82,10 @@ class NewsDetails extends StatelessWidget {
                   BoxDecoration(borderRadius: BorderRadius.circular(50)),
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
-                  child: Image.network(newsBaseModel.user.image)),
+                  child: FadeInImage.assetNetwork(
+                    placeholder: Images.loadingGif,
+                    image: newsBaseModel.user.image,
+                  )),
             ),
             SizedBox(width: 10.sp),
             Column(
@@ -121,13 +125,12 @@ class NewsDetails extends StatelessWidget {
       child: Stack(
         children: [
           SizedBox(
-            height: HEIGHT_IMAGE_HEADER,
-            child: Image.network(
-              newsBaseModel.attachments[0],
-              fit: BoxFit.cover,
-              width: 100.w,
-            ),
-          ),
+              height: HEIGHT_IMAGE_HEADER,
+              child: FadeInImage.assetNetwork(
+                  placeholder: Images.loadingGif,
+                  image: newsBaseModel.attachments[0],
+                  fit: BoxFit.cover,
+                  width: 100.w)),
           Container(
             height: HEIGHT_IMAGE_HEADER,
             decoration: BoxDecoration(
@@ -171,9 +174,13 @@ class NewsDetails extends StatelessWidget {
                   apiResult = state.apiResult;
                 }
                 return state is BookmarkLoaded
-                    ? Bookmark(newsBaseModel: newsBaseModel, apiResult: apiResult, inDetails: true)
+                    ? Bookmark(
+                        newsBaseModel: newsBaseModel,
+                        apiResult: apiResult,
+                        inDetails: true)
                     : state is BookmarkEmpty
-                        ? Bookmark(newsBaseModel: newsBaseModel, inDetails: true)
+                        ? Bookmark(
+                            newsBaseModel: newsBaseModel, inDetails: true)
                         : Padding(
                             padding: EdgeInsets.only(right: 14.w),
                             child: LoadingApp(size: 15.sp));

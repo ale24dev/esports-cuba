@@ -19,6 +19,7 @@ TournamentBaseModel _$TournamentBaseModelFromJson(Map<String, dynamic> json) =>
       maxTeams: json['max_teams'] as int?,
       createdAt: Utils.parseDate(json['created_at']),
       image: json['image'] as String,
+      individual: json['individual'] as bool,
       imageHeader: json['image_header'] as String,
       description: json['description'] as String,
       tournamentType: json['tournamenttype'] == null
@@ -49,6 +50,7 @@ Map<String, dynamic> _$TournamentBaseModelToJson(
       'quantity_groups': instance.quantityGroups,
       'max_teams': instance.maxTeams,
       'prizepool': instance.prizepool,
+      'individual': instance.individual,
       'popular': instance.popular,
       'tournamenttype': instance.tournamentType?.toJson(),
       'tournamentstate': instance.tournamentState?.toJson(),

@@ -12,6 +12,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../constants.dart';
 import '../../../../resources/general_styles.dart';
+import '../../../../resources/images.dart';
 import '../../../models/player_base_model.dart';
 import '../../../models/tournament_base_model.dart';
 import '../../../shared/loading_app.dart';
@@ -134,10 +135,11 @@ class ListPopularFavorites extends StatelessWidget {
                                 decoration:
                                     const BoxDecoration(shape: BoxShape.circle),
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child:
-                                      Image.network(listPopulars[index].image),
-                                ),
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: FadeInImage.assetNetwork(
+                                      placeholder: Images.loadingGif,
+                                      image: listPopulars[index].image,
+                                    )),
                               ),
                               SizedBox(width: 4.w),
                               Expanded(
@@ -174,19 +176,19 @@ class ListPopularFavorites extends StatelessWidget {
                                             }
                                           },
                                           child: Container(
-                                                color: Colors.transparent,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: FaIcon(
-                                                        equalElement
-                                                            ? FontAwesomeIcons
-                                                                .solidHeart
-                                                            : FontAwesomeIcons
-                                                                .heart,
-                                                        color: GStyles.colorPrimary,
-                                                        size: 19.sp),
-                                                ),
-                                              ),
+                                            color: Colors.transparent,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: FaIcon(
+                                                  equalElement
+                                                      ? FontAwesomeIcons
+                                                          .solidHeart
+                                                      : FontAwesomeIcons.heart,
+                                                  color: GStyles.colorPrimary,
+                                                  size: 19.sp),
+                                            ),
+                                          ),
                                         );
                                 },
                               )

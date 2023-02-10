@@ -85,7 +85,7 @@ class _TournamentScreenState extends State<TournamentScreen> {
   Widget tournamentStateCategory(
       BuildContext context, String text, bool isSelected) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: .6.w, vertical: 5.sp),
+      margin: EdgeInsets.symmetric(horizontal: 1.w),
       decoration: BoxDecoration(
           color: isSelected ? GStyles.colorPrimary : GStyles.containerDarkColor,
           borderRadius: BorderRadius.circular(5),
@@ -93,12 +93,12 @@ class _TournamentScreenState extends State<TournamentScreen> {
             BoxShadow(color: Colors.black12, blurRadius: 2, spreadRadius: 2)
           ]),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(4.0),
         child: Text(
           text,
           style: context.textTheme.bodyText1?.copyWith(
               color: isSelected ? Colors.white : Colors.grey,
-              fontWeight: FontWeight.normal),
+              fontWeight: FontWeight.normal, fontSize: 14.sp),
         ),
       ),
     );

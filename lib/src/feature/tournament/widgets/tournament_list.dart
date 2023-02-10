@@ -1,5 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,6 +11,8 @@ import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/models/tournament_base_model.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
 
+import '../../../../constants.dart';
+import '../../../../resources/images.dart';
 import '../../../route/app_router.gr.dart';
 import '../../../shared/loading_app.dart';
 import '../../../shared/widgets/empty_data_message.dart';
@@ -89,8 +91,7 @@ class TournamentList extends StatelessWidget {
                   imageCard(tournament),
                   nameAndEdition(tournament, context),
                   dateAndTime(tournament, context),
-                  SizedBox(height: 1.h),
-                  prizepoolAndState(tournament, context),
+                  prizepool(tournament, context),
                   SizedBox(height: 1.h),
                 ],
               ),
@@ -112,14 +113,14 @@ class TournamentList extends StatelessWidget {
     return Stack(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(10.0),
-          child: Image.network(
-            tournament.imageHeader,
-            height: 20.h,
-            width: 95.w,
-            fit: BoxFit.cover,
-          ),
-        ),
+            borderRadius: BorderRadius.circular(10.0),
+            child: FadeInImage.assetNetwork(
+              placeholder: Images.loadingGif,
+              image: tournament.imageHeader,
+              fit: BoxFit.cover,
+              height: 20.h,
+              width: 95.w,
+            )),
         BlocBuilder<FavoritesCubit, FavoritesState>(
           builder: (context, state) {
             bool equalElement = Utils.checkFavoriteInList(
@@ -164,79 +165,94 @@ class TournamentList extends StatelessWidget {
     );
   }
 
-  Container nameAndEdition(
-      TournamentBaseModel tournament, BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 1.h),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.w),
-        child: Text("${tournament.name} #${tournament.edition}",
-            style: context.textTheme.bodyText1?.copyWith(fontSize: 17.sp)),
-      ),
-    );
-  }
-
-  Padding dateAndTime(TournamentBaseModel tournament, BuildContext context) {
+  Widget nameAndEdition(TournamentBaseModel tournament, BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 4.w),
-      child: Row(
+      padding: EdgeInsets.only(
+          left: Constants.MARGIN, right: Constants.MARGIN, bottom: .7.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          FaIcon(FontAwesomeIcons.calendar,
-              color: GStyles.colorPrimary, size: 18.sp),
-          SizedBox(width: 1.5.w),
-          Text(Utils.getDate(tournament.createdAt).toString(),
-              style: context.textTheme.bodyText1
-                  ?.copyWith(fontSize: 14.sp, color: Colors.grey)),
-          SizedBox(width: 2.w),
-          FaIcon(FontAwesomeIcons.clock,
-              color: GStyles.colorPrimary, size: 18.sp),
-          SizedBox(width: 1.5.w),
-          Text(Utils.getHour(tournament.createdAt).toString(),
-              style: context.textTheme.bodyText1
-                  ?.copyWith(fontSize: 14.sp, color: Colors.grey)),
+          Container(
+            margin: EdgeInsets.only(top: 1.h),
+            child: Text("${tournament.name} #${tournament.edition}",
+                style: context.textTheme.bodyText1?.copyWith(fontSize: 17.sp)),
+          ),
+          SizedBox(height: 1.h),
+          Row(
+            children: [
+              SizedBox(
+                width: 5.w,
+                child: FaIcon(FontAwesomeIcons.trophy,
+                    color: GStyles.colorPrimary, size: 16.sp),
+              ),
+              SizedBox(width: 1.5.w),
+              Text(
+                tournament.individual ? "Individual" : "Equipos",
+                style: context.textTheme.bodyText1
+                    ?.copyWith(fontSize: 14.sp, color: Colors.grey),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
 
-  Padding prizepoolAndState(
-      TournamentBaseModel tournament, BuildContext context) {
+  Widget dateAndTime(TournamentBaseModel tournament, BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 4.w),
+      padding: EdgeInsets.symmetric(horizontal: Constants.MARGIN),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              SizedBox(
+                width: 5.w,
+                child: FaIcon(FontAwesomeIcons.calendar,
+                    color: GStyles.colorPrimary, size: 16.sp),
+              ),
+              SizedBox(width: 1.5.w),
+              Text(Utils.getDate(tournament.createdAt).toString(),
+                  style: context.textTheme.bodyText1
+                      ?.copyWith(fontSize: 14.sp, color: Colors.grey)),
+            ],
+          ),
+          SizedBox(height: .7.h),
+          Row(
+            children: [
+              SizedBox(
+                width: 5.w,
+                child: FaIcon(FontAwesomeIcons.clock,
+                    color: GStyles.colorPrimary, size: 16.sp),
+              ),
+              SizedBox(width: 1.5.w),
+              Text(Utils.getHour(tournament.createdAt).toString(),
+                  style: context.textTheme.bodyText1
+                      ?.copyWith(fontSize: 14.sp, color: Colors.grey)),
+            ],
+          ),
+          SizedBox(height: .7.h),
+        ],
+      ),
+    );
+  }
+
+  Widget prizepool(TournamentBaseModel tournament, BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: Constants.MARGIN),
       child: Row(
         children: [
-          FaIcon(FontAwesomeIcons.moneyCheckDollar,
-              color: GStyles.colorPrimary, size: 18.sp),
-          SizedBox(width: 1.5.w),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                    tournament.prizepool == null
-                        ? "\$" "0"
-                        : "\$${tournament.prizepool}",
-                    style: context.textTheme.bodyText1
-                        ?.copyWith(fontSize: 14.sp, color: Colors.grey)),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Utils.getColorByTournamentState(tournament),
-                      borderRadius: BorderRadius.circular(5.0)),
-                  child: Padding(
-                    padding: EdgeInsets.all(12.sp),
-                    child: Text(
-                      Utils.getNameStateByLocale(
-                              context, tournament.tournamentState!)
-                          .toUpperCase(),
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.bodyText1
-                          ?.copyWith(fontSize: 14.sp, color: Colors.white),
-                    ),
-                  ),
-                )
-              ],
-            ),
+          SizedBox(
+            width: 5.w,
+            child: FaIcon(FontAwesomeIcons.moneyCheckDollar,
+                color: GStyles.colorPrimary, size: 16.sp),
           ),
+          SizedBox(width: 1.5.w),
+          Text(
+              tournament.prizepool == null
+                  ? "\$" "0"
+                  : "\$${tournament.prizepool}",
+              style: context.textTheme.bodyText1
+                  ?.copyWith(fontSize: 14.sp, color: Colors.grey)),
         ],
       ),
     );

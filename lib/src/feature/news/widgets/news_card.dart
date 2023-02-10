@@ -16,6 +16,7 @@ import 'package:esports_cuba/src/models/news_base_model.dart';
 import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:esports_cuba/src/feature/bookmark/bloc/bookmark_cubit.dart';
 
+import '../../../../resources/images.dart';
 import '../../../shared/widgets/generic_snack_bar.dart';
 
 class NewsCard extends StatefulWidget {
@@ -97,33 +98,46 @@ class _NewsCardState extends State<NewsCard> {
   ///Verificamos que en caso de solo haber una imagen no hacer el efecto slider
   Widget imageNews() {
     return Container(
-      height: 25.h,
-      width: 100.w,
-      margin: EdgeInsets.symmetric(vertical: .6.h),
-      child: widget.newsBaseModel.attachments.length != 1
-          ? CarouselSlider(
-              items: widget.newsBaseModel.attachments.map((image) {
-                return Image.network(
+        height: 25.h,
+        width: 100.w,
+        margin: EdgeInsets.symmetric(vertical: .6.h),
+        child: widget.newsBaseModel.attachments.length != 1
+            ? CarouselSlider(
+                items: widget.newsBaseModel.attachments.map((image) {
+                  return FadeInImage.assetNetwork(
+                      placeholder: Images.fscLogo,
+                      image: image,
+                      fit: BoxFit.cover,
+                      height: 30.h,
+                      width: 100.w);
+                  /*return Image.network(
                   image,
                   fit: BoxFit.cover,
                   height: 30.h,
                   width: 100.w,
-                );
-              }).toList(),
-              options: CarouselOptions(
-                autoPlay: false,
-                enlargeCenterPage: false,
-                viewportFraction: 1,
-                initialPage: 0,
-              ),
-            )
-          : Image.network(
+                );*/
+                }).toList(),
+                options: CarouselOptions(
+                  autoPlay: false,
+                  enlargeCenterPage: false,
+                  viewportFraction: 1,
+                  initialPage: 0,
+                ),
+              )
+            : FadeInImage.assetNetwork(
+                placeholder: Images.loadingGif,
+                image: widget.newsBaseModel.attachments[0],
+                fit: BoxFit.cover,
+                
+                height: 30.h,
+                width: 100.w)
+        /*: Image.network(
               widget.newsBaseModel.attachments[0],
               fit: BoxFit.cover,
               height: 30.h,
               width: 100.w,
-            ),
-    );
+            ),*/
+        );
   }
 
   Widget saveWidget(BuildContext context) {

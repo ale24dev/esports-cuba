@@ -9,6 +9,8 @@ import '../../../../constants.dart';
 import '../../../../resources/general_styles.dart';
 import 'package:esports_cuba/src/shared/extensions.dart';
 
+import '../../../../resources/images.dart';
+
 class FavoritesCard extends StatelessWidget {
   const FavoritesCard({
     super.key,
@@ -40,7 +42,10 @@ class FavoritesCard extends StatelessWidget {
                 decoration: const BoxDecoration(shape: BoxShape.circle),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
-                  child: Image.network(favorite.image),
+                  child: FadeInImage.assetNetwork(
+                    placeholder: Images.loadingGif,
+                    image: favorite.image,
+                  ),
                 ),
               ),
               SizedBox(width: 4.w),

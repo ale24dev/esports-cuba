@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../constants.dart';
+import '../../../../resources/images.dart';
 import '../../../shared/loading_app.dart';
 import '../../../shared/utils.dart';
 import '../bloc/tournament_cubit.dart';
@@ -92,7 +93,10 @@ class TournamentDetailsWidget extends StatelessWidget {
                                           shape: BoxShape.circle),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(50),
-                                        child: Image.network(team.image),
+                                        child: FadeInImage.assetNetwork(
+                                          placeholder: Images.loadingGif,
+                                          image: team.image,
+                                        ),
                                       ),
                                     ),
                                     SizedBox(width: 4.w),
@@ -113,7 +117,7 @@ class TournamentDetailsWidget extends StatelessWidget {
                                         return state is FavoritesLoading
                                             ? const LoadingApp()
                                             : GestureDetector(
-                                              onTap: () {
+                                                onTap: () {
                                                   if (equalElement) {
                                                     context
                                                         .read<FavoritesCubit>()
@@ -126,21 +130,24 @@ class TournamentDetailsWidget extends StatelessWidget {
                                                             team, context);
                                                   }
                                                 },
-                                              child: Container(
-                                                color: Colors.transparent,
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: FaIcon(
+                                                child: Container(
+                                                  color: Colors.transparent,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: FaIcon(
                                                         equalElement
                                                             ? FontAwesomeIcons
                                                                 .solidHeart
                                                             : FontAwesomeIcons
                                                                 .heart,
-                                                        color: GStyles.colorPrimary,
+                                                        color: GStyles
+                                                            .colorPrimary,
                                                         size: 19.sp),
+                                                  ),
                                                 ),
-                                              ),
-                                            );
+                                              );
                                       },
                                     )
                                   ],

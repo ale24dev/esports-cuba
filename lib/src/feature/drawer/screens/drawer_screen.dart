@@ -11,6 +11,8 @@ import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
 import 'package:esports_cuba/src/feature/drawer/widgets/drawer_section.dart';
 import 'package:esports_cuba/src/feature/drawer/widgets/log_out_section.dart';
 
+import '../../../../resources/images.dart';
+
 class DrawerScreen extends StatefulWidget {
   @override
   State<DrawerScreen> createState() => _DrawerScreenState();
@@ -83,11 +85,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
-                                  child: Image.network(
-                                    userBaseModel.image,
-                                    height: 30.sp,
-                                    width: 30.sp,
-                                  ),
+                                  child:  FadeInImage.assetNetwork(
+                                        placeholder: Images.loadingGif,
+                                        image: userBaseModel.image,
+                                        fit: BoxFit.cover,
+                                        height: 30.sp,
+                                        width: 30.sp)
                                 ),
                               )
                             ],

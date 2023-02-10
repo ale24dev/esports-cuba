@@ -1,8 +1,13 @@
 ///Clase encargada de manejar todas las imágenes de la app
 class Images{
-  static String get _package => 'assets/images/';
+  static String get _packageImage => 'assets/images/';
+  static String get _packageGif => 'assets/gifs/';
 
-    static String get fscLogo => '${_package}fsc.png';
-    static String get wallpaper => '${_package}wallpaper.png';
+    ///Images
+    static String get fscLogo => '${_packageImage}fsc.png';
+    static String get wallpaper => '${_packageImage}wallpaper.png';
 
+    ///Gifs
+    static String get loadingGif => '${_packageGif}loading.gif';
+    
 }

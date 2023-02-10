@@ -29,7 +29,7 @@ class VersionRepository {
         versionBaseModel.versionApp = packageInfo.version;
         version.add(versionBaseModel);
       }
-
+  print("VERSION: " + packageInfo.version.toString());
       apiResult.responseObject = version;
       return apiResult;
     } catch (e) {
