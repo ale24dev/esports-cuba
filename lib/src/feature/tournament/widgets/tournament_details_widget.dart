@@ -1,23 +1,27 @@
 import 'package:esports_cuba/resources/general_styles.dart';
 import 'package:esports_cuba/src/feature/favorites/bloc/favorites/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/match/bloc/match_cubit.dart';
+import 'package:esports_cuba/src/models/match_base_model.dart';
 import 'package:esports_cuba/src/models/team_base_model.dart';
+import 'package:esports_cuba/src/shared/repository/ApiResult.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../constants.dart';
-import '../../../../resources/images.dart';
-import '../../../shared/loading_app.dart';
 import '../../../shared/utils.dart';
-import '../bloc/tournament_cubit.dart';
+import '../../../shared/loading_app.dart';
+import '../../../../resources/images.dart';
 import '../../../models/tournament_base_model.dart';
+import '../../../shared/widgets/empty_data_message.dart';
 import '../constants/category_tournament_details.dart';
 import 'package:esports_cuba/src/shared/extensions.dart';
 import '../../../models/team_tournament_base_model.dart';
+import 'calendar_section.dart';
 
 class TournamentDetailsWidget extends StatelessWidget {
-  const TournamentDetailsWidget({
+  TournamentDetailsWidget({
     Key? key,
     required this.tournament,
     required this.listTeamTournaments,
@@ -30,8 +34,11 @@ class TournamentDetailsWidget extends StatelessWidget {
 
   final CategoryTournamentDetailsEnum category;
 
+  late ApiResult apiResult;
+
   @override
   Widget build(BuildContext context) {
+    
     switch (category) {
       case CategoryTournamentDetailsEnum.information:
         return Expanded(
@@ -174,22 +181,9 @@ class TournamentDetailsWidget extends StatelessWidget {
           ),
         ));
       default:
-        return Expanded(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: Constants.MARGIN, vertical: 2.h),
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: GStyles.containerDarkColor,
-                  borderRadius: BorderRadius.circular(5.0)),
-              child: Center(
-                  child: FittedBox(
-                      child: Text(context.loc.calendar,
-                          style: context.textTheme.bodyText1))),
-            ),
-          ),
-        );
+        context.read<MatchCubit>().getMatchsByTournament(tournament);
+        return const CalendarSection();
     }
   }
+
 }

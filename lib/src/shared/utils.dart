@@ -23,9 +23,10 @@ import 'package:esports_cuba/src/shared/widgets/dialog_message.dart';
 import 'package:esports_cuba/src/models/tournament_state_base_model.dart';
 
 import '../feature/tournament/constants/tournament_state_type.dart';
+import '../feature/tournament/widgets/category_stage.dart';
+import '../models/match_base_model.dart';
 import '../models/news_base_model.dart';
 import '../models/player_base_model.dart';
-import '../route/app_router.gr.dart';
 
 abstract class Utils {
   ///Parsear un timestamp
@@ -40,7 +41,10 @@ abstract class Utils {
 
   ///Obtener la fecha de un DateTime
   static getDate(DateTime date) {
-    return DateFormat.yMd().format(date);
+    String dateSlug =
+        "${date.day.toString()}/${date.month.toString().padLeft(2, '0')}/${date.year.toString().padLeft(2, '0')}";
+    //return DateFormat.yMd().format(date);
+    return dateSlug;
   }
 
   ///Obtener la hora de un DateTime
@@ -48,7 +52,31 @@ abstract class Utils {
     return DateFormat.jm('es').format(date);
   }
 
-  static dynamic getColorByTournamentState(TournamentBaseModel tournament) {
+  ///Obtener el dia de la semana de un DateTime
+  static getWeekDay(BuildContext context, DateTime date) {
+    if (context.currentLanguage == "es") {
+      switch (DateFormat('EEEE').format(date)) {
+        case "Monday":
+          return "Lunes";
+        case "Tuesday":
+          return "Martes";
+        case "Wednesday":
+          return "Miércoles";
+        case "Thursday":
+          return "Jueves";
+        case "Friday":
+          return "Viernes";
+        case "Saturday":
+          return "Sábado";
+
+        default:
+          return "Domingo";
+      }
+    }
+    return DateFormat('EEEE').format(date);
+  }
+
+  static Color getColorByTournamentState(TournamentBaseModel tournament) {
     if (tournament.tournamentState!.state == "open") {
       return GStyles.colorSuccess;
     } else if (tournament.tournamentState!.state == "closed") {
@@ -67,6 +95,23 @@ abstract class Utils {
     } else {
       return context.loc.finished;
     }
+  }
+
+  static List<String> getStageTournament(int totalTeamsByTournament) {
+    List<String> listStages = ["1/4 Final", "Semifinal", "Final"];
+
+    switch (totalTeamsByTournament) {
+      case 16:
+        listStages.insert(0, "1/8 Final");
+
+        break;
+      case 32:
+        listStages.insert(0, "1/8 Final");
+        listStages.insert(0, "1/16 Final");
+        break;
+    }
+
+    return listStages;
   }
 
   static AppBar appBarWidget(
@@ -252,7 +297,6 @@ abstract class Utils {
     for (var tournament in listTournaments) {
       switch (tournamentType) {
         case TournamentStateType.open:
-          print(tournament.tournamentState);
           if (tournament.tournamentState!.state == "open") {
             listTournamentResult.add(tournament);
           }
@@ -280,9 +324,6 @@ abstract class Utils {
           break;
       }
     }
-
-    print("Tamaño: " + listTournamentResult.length.toString());
-
     return listTournamentResult;
   }
 }

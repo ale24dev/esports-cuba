@@ -7,6 +7,13 @@ abstract class QuerySupabase {
 
   static String get game => "id, name, image";
 
+  static String get match =>
+      "id, created_at, result_local, result_visitant, tournament($tournament), team_local($team), team_visitant($team), player_local($player), player_visitant($player), round($matchRound), state($matchState)";
+
+  static String get matchRound => "id, round";
+
+  static String get matchState => "id, state";
+
   static String get news => '''
           id, created_at, title, text, attachments,
           xuser($xuser)
@@ -21,7 +28,7 @@ abstract class QuerySupabase {
       "id, created_at, active, team($team), tournament($tournament)";
 
   static String get tournament =>
-      '''id, name, created_at, edition, active, image, image_header, quantity_groups, max_teams, prizepool, description, popular,individual,
+      '''id, name, created_at, edition, active, image, image_header, quantity_groups, max_teams, prizepool, description, popular,individual, losser_bracket,
       tournamenttype($tournamentType), tournamentstate($tournamentState), game($game), winners($winners)''';
 
   static String get tournamentState => "id, state";

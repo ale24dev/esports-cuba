@@ -35,21 +35,23 @@ class CategoryTournamentDetailsCard extends StatelessWidget {
         callback(category);
       },
       child: Container(
-          margin: EdgeInsets.symmetric(vertical: 1.h, horizontal: 2.w),
-          decoration: BoxDecoration(
-              color:
-                  selected ? GStyles.colorPrimary : GStyles.containerDarkColor,
-              borderRadius: BorderRadius.circular(5.0),
-              boxShadow: const [
-                BoxShadow(color: Colors.black12, blurRadius: 2, spreadRadius: 2)
-              ]),
-          child: Padding(
-            padding: EdgeInsets.all(12.sp),
-            child: Text(
-              title,
-              style: context.textTheme.headline5,
-            ),
-          )),
+        margin: EdgeInsets.symmetric(horizontal: 1.5.w),
+        decoration: BoxDecoration(
+            color: selected ? GStyles.colorPrimary : GStyles.containerDarkColor,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: const [
+              BoxShadow(color: Colors.black12, blurRadius: 2, spreadRadius: 2)
+            ]),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            title,
+            style: context.textTheme.bodyText1?.copyWith(
+                color: selected ? Colors.white : Colors.grey,
+                fontWeight: selected ? FontWeight.bold : FontWeight.normal),
+          ),
+        ),
+      ),
     );
   }
 }

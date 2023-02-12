@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:esports_cuba/src/feature/favorites/bloc/favorites/favorites_cubit.dart';
+import 'package:esports_cuba/src/feature/match/bloc/match_cubit.dart';
 import 'package:esports_cuba/src/feature/team/bloc/team_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -94,10 +95,9 @@ class _MyAppState extends State<MyApp> {
           RepositoryProvider<VersionCubit>(create: (context) => VersionCubit()),
           RepositoryProvider<FavoritesCubit>(
               create: (context) => FavoritesCubit()),
-          RepositoryProvider<TeamCubit>(
-              create: (context) => TeamCubit()),
-          RepositoryProvider<PlayerCubit>(
-              create: (context) => PlayerCubit()),
+          RepositoryProvider<TeamCubit>(create: (context) => TeamCubit()),
+          RepositoryProvider<PlayerCubit>(create: (context) => PlayerCubit()),
+          RepositoryProvider<MatchCubit>(create: (context) => MatchCubit()),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

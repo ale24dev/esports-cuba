@@ -13,12 +13,12 @@ TournamentBaseModel _$TournamentBaseModelFromJson(Map<String, dynamic> json) =>
       game: json['game'] == null
           ? null
           : GameBaseModel.fromJson(json['game'] as Map<String, dynamic>),
+      image: json['image'] as String,
       active: json['active'] as bool,
       edition: json['edition'] as int,
       popular: json['popular'] as bool,
       maxTeams: json['max_teams'] as int?,
       createdAt: Utils.parseDate(json['created_at']),
-      image: json['image'] as String,
       individual: json['individual'] as bool,
       imageHeader: json['image_header'] as String,
       description: json['description'] as String,
@@ -35,6 +35,7 @@ TournamentBaseModel _$TournamentBaseModelFromJson(Map<String, dynamic> json) =>
           ? null
           : WinnersBaseModel.fromJson(json['winners'] as Map<String, dynamic>),
       prizepool: json['prizepool'] as int?,
+      losserBracket: json['losser_bracket'] as bool?,
     );
 
 Map<String, dynamic> _$TournamentBaseModelToJson(
@@ -49,9 +50,10 @@ Map<String, dynamic> _$TournamentBaseModelToJson(
       'image_header': instance.imageHeader,
       'quantity_groups': instance.quantityGroups,
       'max_teams': instance.maxTeams,
+      'losser_bracket': instance.losserBracket,
       'prizepool': instance.prizepool,
-      'individual': instance.individual,
       'popular': instance.popular,
+      'individual': instance.individual,
       'tournamenttype': instance.tournamentType?.toJson(),
       'tournamentstate': instance.tournamentState?.toJson(),
       'game': instance.game?.toJson(),

@@ -11,44 +11,46 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i12;
-import 'package:flutter/material.dart' as _i13;
+import 'package:auto_route/auto_route.dart' as _i13;
+import 'package:flutter/material.dart' as _i14;
 
-import '../feature/about/views/about_screen.dart' as _i11;
+import '../feature/about/views/about_screen.dart' as _i12;
 import '../feature/auth/views/login_screen.dart' as _i2;
 import '../feature/auth/views/signup_screen.dart' as _i3;
-import '../feature/bookmark/views/bookmark_screen.dart' as _i9;
-import '../feature/favorites/views/add_favorites.dart' as _i10;
+import '../feature/bookmark/views/bookmark_screen.dart' as _i10;
+import '../feature/favorites/views/add_favorites.dart' as _i11;
 import '../feature/favorites/views/favorites_screen.dart' as _i7;
 import '../feature/favorites/views/manage_favorites.dart' as _i8;
 import '../feature/layout/views/layout_screen.dart' as _i4;
+import '../feature/match/views/match_screen.dart' as _i9;
 import '../feature/news/view/news_details.dart' as _i5;
 import '../feature/splash/views/splash_screen.dart' as _i1;
 import '../feature/tournament/views/tournament_details.dart' as _i6;
-import '../models/news_base_model.dart' as _i15;
-import '../models/tournament_base_model.dart' as _i16;
-import '../models/version_base_model.dart' as _i14;
+import '../models/match_base_model.dart' as _i18;
+import '../models/news_base_model.dart' as _i16;
+import '../models/tournament_base_model.dart' as _i17;
+import '../models/version_base_model.dart' as _i15;
 
-class AppRouter extends _i12.RootStackRouter {
-  AppRouter([_i13.GlobalKey<_i13.NavigatorState>? navigatorKey])
+class AppRouter extends _i13.RootStackRouter {
+  AppRouter([_i14.GlobalKey<_i14.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i12.PageFactory> pagesMap = {
+  final Map<String, _i13.PageFactory> pagesMap = {
     SplashScreen.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.SplashScreen(),
       );
     },
     LoginScreen.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.LoginScreen(),
       );
     },
     SignupScreen.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.SignupScreen(),
       );
@@ -56,7 +58,7 @@ class AppRouter extends _i12.RootStackRouter {
     LayoutScreen.name: (routeData) {
       final args = routeData.argsAs<LayoutScreenArgs>(
           orElse: () => const LayoutScreenArgs());
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: _i4.LayoutScreen(
           key: args.key,
@@ -68,7 +70,7 @@ class AppRouter extends _i12.RootStackRouter {
     },
     NewsDetails.name: (routeData) {
       final args = routeData.argsAs<NewsDetailsArgs>();
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: _i5.NewsDetails(
           key: args.key,
@@ -80,7 +82,7 @@ class AppRouter extends _i12.RootStackRouter {
     },
     TournamentDetails.name: (routeData) {
       final args = routeData.argsAs<TournamentDetailsArgs>();
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: _i6.TournamentDetails(
           key: args.key,
@@ -91,7 +93,7 @@ class AppRouter extends _i12.RootStackRouter {
       );
     },
     FavoritesScreen.name: (routeData) {
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: const _i7.FavoritesScreen(),
         opaque: true,
@@ -101,76 +103,92 @@ class AppRouter extends _i12.RootStackRouter {
     ManageFavorites.name: (routeData) {
       final args = routeData.argsAs<ManageFavoritesArgs>(
           orElse: () => const ManageFavoritesArgs());
-      return _i12.CustomPage<dynamic>(
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
         child: _i8.ManageFavorites(key: args.key),
         opaque: true,
         barrierDismissible: false,
       );
     },
-    BookmarkScreen.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+    MatchScreen.name: (routeData) {
+      final args = routeData.argsAs<MatchScreenArgs>();
+      return _i13.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i9.BookmarkScreen(),
+        child: _i9.MatchScreen(
+          key: args.key,
+          match: args.match,
+        ),
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    BookmarkScreen.name: (routeData) {
+      return _i13.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i10.BookmarkScreen(),
       );
     },
     AddFavorites.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i10.AddFavorites(),
+        child: const _i11.AddFavorites(),
       );
     },
     AboutScreen.name: (routeData) {
-      return _i12.MaterialPageX<dynamic>(
+      return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i11.AboutScreen(),
+        child: const _i12.AboutScreen(),
       );
     },
   };
 
   @override
-  List<_i12.RouteConfig> get routes => [
-        _i12.RouteConfig(
+  List<_i13.RouteConfig> get routes => [
+        _i13.RouteConfig(
           SplashScreen.name,
           path: '/',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           LoginScreen.name,
           path: '/login-screen',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           SignupScreen.name,
           path: '/signup-screen',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           LayoutScreen.name,
           path: '/layout-screen',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           NewsDetails.name,
           path: '/news-details',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           TournamentDetails.name,
           path: '/tournament-details',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           FavoritesScreen.name,
           path: '/favorites-screen',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           ManageFavorites.name,
           path: '/manage-favorites',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
+          MatchScreen.name,
+          path: '/match-screen',
+        ),
+        _i13.RouteConfig(
           BookmarkScreen.name,
           path: '/bookmark-screen',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           AddFavorites.name,
           path: '/add-favorites',
         ),
-        _i12.RouteConfig(
+        _i13.RouteConfig(
           AboutScreen.name,
           path: '/about-screen',
         ),
@@ -179,7 +197,7 @@ class AppRouter extends _i12.RootStackRouter {
 
 /// generated route for
 /// [_i1.SplashScreen]
-class SplashScreen extends _i12.PageRouteInfo<void> {
+class SplashScreen extends _i13.PageRouteInfo<void> {
   const SplashScreen()
       : super(
           SplashScreen.name,
@@ -191,7 +209,7 @@ class SplashScreen extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.LoginScreen]
-class LoginScreen extends _i12.PageRouteInfo<void> {
+class LoginScreen extends _i13.PageRouteInfo<void> {
   const LoginScreen()
       : super(
           LoginScreen.name,
@@ -203,7 +221,7 @@ class LoginScreen extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.SignupScreen]
-class SignupScreen extends _i12.PageRouteInfo<void> {
+class SignupScreen extends _i13.PageRouteInfo<void> {
   const SignupScreen()
       : super(
           SignupScreen.name,
@@ -215,10 +233,10 @@ class SignupScreen extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.LayoutScreen]
-class LayoutScreen extends _i12.PageRouteInfo<LayoutScreenArgs> {
+class LayoutScreen extends _i13.PageRouteInfo<LayoutScreenArgs> {
   LayoutScreen({
-    _i13.Key? key,
-    _i14.VersionBaseModel? versionBaseModel,
+    _i14.Key? key,
+    _i15.VersionBaseModel? versionBaseModel,
   }) : super(
           LayoutScreen.name,
           path: '/layout-screen',
@@ -237,9 +255,9 @@ class LayoutScreenArgs {
     this.versionBaseModel,
   });
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
-  final _i14.VersionBaseModel? versionBaseModel;
+  final _i15.VersionBaseModel? versionBaseModel;
 
   @override
   String toString() {
@@ -249,10 +267,10 @@ class LayoutScreenArgs {
 
 /// generated route for
 /// [_i5.NewsDetails]
-class NewsDetails extends _i12.PageRouteInfo<NewsDetailsArgs> {
+class NewsDetails extends _i13.PageRouteInfo<NewsDetailsArgs> {
   NewsDetails({
-    _i13.Key? key,
-    required _i15.NewsBaseModel newsBaseModel,
+    _i14.Key? key,
+    required _i16.NewsBaseModel newsBaseModel,
   }) : super(
           NewsDetails.name,
           path: '/news-details',
@@ -271,9 +289,9 @@ class NewsDetailsArgs {
     required this.newsBaseModel,
   });
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
-  final _i15.NewsBaseModel newsBaseModel;
+  final _i16.NewsBaseModel newsBaseModel;
 
   @override
   String toString() {
@@ -283,10 +301,10 @@ class NewsDetailsArgs {
 
 /// generated route for
 /// [_i6.TournamentDetails]
-class TournamentDetails extends _i12.PageRouteInfo<TournamentDetailsArgs> {
+class TournamentDetails extends _i13.PageRouteInfo<TournamentDetailsArgs> {
   TournamentDetails({
-    _i13.Key? key,
-    required _i16.TournamentBaseModel tournamentBaseModel,
+    _i14.Key? key,
+    required _i17.TournamentBaseModel tournamentBaseModel,
   }) : super(
           TournamentDetails.name,
           path: '/tournament-details',
@@ -305,9 +323,9 @@ class TournamentDetailsArgs {
     required this.tournamentBaseModel,
   });
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
-  final _i16.TournamentBaseModel tournamentBaseModel;
+  final _i17.TournamentBaseModel tournamentBaseModel;
 
   @override
   String toString() {
@@ -317,7 +335,7 @@ class TournamentDetailsArgs {
 
 /// generated route for
 /// [_i7.FavoritesScreen]
-class FavoritesScreen extends _i12.PageRouteInfo<void> {
+class FavoritesScreen extends _i13.PageRouteInfo<void> {
   const FavoritesScreen()
       : super(
           FavoritesScreen.name,
@@ -329,8 +347,8 @@ class FavoritesScreen extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.ManageFavorites]
-class ManageFavorites extends _i12.PageRouteInfo<ManageFavoritesArgs> {
-  ManageFavorites({_i13.Key? key})
+class ManageFavorites extends _i13.PageRouteInfo<ManageFavoritesArgs> {
+  ManageFavorites({_i14.Key? key})
       : super(
           ManageFavorites.name,
           path: '/manage-favorites',
@@ -343,7 +361,7 @@ class ManageFavorites extends _i12.PageRouteInfo<ManageFavoritesArgs> {
 class ManageFavoritesArgs {
   const ManageFavoritesArgs({this.key});
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
   @override
   String toString() {
@@ -352,8 +370,42 @@ class ManageFavoritesArgs {
 }
 
 /// generated route for
-/// [_i9.BookmarkScreen]
-class BookmarkScreen extends _i12.PageRouteInfo<void> {
+/// [_i9.MatchScreen]
+class MatchScreen extends _i13.PageRouteInfo<MatchScreenArgs> {
+  MatchScreen({
+    _i14.Key? key,
+    required _i18.MatchBaseModel match,
+  }) : super(
+          MatchScreen.name,
+          path: '/match-screen',
+          args: MatchScreenArgs(
+            key: key,
+            match: match,
+          ),
+        );
+
+  static const String name = 'MatchScreen';
+}
+
+class MatchScreenArgs {
+  const MatchScreenArgs({
+    this.key,
+    required this.match,
+  });
+
+  final _i14.Key? key;
+
+  final _i18.MatchBaseModel match;
+
+  @override
+  String toString() {
+    return 'MatchScreenArgs{key: $key, match: $match}';
+  }
+}
+
+/// generated route for
+/// [_i10.BookmarkScreen]
+class BookmarkScreen extends _i13.PageRouteInfo<void> {
   const BookmarkScreen()
       : super(
           BookmarkScreen.name,
@@ -364,8 +416,8 @@ class BookmarkScreen extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.AddFavorites]
-class AddFavorites extends _i12.PageRouteInfo<void> {
+/// [_i11.AddFavorites]
+class AddFavorites extends _i13.PageRouteInfo<void> {
   const AddFavorites()
       : super(
           AddFavorites.name,
@@ -376,8 +428,8 @@ class AddFavorites extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.AboutScreen]
-class AboutScreen extends _i12.PageRouteInfo<void> {
+/// [_i12.AboutScreen]
+class AboutScreen extends _i13.PageRouteInfo<void> {
   const AboutScreen()
       : super(
           AboutScreen.name,

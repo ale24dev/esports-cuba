@@ -1,4 +1,4 @@
-import 'package:esports_cuba/src/repositories/search_repository.dart';
+
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -8,6 +8,8 @@ import 'package:esports_cuba/src/repositories/auth_repository.dart';
 import 'package:esports_cuba/src/repositories/news_repository.dart';
 import 'package:esports_cuba/src/repositories/team_repository.dart';
 import 'package:esports_cuba/src/repositories/user_repository.dart';
+import 'package:esports_cuba/src/repositories/match_repository.dart';
+import 'package:esports_cuba/src/repositories/search_repository.dart';
 import 'package:esports_cuba/src/repositories/version_repository.dart';
 import 'package:esports_cuba/src/repositories/bookmark_repository.dart';
 import 'package:esports_cuba/src/repositories/favorites_repository.dart';
@@ -53,4 +55,7 @@ void setUp() async {
       () => PlayerRepository(supabase));
   serviceLocator.registerLazySingleton<SearchRepository>(
       () => SearchRepository(supabase));
+
+  serviceLocator.registerLazySingleton<MatchRepository>(
+      () => MatchRepository(supabase));
 }

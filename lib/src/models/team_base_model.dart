@@ -10,27 +10,27 @@ class TeamBaseModel extends BaseModel {
   ///Identificador
   int id;
 
-  ///Título del anuncio
+  ///Nombre del equipo
   String name;
 
-  ///Usuario que realiza el anuncio
+  ///País del equipo
   String country;
 
-  ///Usuario que realiza el anuncio
+  ///Nombre del CEO
   String? ceo;
 
   ///Determina si es popular
   bool popular;
 
-  ///Usuario que realiza el anuncio
+  ///Imagen de cabecera del equipo
   @JsonKey(name: "image_header")
   String imageHeader;
 
-  ///Usuario que realiza el anuncio
+  ///Imagen del equipo
   @JsonKey(name: "image")
   String image;
 
-  //Fecha de creación del anuncio
+  //Fecha de creación del equipo
   @JsonKey(name: "created_at", fromJson: Utils.parseDate)
   DateTime createdAt;
 

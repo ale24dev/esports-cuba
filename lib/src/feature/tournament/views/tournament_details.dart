@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../shared/utils.dart';
+import '../widgets/category_stage.dart';
 import '../widgets/image_section_header.dart';
 import '../widgets/tournament_details_widget.dart';
 import '../constants/category_tournament_details.dart';
@@ -53,8 +55,8 @@ class _TournamentDetailsState extends State<TournamentDetails> {
               CategoryTournamentDetailsCard(
                 title: context.loc.information,
                 category: CategoryTournamentDetailsEnum.information,
-                selected:
-                    CategoryTournamentDetailsEnum.information == categorySelected,
+                selected: CategoryTournamentDetailsEnum.information ==
+                    categorySelected,
                 callback: voidCallback,
               ),
               CategoryTournamentDetailsCard(

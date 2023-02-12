@@ -9,5 +9,6 @@ class Images{
 
     ///Gifs
     static String get loadingGif => '${_packageGif}loading.gif';
+    static String get loading1 => '${_packageGif}loading1.gif';
     
 }

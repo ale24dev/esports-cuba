@@ -38,9 +38,13 @@ class TournamentBaseModel extends BaseModel {
   @JsonKey(name: "quantity_groups")
   int? quantityGroups;
 
-  //máxima capacidad de equipos
+  //Máxima capacidad de equipos
   @JsonKey(name: "max_teams")
   int? maxTeams;
+
+  //Bandera que determina si el torneo implementa losser bracket
+  @JsonKey(name: "losser_bracket")
+  bool? losserBracket;
 
   //Premio del torneo
   int? prizepool;
@@ -90,6 +94,7 @@ class TournamentBaseModel extends BaseModel {
     required this.tournamentState,
     this.winners,
     this.prizepool,
+    this.losserBracket,
   });
 
   factory TournamentBaseModel.fromJson(Map<String, dynamic> json) =>
