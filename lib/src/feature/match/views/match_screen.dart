@@ -1,44 +1,74 @@
 import 'package:esports_cuba/constants.dart';
 import 'package:esports_cuba/resources/general_styles.dart';
 import 'package:esports_cuba/resources/images.dart';
+import 'package:esports_cuba/src/feature/roster/bloc/roster_cubit.dart';
 import 'package:esports_cuba/src/models/match_base_model.dart';
 import 'package:esports_cuba/src/models/player_base_model.dart';
+import 'package:esports_cuba/src/models/roster_base_model.dart';
 import 'package:esports_cuba/src/models/team_base_model.dart';
 import 'package:esports_cuba/src/shared/extensions.dart';
+import 'package:esports_cuba/src/shared/loading_app.dart';
 import 'package:flutter/material.dart';
 
 import 'package:esports_cuba/src/shared/utils.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class MatchScreen extends StatelessWidget {
+import '../../../shared/widgets/empty_data_message.dart';
+
+class MatchScreen extends StatefulWidget {
   const MatchScreen({super.key, required this.match});
 
   ///Partido a mostrar en la pestaña
   final MatchBaseModel match;
 
   @override
+  State<MatchScreen> createState() => _MatchScreenState();
+}
+
+class _MatchScreenState extends State<MatchScreen> {
+  ///Roster del equipo local
+  late List<RosterBaseModel> rosterTeamLocal;
+
+  ///Roster del equipo local
+  late List<RosterBaseModel> rosterTeamVisitant;
+
+  late PlayerBaseModel? playerLocal;
+
+  late PlayerBaseModel? playerVisitant;
+
+  late TeamBaseModel? teamLocal;
+
+  late TeamBaseModel? teamVisitant;
+
+  @override
+  void initState() {
+    if (!widget.match.tournament.individual) {
+      context.read<RosterCubit>().getRosterByTeamTournament(widget.match);
+    } else {
+      playerLocal = widget.match.playerLocal!;
+      playerVisitant = widget.match.playerVisitant!;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print("Etnter");
-    print(match.toString());
-
     ///Variable que indica so un torneo es individual
-    bool isIndividual = match.tournament.individual;
-
-    late TeamBaseModel? teamLocal;
-    late TeamBaseModel? teamVisitant;
-    late PlayerBaseModel? playerLocal;
-    late PlayerBaseModel? playerVisitant;
+    bool isIndividual = widget.match.tournament.individual;
 
     if (isIndividual) {
-      playerLocal = match.playerLocal!;
-      playerVisitant = match.playerVisitant!;
+      playerLocal = widget.match.playerLocal!;
+      playerVisitant = widget.match.playerVisitant!;
     } else {
-      teamLocal = match.teamLocal;
-      teamVisitant = match.teamVisitant;
+      teamLocal = widget.match.teamLocal;
+      teamVisitant = widget.match.teamVisitant;
     }
     return Scaffold(
       appBar: Utils.appBarWidget(
-          context: context, navigateBack: true, title: match.tournament.name),
+          context: context,
+          navigateBack: true,
+          title: widget.match.tournament.name),
       body: Column(
         children: [
           SizedBox(height: 2.h),
@@ -49,119 +79,280 @@ class MatchScreen extends StatelessWidget {
                   context: context,
                   isIndividual: isIndividual,
                   isLocal: true,
-                  match: match),
+                  match: widget.match),
               SizedBox(width: Constants.MARGIN + 4.w),
-              Text("VS", style: context.textTheme.bodyText1),
+              Column(
+                children: [
+                  Text("VS", style: context.textTheme.bodyText1),
+                  Text(Utils.getHour(widget.match.createdAt).toString(),
+                      style: context.textTheme.bodyText1
+                          ?.copyWith(color: Colors.grey)),
+                ],
+              ),
               SizedBox(width: Constants.MARGIN + 4.w),
               imageAndName(
                   context: context,
                   isIndividual: isIndividual,
                   isLocal: false,
-                  match: match),
+                  match: widget.match),
             ],
           ),
           SizedBox(height: 5.h),
-          Expanded(
-              child: Row(children: [
-            Expanded(
-              child: Container(
-                width: 50.w,
-                margin: EdgeInsets.only(right: Constants.MARGIN),
-                child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (_, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                            color: GStyles.containerDarkColor,
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(10.0),
-                                bottomRight: Radius.circular(10.0))),
-                        margin: EdgeInsets.symmetric(vertical: 1.h),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Constants.MARGIN, vertical: 2.h),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+          isIndividual
+              ? Center(
+                  child: Text("Datos individuales",
+                      style: context.textTheme.bodyText1))
+              : BlocBuilder<RosterCubit, RosterState>(
+                  builder: (context, state) {
+                    switch (state.runtimeType) {
+                      case RosterLoading:
+                        return const Expanded(
+                            child: Center(child: LoadingApp()));
+
+                      case RosterEmpty:
+                        return const Expanded(
+                            child: Center(
+                                child: EmptyDataMessage(
+                          message: "No hay jugadores en este equipo",
+                        )));
+                      case RosterLoaded:
+                      default:
+                        return Expanded(
+                          child: Column(
                             children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text("vk_ale24",
-                                      textAlign: TextAlign.right,
-                                      style: context.textTheme.bodyText1),
-                                  Text("Alejandro Díaz",
-                                      style: context.textTheme.bodyText1
-                                          ?.copyWith(
-                                              color: Colors.grey,
-                                              fontSize: 14.sp)),
-                                ],
+                              Expanded(
+                                child: Container(
+                                  color: Colors.red,
+                                  child: Row(children: [
+                                    Expanded(
+                                      child: Container(
+                                        width: 50.w,
+                                        margin: EdgeInsets.only(
+                                            right: Constants.MARGIN),
+                                        child: ListView.builder(
+                                            itemCount: (state as RosterLoaded)
+                                                .apiResult
+                                                .responseObject[0]
+                                                .length,
+                                            itemBuilder: (_, index) {
+                                              RosterBaseModel rosterLocal =
+                                                  state.apiResult
+                                                      .responseObject[0][index];
+
+                                              return Container(
+                                                decoration: BoxDecoration(
+                                                    color: GStyles
+                                                        .containerDarkColor,
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    10.0),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    10.0))),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1.h),
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal:
+                                                          Constants.MARGIN,
+                                                      vertical: 2.h),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          Text(
+                                                              isIndividual
+                                                                  ? playerLocal!
+                                                                      .nickname
+                                                                  : rosterLocal
+                                                                      .player
+                                                                      .nickname,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .right,
+                                                              style: context
+                                                                  .textTheme
+                                                                  .bodyText1),
+                                                          Text(
+                                                              isIndividual
+                                                                  ? playerLocal!
+                                                                      .name
+                                                                  : rosterLocal
+                                                                      .player
+                                                                      .name,
+                                                              style: context
+                                                                  .textTheme
+                                                                  .bodyText1
+                                                                  ?.copyWith(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      fontSize:
+                                                                          14.sp)),
+                                                        ],
+                                                      ),
+                                                      SizedBox(width: 10.sp),
+                                                      FadeInImage.assetNetwork(
+                                                          height: 25.sp,
+                                                          width: 25.sp,
+                                                          placeholder:
+                                                              Images.loadingGif,
+                                                          image: isIndividual
+                                                              ? playerLocal!
+                                                                  .image
+                                                              : rosterLocal
+                                                                  .player
+                                                                  .image),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        width: 50.w,
+                                        margin: EdgeInsets.only(
+                                            left: Constants.MARGIN),
+                                        child: ListView.builder(
+                                            itemCount: state.apiResult
+                                                .responseObject[1].length,
+                                            itemBuilder: (_, index) {
+                                              RosterBaseModel rosterVisitant =
+                                                  state.apiResult
+                                                      .responseObject[1][index];
+                                              return Container(
+                                                decoration: BoxDecoration(
+                                                    color: GStyles
+                                                        .containerDarkColor,
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    10.0),
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    10.0))),
+                                                margin: EdgeInsets.symmetric(
+                                                    vertical: 1.h),
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal:
+                                                          Constants.MARGIN,
+                                                      vertical: 2.h),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      FadeInImage.assetNetwork(
+                                                          height: 25.sp,
+                                                          width: 25.sp,
+                                                          placeholder:
+                                                              Images.loadingGif,
+                                                          image: isIndividual
+                                                              ? playerVisitant!
+                                                                  .image
+                                                              : rosterVisitant
+                                                                  .player
+                                                                  .image),
+                                                      SizedBox(width: 10.sp),
+                                                      Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                              isIndividual
+                                                                  ? playerVisitant!
+                                                                      .nickname
+                                                                  : rosterVisitant
+                                                                      .player
+                                                                      .nickname,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .right,
+                                                              style: context
+                                                                  .textTheme
+                                                                  .bodyText1),
+                                                          Text(
+                                                              isIndividual
+                                                                  ? playerVisitant!
+                                                                      .name
+                                                                  : rosterVisitant
+                                                                      .player
+                                                                      .name,
+                                                              style: context
+                                                                  .textTheme
+                                                                  .bodyText1
+                                                                  ?.copyWith(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      fontSize:
+                                                                          14.sp)),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                      ),
+                                    ),
+                                  ]),
+                                ),
                               ),
-                              SizedBox(width: 10.sp),
                               Container(
-                                height: 25.sp,
-                                width: 25.sp,
-                                decoration: BoxDecoration(
-                                    color: GStyles.colorPrimary,
-                                    shape: BoxShape.circle),
+                                height: 100,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Cara a Cara",
+                                      style: context.textTheme.headline3,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        FadeInImage.assetNetwork(
+                                            height: 32.sp,
+                                            placeholder: Images.loadingGif,
+                                            image: isIndividual
+                                                ? widget
+                                                    .match.playerLocal!.image
+                                                : widget
+                                                    .match.teamLocal!.image),
+                                        FadeInImage.assetNetwork(
+                                            height: 32.sp,
+                                            placeholder: Images.loadingGif,
+                                            image: isIndividual
+                                                ? widget
+                                                    .match.playerVisitant!.image
+                                                : widget
+                                                    .match.teamVisitant!.image),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               )
                             ],
                           ),
-                        ),
-                      );
-                    }),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                width: 50.w,
-                margin: EdgeInsets.only(left: Constants.MARGIN),
-                child: ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (_, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                            color: GStyles.containerDarkColor,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10.0),
-                                bottomLeft: Radius.circular(10.0))),
-                        margin: EdgeInsets.symmetric(vertical: 1.h),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Constants.MARGIN, vertical: 2.h),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("vk_ale24",
-                                      textAlign: TextAlign.right,
-                                      style: context.textTheme.bodyText1),
-                                  Text("Alejandro Díaz",
-                                      style: context.textTheme.bodyText1
-                                          ?.copyWith(
-                                              color: Colors.grey,
-                                              fontSize: 14.sp)),
-                                ],
-                              ),
-                              SizedBox(width: 10.sp),
-                              Container(
-                                height: 25.sp,
-                                width: 25.sp,
-                                decoration: BoxDecoration(
-                                    color: GStyles.colorPrimary,
-                                    shape: BoxShape.circle),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-              ),
-            ),
-          ])),
+                        );
+                    }
+                  },
+                ),
           SizedBox(height: 2.h),
         ],
       ),
@@ -190,7 +381,7 @@ class MatchScreen extends StatelessWidget {
       }
     }
     return SizedBox(
-      width: 30.w,
+      width: 35.w,
       child: Column(
         children: [
           FadeInImage.assetNetwork(
@@ -198,8 +389,11 @@ class MatchScreen extends StatelessWidget {
               placeholder: Images.loadingGif,
               image: isIndividual ? player.image : team.image),
           SizedBox(height: 10.sp),
-          Text(isIndividual ? player.nickname : team.name,
-              style: context.textTheme.bodyText1),
+          FittedBox(
+            child: Text(isIndividual ? player.nickname : team.name,
+                style: context.textTheme.headline3
+                    ?.copyWith(fontFamily: GStyles.fontPoppins)),
+          ),
         ],
       ),
     );

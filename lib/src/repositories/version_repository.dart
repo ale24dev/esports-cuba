@@ -33,6 +33,7 @@ class VersionRepository {
       apiResult.responseObject = version;
       return apiResult;
     } catch (e) {
+      print("ERRROOOR: " + e.toString());
       apiResult.message = e.toString();
       apiResult.error = e.runtimeType;
       return apiResult;

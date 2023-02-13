@@ -1,8 +1,5 @@
 import 'dart:async';
 
-import 'package:esports_cuba/src/feature/favorites/bloc/favorites/favorites_cubit.dart';
-import 'package:esports_cuba/src/feature/match/bloc/match_cubit.dart';
-import 'package:esports_cuba/src/feature/team/bloc/team_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,14 +7,18 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
 
 import 'package:esports_cuba/src/route/app_router.gr.dart';
 import 'package:esports_cuba/src/feature/news/bloc/news_cubit.dart';
+import 'package:esports_cuba/src/feature/team/bloc/team_cubit.dart';
+import 'package:esports_cuba/src/feature/match/bloc/match_cubit.dart';
 import 'package:esports_cuba/src/feature/about/bloc/version_cubit.dart';
+import 'package:esports_cuba/src/feature/roster/bloc/roster_cubit.dart';
+import 'package:esports_cuba/src/feature/drawer/cubit/drawer_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/game_cubit.dart';
 import 'package:esports_cuba/src/feature/bookmark/bloc/bookmark_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_cubit.dart';
+import 'package:esports_cuba/src/feature/favorites/bloc/favorites/favorites_cubit.dart';
 import 'package:esports_cuba/src/feature/tournament/bloc/tournament_details/tournament_details_cubit.dart';
 
 import '../../resources/themes.dart';
@@ -98,6 +99,7 @@ class _MyAppState extends State<MyApp> {
           RepositoryProvider<TeamCubit>(create: (context) => TeamCubit()),
           RepositoryProvider<PlayerCubit>(create: (context) => PlayerCubit()),
           RepositoryProvider<MatchCubit>(create: (context) => MatchCubit()),
+          RepositoryProvider<RosterCubit>(create: (context) => RosterCubit()),
         ],
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,

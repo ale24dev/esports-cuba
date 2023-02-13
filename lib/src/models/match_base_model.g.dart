@@ -12,6 +12,7 @@ MatchBaseModel _$MatchBaseModelFromJson(Map<String, dynamic> json) =>
       createdAt: Utils.parseDate(json['created_at']),
       resultLocal: json['result_local'] as int?,
       resultVisitant: json['result_visitant'] as int?,
+      winner: json['winner'] as String?,
       tournament: TournamentBaseModel.fromJson(
           json['tournament'] as Map<String, dynamic>),
       teamLocal: json['team_local'] == null
@@ -36,7 +37,8 @@ MatchBaseModel _$MatchBaseModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$MatchBaseModelToJson(MatchBaseModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'created_at': instance.createdAt?.toIso8601String(),
+      'created_at': instance.createdAt.toIso8601String(),
+      'winner': instance.winner,
       'result_local': instance.resultLocal,
       'result_visitant': instance.resultVisitant,
       'tournament': instance.tournament.toJson(),

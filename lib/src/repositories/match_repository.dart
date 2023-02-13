@@ -34,4 +34,28 @@ class MatchRepository {
       return apiResult;
     }
   }
+
+  ///Obtener el historial de enfrentamientos
+  Future<ApiResult> getHistoryLastMatchs(TournamentBaseModel tournament) async {
+    try {
+      List<MatchBaseModel> listMatchs = [];
+      final List<dynamic> response = await _supabase.client
+          .from('match')
+          .select(QuerySupabase.match)
+          .match({"tournament": tournament.id, "state": "finished"}).order(
+              "created_at",
+              ascending: true);
+      for (var element in response) {
+        MatchBaseModel matchBaseModel = MatchBaseModel.fromJson(element);
+        listMatchs.add(matchBaseModel);
+      }
+      apiResult.responseObject = listMatchs;
+      return apiResult;
+    } catch (e) {
+      print("Error: " + e.toString());
+      apiResult.message = e.toString();
+      apiResult.error = e.runtimeType;
+      return apiResult;
+    }
+  }
 }

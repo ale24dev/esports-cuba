@@ -1,4 +1,4 @@
-
+import 'package:esports_cuba/src/repositories/roster_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -56,6 +56,9 @@ void setUp() async {
   serviceLocator.registerLazySingleton<SearchRepository>(
       () => SearchRepository(supabase));
 
-  serviceLocator.registerLazySingleton<MatchRepository>(
-      () => MatchRepository(supabase));
+  serviceLocator
+      .registerLazySingleton<MatchRepository>(() => MatchRepository(supabase));
+
+  serviceLocator.registerLazySingleton<RosterRepository>(
+      () => RosterRepository(supabase));
 }

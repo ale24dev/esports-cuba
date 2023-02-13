@@ -2,11 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../route/app_router.gr.dart';
 import '../../../shared/utils.dart';
 import '../../../../constants.dart';
 import '../../../../resources/images.dart';
-import '../../../models/team_base_model.dart';
+import '../../../route/app_router.gr.dart';
 import '../../../models/match_base_model.dart';
 import '../../../../resources/general_styles.dart';
 import 'package:esports_cuba/src/shared/extensions.dart';
@@ -14,13 +13,9 @@ import 'package:esports_cuba/src/shared/extensions.dart';
 class CalendarCard extends StatelessWidget {
   const CalendarCard({
     super.key,
-    required this.teamLocal,
-    required this.teamVisitant,
     required this.match,
   });
 
-  final TeamBaseModel teamLocal;
-  final TeamBaseModel teamVisitant;
   final MatchBaseModel match;
 
   @override
@@ -50,24 +45,49 @@ class CalendarCard extends StatelessWidget {
                         child: FadeInImage.assetNetwork(
                             height: 25.sp,
                             placeholder: Images.loadingGif,
-                            image: teamLocal.image),
+                            image: match.tournament.individual
+                                ? match.playerLocal!.image
+                                : match.teamLocal!.image),
                       ),
                       SizedBox(
-                        width: 26.w,
-                        child: Text(teamLocal.name,
+                        width: 30.w,
+                        child: Text(
+                            match.tournament.individual
+                                ? match.playerLocal!.nickname
+                                : match.teamLocal!.name,
                             style: context.textTheme.bodyText1),
                       ),
                     ],
                   ),
-                  Text("VS",
-                      style: context.textTheme.bodyText1?.copyWith(
-                          color: GStyles.colorPrimary,
-                          fontFamily: GStyles.fontEvilEmpire)),
+                  match.state.state == "finished"
+                      ? Row(
+                          children: [
+                            Text(match.resultLocal.toString(),
+                                style: context.textTheme.bodyText1?.copyWith(
+                                    fontSize: 19.sp,
+                                    fontFamily: GStyles.fontEvilEmpire)),
+                            Text(" - ",
+                                style: context.textTheme.bodyText1?.copyWith(
+                                    fontSize: 17.sp,
+                                    fontFamily: GStyles.fontEvilEmpire)),
+                            Text(match.resultVisitant.toString(),
+                                style: context.textTheme.bodyText1?.copyWith(
+                                    fontSize: 19.sp,
+                                    fontFamily: GStyles.fontEvilEmpire)),
+                          ],
+                        )
+                      : Text("VS",
+                          style: context.textTheme.bodyText1?.copyWith(
+                              color: GStyles.colorPrimary,
+                              fontFamily: GStyles.fontEvilEmpire)),
                   Row(
                     children: [
                       SizedBox(
-                        width: 26.w,
-                        child: Text(teamVisitant.name,
+                        width: 30.w,
+                        child: Text(
+                            match.tournament.individual
+                                ? match.playerVisitant!.nickname
+                                : match.teamVisitant!.name,
                             textAlign: TextAlign.right,
                             style: context.textTheme.bodyText1),
                       ),
@@ -81,13 +101,15 @@ class CalendarCard extends StatelessWidget {
                                   child: Text("Error loading"));
                             },
                             placeholder: Images.loadingGif,
-                            image: teamVisitant.image),
+                            image: match.tournament.individual
+                                ? match.playerVisitant!.image
+                                : match.teamVisitant!.image),
                       ),
                     ],
                   ),
                 ],
               ),
-              Text(Utils.getHour(match.createdAt!),
+              Text(Utils.getHour(match.createdAt),
                   style: context.textTheme.bodyText1
                       ?.copyWith(color: Colors.grey)),
             ],

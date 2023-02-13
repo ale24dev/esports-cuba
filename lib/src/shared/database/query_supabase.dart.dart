@@ -8,7 +8,7 @@ abstract class QuerySupabase {
   static String get game => "id, name, image";
 
   static String get match =>
-      "id, created_at, result_local, result_visitant, tournament($tournament), team_local($team), team_visitant($team), player_local($player), player_visitant($player), round($matchRound), state($matchState)";
+      "id, created_at, result_local, result_visitant, winner, tournament($tournament), team_local($team), team_visitant($team), player_local($player), player_visitant($player), round($matchRound), state($matchState)";
 
   static String get matchRound => "id, round";
 
@@ -20,6 +20,8 @@ abstract class QuerySupabase {
           ''';
 
   static String get player => "id, nickname, name, image, country, popular";
+
+  static String get roster => "id, team($team), tournament($tournament), player($player)";
 
   static String get team =>
       "id, name, created_at, country, ceo, image_header, image, popular";

@@ -17,7 +17,7 @@ class MatchBaseModel extends BaseModel {
 
   //Fecha del partido
   @JsonKey(name: "created_at", fromJson: Utils.parseDate)
-  DateTime? createdAt;
+  DateTime createdAt;
 
   ///Resultado del local
   @JsonKey(name: "result_local")
@@ -26,6 +26,9 @@ class MatchBaseModel extends BaseModel {
   ///Resultado del visitante
   @JsonKey(name: "result_visitant")
   int? resultVisitant;
+
+  ///Resultado del visitante
+  String? winner;
 
   ///Torneo referente al partido
   TournamentBaseModel tournament;
@@ -50,16 +53,17 @@ class MatchBaseModel extends BaseModel {
   MatchStateBaseModel state;
 
   MatchBaseModel({
+    this.winner,
+    this.teamLocal,
+    this.playerLocal,
+    this.resultLocal,
+    this.teamVisitant,
+    this.playerVisitant,
+    this.resultVisitant,
     required this.id,
-    required this.createdAt,
-    required this.resultLocal,
-    required this.resultVisitant,
-    required this.tournament,
-    required this.teamLocal,
-    required this.teamVisitant,
-    required this.playerLocal,
-    required this.playerVisitant,
     required this.state,
+    required this.createdAt,
+    required this.tournament,
   });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`
